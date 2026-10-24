@@ -13,7 +13,7 @@ import { RIDER_PROFILE, INCOMING_ORDER_SCENARIOS, MOCK_PAYOUT_SLIPS, HISTORICAL_
 const TRANSLATIONS = {
   hinglish: {
     langLabel: 'देसी गिग भाषा (Hinglish)',
-    appName: 'गिग साथी (GigSaathi)',
+    appName: 'Giggy (गिगी)',
     selectLang: 'भाषा चुनें / Select Language:',
     dailyMenu: 'दैनिक मेनू',
     rightsSafety: 'सरकारी अधिकार व सुरक्षा',
@@ -21,7 +21,7 @@ const TRANSLATIONS = {
     trips: 'ऑर्डर चेक (फ़ायदा/घाटा)',
     audits: 'कटे पैसे पकड़ो',
     shield: 'सरकारी ₹5 लाख कार्ड',
-    ask: 'साथी AI से पूछो',
+    ask: 'Giggy AI से पूछो',
     newBadge: '1 नया',
     discrepancyBadge: '-₹32',
     daysProgress: '84/90 दिन',
@@ -119,7 +119,7 @@ const TRANSLATIONS = {
   },
   hi: {
     langLabel: 'हिन्दी (सरल हिन्दी)',
-    appName: 'गिग साथी (GigSaathi)',
+    appName: 'Giggy (गिगी)',
     selectLang: 'भाषा चुनें / Select Language:',
     dailyMenu: 'दैनिक मेनू',
     rightsSafety: 'सरकारी अधिकार व सुरक्षा',
@@ -127,7 +127,7 @@ const TRANSLATIONS = {
     trips: 'ऑर्डर रडार (लाभ/हानि)',
     audits: 'कटौती ऑडिट',
     shield: '₹5 लाख सरकारी कवच',
-    ask: 'साथी AI सहायता',
+    ask: 'Giggy AI सहायता',
     newBadge: '1 नया',
     discrepancyBadge: '-₹32',
     daysProgress: '84/90 दिन',
@@ -225,7 +225,7 @@ const TRANSLATIONS = {
   },
   en: {
     langLabel: 'English (Clear & Professional)',
-    appName: 'GigSaathi AI',
+    appName: 'Giggy AI',
     selectLang: 'Select Language:',
     dailyMenu: 'Daily Dashboard',
     rightsSafety: 'Statutory Rights & Protection',
@@ -233,7 +233,7 @@ const TRANSLATIONS = {
     trips: 'Trip Profit Radar',
     audits: 'Pay Audit Statements',
     shield: 'Govt ₹5L Health Shield',
-    ask: 'Ask Saathi AI',
+    ask: 'Ask Giggy AI',
     newBadge: '1 New',
     discrepancyBadge: '-₹32 Shaved',
     daysProgress: '84/90 Days',

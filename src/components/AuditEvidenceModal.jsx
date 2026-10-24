@@ -10,7 +10,7 @@ export default function AuditEvidenceModal({ isOpen, onClose, onNotify }) {
 
   if (!isOpen) return null;
 
-  const evidenceText = `GIGSAATHI STATUTORY AUDIT CERTIFICATE
+  const evidenceText = `GIGGY STATUTORY AUDIT CERTIFICATE
 Reference: GIG-AUDIT-2026-7782190
 Date: 23 October 2026 | 21:24 IST
 Platform: Zomato (Order #ZOM-7782190)
@@ -31,7 +31,7 @@ TOTAL UNCREDITED SHORTFALL: ₹32.00
 STATUTORY BASIS:
 Code on Social Security (Central Rules 2026), Section 114 & Rule 14 (Aggregator Compensation Parity).
 
-STATUS: Verified by GigSaathi Local Statutory Telemetry Engine.`;
+STATUS: Verified by Giggy Local Statutory Telemetry Engine.`;
 
   const handleCopy = () => {
     navigator.clipboard.writeText(evidenceText);

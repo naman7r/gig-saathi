@@ -1,4 +1,4 @@
-# GigSaathi (गिग साथी)
+# Giggy (गिगी)
 
 > An independent income shield and statutory rights co-pilot for India's platform delivery workers.
 
@@ -17,7 +17,7 @@ Over 12 million app-based gig workers in India (Swiggy, Zomato, Zepto, Blinkit) 
 - **Statutory Threshold Friction**: Under the **Central Rules (May 2026)** of India's Code on Social Security, workers qualify for social security after maintaining **90 days of engagement with one aggregator** or **120 days cumulatively across aggregators**. Workers currently have no multi-platform tool to verify their standing.
 - **Grievance Resolution Failure**: Over 42% of platform workers report dispute processes as exhausting and time-consuming (*The Asia Foundation*), with 36% of wage disputes going unresolved due to lack of timestamped evidence and formal drafting tools.
 
-**GigSaathi** is an independent, client-side co-pilot designed to give workers transparency, algorithmic fairness, and entitlement advocacy.
+**Giggy** is an independent, client-side co-pilot designed to give workers transparency, algorithmic fairness, and entitlement advocacy.
 
 ---
 
@@ -25,7 +25,7 @@ Over 12 million app-based gig workers in India (Swiggy, Zomato, Zepto, Blinkit) 
 
 ```
                         ┌──────────────────────────────────────────────┐
-                        │              GIGSAATHI CLIENT                │
+                        │                 GIGGY CLIENT                 │
                         │    (Dual View: Desktop Cockpit / Mobile)     │
                         └──────────────────────┬───────────────────────┘
                                                │
@@ -78,7 +78,7 @@ Evaluates incoming delivery pings before acceptance:
 - Prepares workers for upcoming **Ayushman Bharat PM-JAY** (₹5 Lakh family hospitalization) and **e-Shram** (₹2 Lakh accidental cover) enrolment.
 - Monitors algorithmic deactivation risk by tracking rolling acceptance rates against platform throttling thresholds (75%).
 
-### 4. Grounded Legal & Policy Assistant ("Ask Saathi")
+### 4. Grounded Legal & Policy Assistant ("Ask Giggy")
 - Multilingual conversational interface supporting **Hindi**, **Punjabi**, **Hinglish**, and **English**.
 - Powered by a hand-verified knowledge base containing primary government notifications, gazettes, and official helplines (112, 1915, 14434, 1073).
 - Strictly provides citations (e.g., `[KB-002]`) and explicitly refuses out-of-scope inquiries to prevent legal hallucinations.
@@ -93,7 +93,7 @@ Evaluates incoming delivery pings before acceptance:
 
 ## Responsive Dual-Viewport System
 
-GigSaathi includes a native viewport controller built into the navigation bar:
+Giggy includes a native viewport controller built into the navigation bar:
 - **Laptop Dashboard**: Expands into a 3-column command center suited for desktop management, fleet analytics, and projector presentations.
 - **Rider Mobile Frame**: Restricts the interface into a photorealistic smartphone chassis with touch-optimized ergonomics suited for on-bike handlebar usage.
 
@@ -134,7 +134,7 @@ gig-saathi/
 
 ## Google Gemini 2.5 Flash Architecture
 
-The **Ask Saathi (साथी से पूछें)** assistant operates on a hybrid dual-engine architecture:
+The **Ask Giggy (गिगी से पूछें)** assistant operates on a hybrid dual-engine architecture:
 
 ```
                             User Legal / Welfare Query
@@ -213,4 +213,4 @@ npm test
 
 ## Legal & Compliance Notice
 
-*GigSaathi provides informational guidance, mathematical transparency, and documentation assistance for informal gig workers. Generated dispute appeals and entitlement estimates do not constitute formal legal counsel. Statutory rules, contribution rates, and scheme rollouts are subject to official notifications by the Ministry of Labour and Employment and respective State Welfare Boards.*
+*Giggy provides informational guidance, mathematical transparency, and documentation assistance for informal gig workers. Generated dispute appeals and entitlement estimates do not constitute formal legal counsel. Statutory rules, contribution rates, and scheme rollouts are subject to official notifications by the Ministry of Labour and Employment and respective State Welfare Boards.*

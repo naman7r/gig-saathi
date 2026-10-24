@@ -2,7 +2,7 @@ import { KNOWLEDGE_BASE } from '../data/knowledgeBase.js';
 import { queryKnowledgeBase } from './ledgerEngine.js';
 
 const SYSTEM_INSTRUCTION = `
-You are Saathi AI (गिग साथी), an AI legal & rights co-pilot specifically designed for Indian gig delivery workers (Zomato, Swiggy, Zepto, Blinkit).
+You are Giggy AI (गिगी AI), an AI legal & rights co-pilot specifically designed for Indian gig delivery workers (Zomato, Swiggy, Zepto, Blinkit).
 You speak in simple, respectful, conversational Hinglish (or Hindi/English depending on what the user asks).
 
 CRITICAL GROUNDING RULES:

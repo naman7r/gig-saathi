@@ -7,10 +7,10 @@ export default function AskSaathiAssistant({ currentLang = 'hinglish', initialQu
   const isHi = currentLang === 'hi';
 
   const defaultGreeting = isEn
-    ? "Good afternoon Naman. I am your verified legal and welfare AI co-pilot. I am grounded in India's Code on Social Security (Central Rules 2026), e-Shram, and Ayushman Bharat PM-JAY. Feel free to select a prompt below or ask in English or Hinglish."
+    ? "Good afternoon Naman. I am Giggy, your verified legal and welfare AI co-pilot. I am grounded in India's Code on Social Security (Central Rules 2026), e-Shram, and Ayushman Bharat PM-JAY. Feel free to select a prompt below or ask in English or Hinglish."
     : isHi
-      ? "नमस्ते नमन जी। मैं आपका कानूनी व कल्याण साथी AI हूँ। हमारे पास सामाजिक सुरक्षा संहिता (Central Rules 2026), ई-श्रम, और आयुष्मान भारत का प्रमाणित डेटाबेस है। आप नीचे दिए गए प्रश्न चुन सकते हैं या हिन्दी/अंग्रेजी में पूछ सकते हैं।"
-      : "नमस्ते नमन। मैं आपका कानूनी व कल्याण साथी AI हूँ। हमारे पास सामाजिक सुरक्षा संहिता (Central Rules 2026), ई-श्रम, और आयुष्मान भारत का प्रमाणित डेटाबेस है। आप नीचे दिए गए प्रश्न चुन सकते हैं या हिंदी/अंग्रेजी में पूछ सकते हैं।";
+      ? "नमस्ते नमन जी। मैं आपका कानूनी व कल्याण AI साथी Giggy हूँ। हमारे पास सामाजिक सुरक्षा संहिता (Central Rules 2026), ई-श्रम, और आयुष्मान भारत का प्रमाणित डेटाबेस है। आप नीचे दिए गए प्रश्न चुन सकते हैं या हिन्दी/अंग्रेजी में पूछ सकते हैं।"
+      : "नमस्ते नमन। मैं आपका कानूनी व कल्याण AI साथी Giggy हूँ। हमारे पास सामाजिक सुरक्षा संहिता (Central Rules 2026), ई-श्रम, और आयुष्मान भारत का प्रमाणित डेटाबेस है। आप नीचे दिए गए प्रश्न चुन सकते हैं या हिंदी/अंग्रेजी में पूछ सकते हैं।";
 
   const [messages, setMessages] = useState([
     {

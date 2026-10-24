@@ -51,7 +51,7 @@ export default function JudgeBriefModal({ isOpen, onClose }) {
     },
     {
       badge: "Competitive Moat",
-      title: "Why GigSaathi Wins",
+      title: "Why Giggy Wins",
       subtitle: "What separates this from 80 generic chatbot wrappers.",
       bullets: [
         {

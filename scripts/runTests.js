@@ -19,7 +19,7 @@ function assert(condition, testName) {
   }
 }
 
-console.log("\n🧪 Running GigSaathi Deterministic Quality & Compliance Tests...\n");
+console.log("\n🧪 Running Giggy Deterministic Quality & Compliance Tests...\n");
 
 // Test 1: Arithmetic Net Pay Calculation
 const net = calculateNetTakeHome(1120, 290, 80, 60);

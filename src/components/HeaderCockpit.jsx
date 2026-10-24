@@ -73,7 +73,7 @@ export default function HeaderCockpit({ currentLang = 'hinglish', setCurrentLang
           </div>
           <div>
             <div className="flex items-center gap-1.5">
-              <h1 className="font-extrabold text-slate-900 text-xs tracking-tight">GigSaathi</h1>
+              <h1 className="font-extrabold text-slate-900 text-xs tracking-tight">Giggy</h1>
               <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
             </div>
             <p className="text-[10px] text-slate-500 font-medium truncate max-w-[150px]">

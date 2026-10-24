@@ -17,7 +17,7 @@ export const KNOWLEDGE_BASE = [
     sourceUrl: "https://dge.gov.in/sites/default/files/2026-05/5903_Eng.pdf",
     verifiedDate: "2026-05-08",
     stateScope: "National",
-    legalDisclaimer: "Counts shown in GigSaathi are indicative estimates derived from your logs to help track eligibility."
+    legalDisclaimer: "Counts shown in Giggy are indicative estimates derived from your logs to help track eligibility."
   },
   {
     id: "KB-003",

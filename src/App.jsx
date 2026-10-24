@@ -74,7 +74,7 @@ export default function App() {
             <Bike className="w-4 h-4 text-white" />
           </div>
           <span className="font-extrabold text-sm tracking-tight text-slate-900 hidden sm:inline">
-            GigSaathi <span className="text-slate-400 font-normal text-xs">| Dual Viewport Cockpit</span>
+            Giggy <span className="text-slate-400 font-normal text-xs">| Dual Viewport Cockpit</span>
           </span>
 
           {/* Executive Pitch Brief Button (Evaluator Walkthrough) */}
@@ -328,10 +328,10 @@ export default function App() {
                     </div>
                     <span className="text-slate-700 text-[11px] truncate font-medium">
                       {currentLang === 'en' 
-                        ? 'Ask Saathi AI for instant legal advice...' 
+                        ? 'Ask Giggy AI for instant legal advice...' 
                         : currentLang === 'hi' 
-                          ? 'साथी AI से सरकारी नियम या अधिकार पूछें...' 
-                          : 'साथी AI से हिंदी या Hinglish में पूछें...'}
+                          ? 'गिगी (Giggy) AI से नियम या अधिकार पूछें...' 
+                          : 'Giggy AI से हिंदी या Hinglish में पूछें...'}
                     </span>
                   </div>
                   <span className="text-[10px] bg-slate-100 border border-slate-200 px-2 py-0.5 rounded-full text-slate-700 font-semibold shrink-0">
@@ -379,7 +379,7 @@ export default function App() {
                   <Bot className="w-4 h-4" />
                 </div>
                 <div>
-                  <h3 className="text-sm font-bold text-slate-900">Saathi AI Companion</h3>
+                  <h3 className="text-sm font-bold text-slate-900">Giggy AI Companion</h3>
                   <p className="text-[10px] text-slate-500">Central Rules 2026 Grounded Guidance</p>
                 </div>
               </div>

@@ -14,7 +14,7 @@ export default class ErrorBoundary extends React.Component {
   componentDidCatch(error, errorInfo) {
     this.setState({ errorInfo });
     // Production telemetry logging can be wired here
-    console.error("GigSaathi Crash Boundary Caught Exception:", error, errorInfo);
+    console.error("Giggy Crash Boundary Caught Exception:", error, errorInfo);
   }
 
   handleReload = () => {

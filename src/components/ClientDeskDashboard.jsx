@@ -334,7 +334,7 @@ export default function ClientDeskDashboard({ onOpenAppeal, onOpenAskAI, onSwitc
               className="flex items-center gap-1.5 px-3.5 py-1.5 rounded-full border border-slate-200 text-xs font-semibold text-slate-700 hover:bg-slate-900 hover:text-white transition-all shadow-xs cursor-pointer"
             >
               <Sparkles className="w-3.5 h-3.5 text-amber-500" />
-              <span>+ Ask Saathi AI</span>
+              <span>+ Ask Giggy AI</span>
             </button>
 
             {/* Notification Bell Button */}
@@ -529,7 +529,7 @@ export default function ClientDeskDashboard({ onOpenAppeal, onOpenAskAI, onSwitc
 
               <button 
                 onClick={() => onOpenAskAI()}
-                title="Ask Saathi AI Assistant"
+                title="Ask Giggy AI Assistant"
                 className="w-10 h-10 rounded-full text-slate-400 hover:bg-slate-100 hover:text-slate-800 flex items-center justify-center transition-all"
               >
                 <MessageSquare className="w-4 h-4" />
