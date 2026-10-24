@@ -8,12 +8,13 @@ import DisputeDrafter from './components/DisputeDrafter';
 import SafetyGuardian from './components/SafetyGuardian';
 import DocumentHelper from './components/DocumentHelper';
 import AskSaathiAssistant from './components/AskSaathiAssistant';
-import ClientDeskDashboard from './components/ClientDeskDashboard';
+import SightlineDashboard from './components/SightlineDashboard';
 import { Zap, FileSearch, ShieldCheck, Mic, Bot, Laptop, Smartphone } from 'lucide-react';
+import { MOCK_PAYOUT_SLIPS } from './data/mockData';
 
 export default function App() {
   const [viewMode, setViewMode] = useState('laptop'); // 'laptop' | 'mobile'
-  const [activeTab, setActiveTab] = useState('trips'); // for mobile view: 'trips' | 'audits' | 'shield' | 'voice' | 'dispute'
+  const [activeTab, setActiveTab] = useState('trips'); // 'trips' | 'audits' | 'shield' | 'voice' | 'dispute'
   const [currentLang, setCurrentLang] = useState('hinglish');
   const [prefilledSlip, setPrefilledSlip] = useState(null);
   const [showAskModal, setShowAskModal] = useState(false);
@@ -32,11 +33,11 @@ export default function App() {
   ];
 
   return (
-    <div className="min-h-screen bg-[#E5E8EC] text-slate-800 flex flex-col justify-between selection:bg-slate-900 selection:text-white">
+    <div className="min-h-screen bg-[#F4F5F7] text-slate-800 flex flex-col justify-between selection:bg-blue-600 selection:text-white">
       {/* Top Floating Viewport Controller (Laptop vs Mobile Switcher) */}
       <div className="sticky top-0 z-50 bg-white/95 backdrop-blur-md border-b border-slate-200/90 px-6 py-2.5 flex items-center justify-between shadow-xs">
         <div className="flex items-center gap-2.5">
-          <div className="w-7 h-7 rounded-lg bg-slate-900 text-white flex items-center justify-center text-sm shadow-xs font-bold">
+          <div className="w-7 h-7 rounded-lg bg-blue-600 text-white flex items-center justify-center text-sm shadow-xs font-bold">
             🛵
           </div>
           <span className="font-extrabold text-sm tracking-tight text-slate-900">
@@ -44,7 +45,7 @@ export default function App() {
           </span>
         </div>
 
-        {/* Studio Viewport Toggle */}
+        {/* Viewport Toggle */}
         <div className="flex items-center bg-slate-100 border border-slate-200 rounded-full p-1 shadow-inner">
           <button
             onClick={() => setViewMode('laptop')}
@@ -55,7 +56,7 @@ export default function App() {
             }`}
           >
             <Laptop className="w-3.5 h-3.5" />
-            <span>Laptop Studio (Scrolltide)</span>
+            <span>Laptop Dashboard</span>
           </button>
 
           <button
@@ -73,10 +74,10 @@ export default function App() {
       </div>
 
       {/* ========================================================= */}
-      {/* 1. LAPTOP STUDIO VIEW (Inspired strictly by Scrolltide Client Desk) */}
+      {/* 1. LAPTOP SIGHTLINE DASHBOARD VIEW */}
       {/* ========================================================= */}
       {viewMode === 'laptop' && (
-        <ClientDeskDashboard 
+        <SightlineDashboard 
           onOpenAppeal={() => {
             setActiveModalContent('appeal');
           }}
@@ -88,10 +89,10 @@ export default function App() {
       )}
 
       {/* ========================================================= */}
-      {/* 2. RIDER MOBILE VIEW (Realistic Smartphone Chassis) */}
+      {/* 2. RIDER MOBILE VIEW (Smartphone Mockup Frame) */}
       {/* ========================================================= */}
       {viewMode === 'mobile' && (
-        <div className="flex-1 flex items-center justify-center py-8 px-4 bg-[#E5E8EC]">
+        <div className="flex-1 flex items-center justify-center py-8 px-4 bg-[#F4F5F7]">
           {/* Smartphone Frame Mockup */}
           <div className="w-full max-w-[400px] min-h-[820px] bg-zinc-950 rounded-[44px] border-[8px] border-zinc-800 shadow-[0_30px_90px_rgba(0,0,0,0.35)] ring-1 ring-zinc-700/80 flex flex-col relative overflow-hidden text-zinc-100">
             {/* Dynamic Island / Speaker Notch */}
@@ -179,12 +180,12 @@ export default function App() {
         </div>
       )}
 
-      {/* Appeal Generator Modal (Accessible from Laptop Studio) */}
+      {/* Appeal Generator Modal (Accessible from Laptop Dashboard) */}
       {activeModalContent === 'appeal' && (
-        <div className="fixed inset-0 bg-black/70 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+        <div className="fixed inset-0 bg-black/60 backdrop-blur-xs z-50 flex items-center justify-center p-4">
           <div className="bg-zinc-950 border border-zinc-800 rounded-3xl max-w-lg w-full p-6 shadow-2xl text-zinc-100 space-y-4">
             <div className="flex items-center justify-between pb-3 border-b border-zinc-800">
-              <h3 className="text-base font-bold text-zinc-100">Dispute & Appeal Generator</h3>
+              <h3 className="text-base font-bold text-zinc-100">Formal Grievance Appeal Draft</h3>
               <button 
                 onClick={() => setActiveModalContent(null)}
                 className="w-8 h-8 rounded-full bg-zinc-900 text-zinc-400 hover:text-white flex items-center justify-center text-xs font-bold"
@@ -197,9 +198,9 @@ export default function App() {
         </div>
       )}
 
-      {/* Floating Ask Modal */}
+      {/* Grounded Assistant Modal */}
       {showAskModal && (
-        <div className="fixed inset-0 bg-black/70 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+        <div className="fixed inset-0 bg-black/60 backdrop-blur-xs z-50 flex items-center justify-center p-4">
           <div className="bg-zinc-950 border border-zinc-800 rounded-3xl max-w-md w-full p-6 shadow-2xl text-zinc-100 space-y-3">
             <div className="flex items-center justify-between pb-3 border-b border-zinc-800">
               <div className="flex items-center gap-2">
