@@ -63,7 +63,7 @@ GigSaathi is an independent, mobile-first, voice-enabled AI companion that sits 
 
 ```bash
 # Clone the repository
-git clone https://github.com/namanrajput7/gig-saathi.git
+git clone https://github.com/naman7r/gig-saathi.git
 cd gig-saathi
 
 # Install dependencies
