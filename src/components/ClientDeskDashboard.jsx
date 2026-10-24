@@ -409,7 +409,7 @@ export default function ClientDeskDashboard({ onOpenAppeal, onOpenAskAI, onSwitc
               )}
             </div>
 
-            {/* Primary Profile Badge (RK) */}
+            {/* Primary Profile Badge (NR) */}
             <div className="relative">
               <button 
                 onClick={() => {
@@ -419,7 +419,7 @@ export default function ClientDeskDashboard({ onOpenAppeal, onOpenAskAI, onSwitc
                 }}
                 className="w-8 h-8 rounded-full bg-slate-800 hover:bg-slate-900 text-white flex items-center justify-center text-xs font-bold shadow-sm transition-transform active:scale-95 ring-2 ring-slate-100"
               >
-                RK
+                NR
               </button>
 
               {/* Profile Drawer Dropdown */}
@@ -427,7 +427,7 @@ export default function ClientDeskDashboard({ onOpenAppeal, onOpenAskAI, onSwitc
                 <div className="absolute right-0 top-12 w-80 bg-white rounded-2xl shadow-2xl border border-slate-200 p-5 z-50 text-left animate-in fade-in slide-in-from-top-2 duration-150">
                   <div className="flex items-center gap-3 pb-3 border-b border-slate-100">
                     <div className="w-10 h-10 rounded-full bg-slate-900 text-white font-bold flex items-center justify-center text-sm shadow-sm">
-                      RK
+                      NR
                     </div>
                     <div>
                       <h4 className="text-sm font-bold text-slate-900">{RIDER_PROFILE.name}</h4>

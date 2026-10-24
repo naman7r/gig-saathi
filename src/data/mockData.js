@@ -2,7 +2,7 @@
 // Grounded in IDinsight 2024, NITI Aayog 2022, and Fairwork India studies
 
 export const RIDER_PROFILE = {
-  name: "Naman",
+  name: "Naman Rajput",
   age: 26,
   city: "Chandigarh (Tricity Hub - Sec 35 / Mohali)",
   vehicle: "Hero Splendor 110cc (Petrol @ ₹98.4/L)",
