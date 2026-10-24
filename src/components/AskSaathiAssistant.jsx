@@ -2,14 +2,33 @@ import React, { useState, useEffect, useRef } from 'react';
 import { Send, Bot, ExternalLink, ShieldCheck, Key, Sparkles, Volume2, VolumeX, X, Check } from 'lucide-react';
 import { askGeminiAssistant } from '../utils/geminiAssistant.js';
 
-export default function AskSaathiAssistant() {
+export default function AskSaathiAssistant({ currentLang = 'hinglish' }) {
+  const isEn = currentLang === 'en';
+  const isHi = currentLang === 'hi';
+
+  const defaultGreeting = isEn
+    ? "Good afternoon Ravi. I am your verified legal and welfare AI co-pilot. I am grounded in India's Code on Social Security (Central Rules 2026), e-Shram, and Ayushman Bharat PM-JAY. Feel free to select a prompt below or ask in English or Hinglish."
+    : isHi
+      ? "नमस्ते रवि जी। मैं आपका कानूनी व कल्याण साथी AI हूँ। हमारे पास सामाजिक सुरक्षा संहिता (Central Rules 2026), ई-श्रम, और आयुष्मान भारत का प्रमाणित डेटाबेस है। आप नीचे दिए गए प्रश्न चुन सकते हैं या हिन्दी/अंग्रेजी में पूछ सकते हैं।"
+      : "नमस्ते रवि। मैं आपका कानूनी व कल्याण साथी AI हूँ। हमारे पास सामाजिक सुरक्षा संहिता (Central Rules 2026), ई-श्रम, और आयुष्मान भारत का प्रमाणित डेटाबेस है। आप नीचे दिए गए प्रश्न चुन सकते हैं या हिंदी/अंग्रेजी में पूछ सकते हैं।";
+
   const [messages, setMessages] = useState([
     {
       role: 'assistant',
       source: 'local_kb',
-      text: `नमस्ते रवि। मैं आपका कानूनी व कल्याण साथी AI हूँ। हमारे पास सामाजिक सुरक्षा संहिता (Central Rules 2026), ई-श्रम, और आयुष्मान भारत का प्रमाणित डेटाबेस है। आप नीचे दिए गए प्रश्न चुन सकते हैं या हिंदी/अंग्रेजी में पूछ सकते हैं।`
+      text: defaultGreeting
     }
   ]);
+
+  // Update greeting if language switches and only default message exists
+  useEffect(() => {
+    setMessages(prev => {
+      if (prev.length === 1 && prev[0].role === 'assistant') {
+        return [{ ...prev[0], text: defaultGreeting }];
+      }
+      return prev;
+    });
+  }, [currentLang]);
 
   const [inputQuery, setInputQuery] = useState('');
   const [isTyping, setIsTyping] = useState(false);
@@ -41,7 +60,41 @@ export default function AskSaathiAssistant() {
     };
   }, []);
 
-  const PRELOADED_QUESTIONS = [
+  const PRELOADED_QUESTIONS = isEn ? [
+    {
+      label: "90/120-Day Rule",
+      query: "What is the 90 or 120-day rule for platform gig worker social security under Central Rules?"
+    },
+    {
+      label: "₹5 Lakh Health Cover",
+      query: "When will gig delivery workers receive Ayushman Bharat PM-JAY coverage?"
+    },
+    {
+      label: "Unfair ID Block",
+      query: "Can an aggregator platform deactivate or block my delivery ID without notice?"
+    },
+    {
+      label: "Official Helplines",
+      query: "What are the official national grievance and emergency helpline numbers for gig workers?"
+    }
+  ] : isHi ? [
+    {
+      label: "90/120 दिन नियम",
+      query: "सामाजिक सुरक्षा के लिए 90 या 120 दिन का क्या नियम है?"
+    },
+    {
+      label: "₹5 लाख स्वास्थ्य बीमा",
+      query: "आयुष्मान भारत PM-JAY योजना का लाभ गिग वर्कर को कब मिलेगा?"
+    },
+    {
+      label: "अनुचित आईडी ब्लॉक",
+      query: "क्या प्लेटफॉर्म बिना नोटिस मेरी आईडी ब्लॉक कर सकता है?"
+    },
+    {
+      label: "आधिकारिक हेल्पलाइन",
+      query: "शिकायत या आपातकाल के लिए सरकारी हेल्पलाइन नंबर क्या हैं?"
+    }
+  ] : [
     {
       label: "90/120 दिन नियम",
       query: "सामाजिक सुरक्षा के लिए 90 या 120 दिन का क्या नियम है?"
@@ -70,7 +123,7 @@ export default function AskSaathiAssistant() {
     setIsTyping(true);
 
     try {
-      const response = await askGeminiAssistant(q, apiKey);
+      const response = await askGeminiAssistant(q, apiKey, currentLang);
       setMessages([
         ...newMsgs,
         {
@@ -87,7 +140,9 @@ export default function AskSaathiAssistant() {
         ...newMsgs,
         {
           role: 'assistant',
-          text: "माफ़ करें, उत्तर लाने में अस्थायी समस्या हुई। कृपया दोबारा पूछें या 1915 पर कॉल करें।",
+          text: isEn 
+            ? "Sorry, there was a temporary error retrieving the legal citation. Please try again or call National Helpline at 1915."
+            : "माफ़ करें, उत्तर लाने में अस्थायी समस्या हुई। कृपया दोबारा पूछें या 1915 पर कॉल करें।",
           source: 'error'
         }
       ]);
@@ -110,7 +165,7 @@ export default function AskSaathiAssistant() {
 
   const toggleSpeech = (text, index) => {
     if (typeof window === 'undefined' || !('speechSynthesis' in window)) {
-      alert("आपके ब्राउज़र में आवाज़ (Text-to-Speech) समर्थित नहीं है।");
+      alert(isEn ? "Text-to-Speech is not supported in your browser." : "आपके ब्राउज़र में आवाज़ (Text-to-Speech) समर्थित नहीं है।");
       return;
     }
 
@@ -124,17 +179,21 @@ export default function AskSaathiAssistant() {
     // Clean markdown/citations for cleaner audio voice output
     const cleanSpeechText = text
       .replace(/【.*?】/g, '')
+      .replace(/\[Verified Citation:.*?\]/g, '')
       .replace(/\[KB-\d+\]/g, '')
       .replace(/https?:\/\/\S+/g, '')
       .replace(/[*#_~]/g, '');
 
     const utterance = new SpeechSynthesisUtterance(cleanSpeechText);
-    utterance.lang = 'hi-IN';
+    utterance.lang = isEn ? 'en-IN' : 'hi-IN';
     utterance.rate = 0.95;
 
-    // Pick Hindi or Indian English voice if available
+    // Pick voice
     const voices = window.speechSynthesis.getVoices();
-    const preferredVoice = voices.find(v => v.lang.includes('hi') || v.lang.includes('IN'));
+    const preferredVoice = isEn
+      ? voices.find(v => v.lang.includes('en-IN') || v.lang.includes('en'))
+      : voices.find(v => v.lang.includes('hi') || v.lang.includes('IN'));
+
     if (preferredVoice) {
       utterance.voice = preferredVoice;
     }
@@ -159,7 +218,7 @@ export default function AskSaathiAssistant() {
           ) : (
             <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-amber-500/10 border border-amber-500/30 text-[10px] text-amber-400 font-semibold">
               <ShieldCheck className="w-3 h-3" />
-              <span>सत्यापित कानूनी डेटाबेस (Local)</span>
+              <span>{isEn ? "Verified Legal KB (Local)" : "सत्यापित कानूनी डेटाबेस (Local)"}</span>
             </span>
           )}
         </div>
@@ -171,17 +230,17 @@ export default function AskSaathiAssistant() {
             setShowKeyModal(true);
           }}
           className="flex items-center gap-1 text-[10px] font-medium text-zinc-400 hover:text-zinc-200 px-2 py-1 rounded-lg bg-zinc-900 border border-zinc-800 transition-colors min-h-[32px]"
-          title="Google Gemini API Key जोड़ें या बदलें"
+          title={isEn ? "Configure Google Gemini API Key" : "Google Gemini API Key जोड़ें या बदलें"}
         >
           <Key className="w-3 h-3 text-amber-400" />
-          <span>{apiKey ? 'API Key सक्रिय' : 'Google API जोड़ें'}</span>
+          <span>{apiKey ? (isEn ? 'API Key Active' : 'API Key सक्रिय') : (isEn ? 'Add Google API' : 'Google API जोड़ें')}</span>
         </button>
       </div>
 
       {/* 1-Tap Questions */}
       <div className="space-y-1.5">
         <span className="text-[10px] font-semibold text-zinc-500 uppercase tracking-wider block">
-          सत्यापित डेटाबेस प्रश्न (1-टैप):
+          {isEn ? "Verified Legal Prompts (1-Tap):" : "सत्यापित डेटाबेस प्रश्न (1-टैप):"}
         </span>
         <div className="grid grid-cols-2 gap-1.5">
           {PRELOADED_QUESTIONS.map((pq, idx) => (
@@ -235,17 +294,17 @@ export default function AskSaathiAssistant() {
                     type="button"
                     onClick={() => toggleSpeech(m.text, idx)}
                     className="flex items-center gap-1 text-[10px] text-zinc-400 hover:text-amber-400 transition-colors px-1 py-0.5 rounded"
-                    title={speakingIndex === idx ? "आवाज़ बंद करें" : "आवाज़ में सुनें"}
+                    title={speakingIndex === idx ? (isEn ? "Stop Audio" : "आवाज़ बंद करें") : (isEn ? "Listen Out Loud" : "आवाज़ में सुनें")}
                   >
                     {speakingIndex === idx ? (
                       <>
                         <VolumeX className="w-3 h-3 text-rose-400 animate-pulse" />
-                        <span className="text-rose-400">बंद करें</span>
+                        <span className="text-rose-400">{isEn ? 'Stop' : 'बंद करें'}</span>
                       </>
                     ) : (
                       <>
                         <Volume2 className="w-3 h-3" />
-                        <span>बोलकर सुनो</span>
+                        <span>{isEn ? 'Listen' : 'बोलकर सुनो'}</span>
                       </>
                     )}
                   </button>
@@ -262,7 +321,9 @@ export default function AskSaathiAssistant() {
           <div className="flex items-center gap-2 text-xs text-zinc-500 font-mono pl-8">
             <span className="w-1.5 h-1.5 bg-amber-400 rounded-full animate-ping" />
             <span>
-              {apiKey ? "Google Gemini 2.5 Flash से कानूनी विश्लेषण हो रहा है..." : "सत्यापित डेटाबेस से उत्तर तैयार हो रहा है..."}
+              {apiKey 
+                ? (isEn ? "Analyzing via Google Gemini 2.5 Flash..." : "Google Gemini 2.5 Flash से कानूनी विश्लेषण हो रहा है...") 
+                : (isEn ? "Generating verified answer from statutory database..." : "सत्यापित डेटाबेस से उत्तर तैयार हो रहा है...")}
             </span>
           </div>
         )}
@@ -275,7 +336,9 @@ export default function AskSaathiAssistant() {
           value={inputQuery}
           onChange={(e) => setInputQuery(e.target.value)}
           onKeyDown={(e) => e.key === 'Enter' && handleSend()}
-          placeholder={apiKey ? "Google Gemini से कानूनी सलाह पूछें..." : "हिंदी या Hinglish में पूछें..."}
+          placeholder={apiKey 
+            ? (isEn ? "Ask Google Gemini for legal & rights advice..." : "Google Gemini से कानूनी सलाह पूछें...") 
+            : (isEn ? "Ask in English, Hindi, or Hinglish..." : "हिंदी या Hinglish में पूछें...")}
           className="flex-1 bg-zinc-900 border border-zinc-800 rounded-xl px-3.5 py-2.5 text-xs text-zinc-200 placeholder-zinc-500 focus:outline-none focus:border-zinc-600 min-h-[44px]"
         />
 
@@ -291,13 +354,13 @@ export default function AskSaathiAssistant() {
 
       {/* Official Emergency & Grievance Helpline Speed-Dial */}
       <div className="flex items-center justify-between pt-1 px-1 text-[11px] text-zinc-400">
-        <span>आधिकारिक सहायता:</span>
+        <span>{isEn ? "Official Helplines:" : "आधिकारिक सहायता:"}</span>
         <div className="flex items-center gap-2 font-mono">
-          <a href="tel:1915" className="text-amber-400 hover:underline">1915 (उपभोक्ता)</a>
+          <a href="tel:1915" className="text-amber-400 hover:underline">{isEn ? "1915 (Consumer)" : "1915 (उपभोक्ता)"}</a>
           <span className="text-zinc-600">•</span>
-          <a href="tel:14434" className="text-blue-400 hover:underline">14434 (ई-श्रम)</a>
+          <a href="tel:14434" className="text-blue-400 hover:underline">14434 (e-Shram)</a>
           <span className="text-zinc-600">•</span>
-          <a href="tel:112" className="text-rose-400 hover:underline">112 (आपातकाल)</a>
+          <a href="tel:112" className="text-rose-400 hover:underline">{isEn ? "112 (Emergency)" : "112 (आपातकाल)"}</a>
         </div>
       </div>
 
@@ -308,7 +371,9 @@ export default function AskSaathiAssistant() {
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-2">
                 <Sparkles className="w-4 h-4 text-emerald-400" />
-                <h3 className="text-sm font-bold text-white">Google Gemini API सेटअप</h3>
+                <h3 className="text-sm font-bold text-white">
+                  {isEn ? "Google Gemini API Setup" : "Google Gemini API सेटअप"}
+                </h3>
               </div>
               <button
                 type="button"
@@ -320,7 +385,9 @@ export default function AskSaathiAssistant() {
             </div>
 
             <p className="text-xs text-zinc-400 leading-relaxed">
-              Google Gemini 2.5 Flash API Key जोड़ें। यह प्राकृतिक भाषा और जटिल कानूनी सवालों के सटीक Hinglish जवाब देता है।
+              {isEn 
+                ? "Enter your Google Gemini 2.5 Flash API Key to enable natural language legal reasoning grounded in verified Indian Labour Gazette rules." 
+                : "Google Gemini 2.5 Flash API Key जोड़ें। यह प्राकृतिक भाषा और जटिल कानूनी सवालों के सटीक Hinglish जवाब देता है।"}
             </p>
 
             <div className="space-y-1.5">
@@ -338,10 +405,10 @@ export default function AskSaathiAssistant() {
 
             <div className="text-[11px] text-zinc-500 space-y-1">
               <div>
-                🔒 <span className="text-zinc-400">सुरक्षित:</span> यह API Key सिर्फ आपके ब्राउज़र के LocalStorage में सुरक्षित रहती है।
+                🔒 <span className="text-zinc-400">{isEn ? "Secure:" : "सुरक्षित:"}</span> {isEn ? "Stored locally in your browser only." : "यह API Key सिर्फ आपके ब्राउज़र के LocalStorage में सुरक्षित रहती है।"}
               </div>
               <div>
-                🔑 मुफ्त की यहाँ से लें:{" "}
+                🔑 {isEn ? "Get a free key here: " : "मुफ्त की यहाँ से लें: "}
                 <a
                   href="https://aistudio.google.com/app/apikey"
                   target="_blank"
@@ -360,7 +427,7 @@ export default function AskSaathiAssistant() {
                 className="flex-1 bg-emerald-500 hover:bg-emerald-400 text-black font-bold py-2 rounded-xl text-xs flex items-center justify-center gap-1.5 min-h-[40px] transition-colors"
               >
                 <Check className="w-3.5 h-3.5" />
-                <span>सहेजें (Save)</span>
+                <span>{isEn ? "Save" : "सहेजें (Save)"}</span>
               </button>
               {apiKey && (
                 <button
@@ -373,7 +440,7 @@ export default function AskSaathiAssistant() {
                   }}
                   className="px-3 bg-zinc-800 hover:bg-rose-950/40 text-rose-400 border border-zinc-700 hover:border-rose-800 rounded-xl text-xs py-2 min-h-[40px] transition-colors"
                 >
-                  हटाएं
+                  {isEn ? "Remove" : "हटाएं"}
                 </button>
               )}
             </div>

@@ -33,7 +33,17 @@ export default function App() {
     setActiveTab('dispute');
   };
 
-  const navSegments = [
+  const navSegments = currentLang === 'hi' ? [
+    { id: 'trips', label: 'ऑर्डर रडार', icon: Zap },
+    { id: 'audits', label: 'वेतन ऑडिट', icon: FileSearch },
+    { id: 'shield', label: 'अधिकार कवच', icon: ShieldCheck },
+    { id: 'voice', label: 'वॉइस लॉग', icon: Mic },
+  ] : currentLang === 'hinglish' ? [
+    { id: 'trips', label: 'Trip Radar', icon: Zap },
+    { id: 'audits', label: 'Pay Audit', icon: FileSearch },
+    { id: 'shield', label: 'Govt Shield', icon: ShieldCheck },
+    { id: 'voice', label: 'Voice Shift', icon: Mic },
+  ] : [
     { id: 'trips', label: 'Trip Radar', icon: Zap },
     { id: 'audits', label: 'Pay Audit', icon: FileSearch },
     { id: 'shield', label: 'Rights Shield', icon: ShieldCheck },
@@ -114,6 +124,8 @@ export default function App() {
       {/* ========================================================= */}
       {viewMode === 'laptop' && laptopTheme === 'desi' && (
         <SightlineDashboard 
+          currentLang={currentLang}
+          setCurrentLang={setCurrentLang}
           onOpenAppeal={(slip) => {
             if (slip) setPrefilledSlip(slip);
             setActiveModalContent('appeal');
@@ -275,7 +287,7 @@ export default function App() {
               </button>
             </div>
 
-            <AskSaathiAssistant />
+            <AskSaathiAssistant currentLang={currentLang} />
           </div>
         </div>
       )}

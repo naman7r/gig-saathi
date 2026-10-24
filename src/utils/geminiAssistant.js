@@ -20,11 +20,13 @@ ${JSON.stringify(KNOWLEDGE_BASE, null, 2)}
 /**
  * Calls Google Gemini REST API (gemini-2.5-flash or gemini-1.5-flash)
  */
-export async function askGeminiAssistant(userQuery, userApiKey = '') {
+export async function askGeminiAssistant(userQuery, userApiKey = '', lang = 'hinglish') {
   const apiKey = userApiKey || 
     (typeof import.meta !== 'undefined' && import.meta.env?.VITE_GEMINI_API_KEY) || 
     (typeof localStorage !== 'undefined' && localStorage.getItem('gemini_api_key')) || 
     '';
+
+  const isEn = lang === 'en';
 
   // If no API key is provided, gracefully fallback to our deterministic grounded engine
   if (!apiKey || apiKey.trim() === '') {
@@ -32,26 +34,36 @@ export async function askGeminiAssistant(userQuery, userApiKey = '') {
     if (localResult.found) {
       return {
         source: 'local_kb',
-        text: `【सत्यापित संदर्भ: ${localResult.citationId}】\n${localResult.summary}\n\n📌 कानूनी स्थिति: ${localResult.disclaimer || 'सत्यापित सरकारी नियम'}\n🔗 आधिकारिक स्रोत: ${localResult.sourceUrl}`,
+        text: isEn 
+          ? `[Verified Citation: ${localResult.citationId}]\n${localResult.summary}\n\n📌 Legal Status: ${localResult.disclaimer || 'Official Gazette Rules'}\n🔗 Official Gazette Source: ${localResult.sourceUrl}`
+          : `【सत्यापित संदर्भ: ${localResult.citationId}】\n${localResult.summary}\n\n📌 कानूनी स्थिति: ${localResult.disclaimer || 'सत्यापित सरकारी नियम'}\n🔗 आधिकारिक स्रोत: ${localResult.sourceUrl}`,
         citationId: localResult.citationId,
         sourceUrl: localResult.sourceUrl
       };
     } else if (localResult.outOfScope) {
       return {
         source: 'local_kb',
-        text: `⚠️ यह विषय हमारे कानूनी डेटाबेस में शामिल नहीं है।\n\n${localResult.refusalMessage}\n\nआधिकारिक संपर्क:\n${localResult.officialHelplines}`,
+        text: isEn
+          ? `⚠️ This topic is not covered in our hand-verified legal and scheme database.\n\n${localResult.refusalMessage}\n\nOfficial Contacts:\n${localResult.officialHelplines}`
+          : `⚠️ यह विषय हमारे कानूनी डेटाबेस में शामिल नहीं है।\n\n${localResult.refusalMessage}\n\nआधिकारिक संपर्क:\n${localResult.officialHelplines}`,
         citationId: null
       };
     }
     return {
       source: 'local_kb',
-      text: localResult.message || "कृपया अपना प्रश्न विस्तार से लिखें।",
+      text: localResult.message || (isEn ? "Please describe your question in detail." : "कृपया अपना प्रश्न विस्तार से लिखें।"),
       citationId: null
     };
   }
 
   // Call Gemini API via official REST endpoint
   const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${apiKey.trim()}`;
+
+  const langInstruction = isEn
+    ? "IMPORTANT: Respond in clear, accessible, and professional English."
+    : lang === 'hi'
+      ? "महत्वपूर्ण: सरल, स्पष्ट और सम्मानजनक शुद्ध हिन्दी में उत्तर दें।"
+      : "IMPORTANT: Speak in simple, respectful, conversational Hinglish for Indian gig delivery workers.";
 
   try {
     const response = await fetch(endpoint, {
@@ -61,7 +73,7 @@ export async function askGeminiAssistant(userQuery, userApiKey = '') {
       },
       body: JSON.stringify({
         system_instruction: {
-          parts: [{ text: SYSTEM_INSTRUCTION }]
+          parts: [{ text: `${SYSTEM_INSTRUCTION}\n\n${langInstruction}` }]
         },
         contents: [
           {
