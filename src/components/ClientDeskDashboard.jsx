@@ -4,7 +4,8 @@ import {
   Search, SlidersHorizontal, Calendar, Bell, Mail, ChevronDown, CheckCircle2, 
   XCircle, AlertCircle, TrendingUp, Sparkles, Home, Wallet, FileText, MessageSquare, 
   Settings, HelpCircle, ArrowUpRight, Share2, UploadCloud, HeartPulse, Award,
-  Check, PhoneCall, ExternalLink, RefreshCw, User, ShieldAlert, AlertTriangle
+  Check, PhoneCall, ExternalLink, RefreshCw, User, ShieldAlert, AlertTriangle,
+  Thermometer, Droplets, Sun, CloudRain, Wind, Plus, Minus
 } from 'lucide-react';
 import { RIDER_PROFILE, INCOMING_ORDER_SCENARIOS, MOCK_PAYOUT_SLIPS, HISTORICAL_SHIFTS } from '../data/mockData';
 import { KNOWLEDGE_BASE } from '../data/knowledgeBase';
@@ -157,6 +158,11 @@ export default function ClientDeskDashboard({ onOpenAppeal, onOpenAskAI, onSwitc
   const [showProfileDrawer, setShowProfileDrawer] = useState(false);
   const [showDateDropdown, setShowDateDropdown] = useState(false);
   const [showHelpModal, setShowHelpModal] = useState(false);
+  const [showWeatherModal, setShowWeatherModal] = useState(false);
+
+  // Weather & Hydration Telemetry State
+  const [waterGlasses, setWaterGlasses] = useState(5); // 5 of 8 glasses
+  const [hydrationSeconds, setHydrationSeconds] = useState(840); // 14:00 countdown
   
   // Live Search State
   const [searchQuery, setSearchQuery] = useState('');
@@ -171,6 +177,33 @@ export default function ClientDeskDashboard({ onOpenAppeal, onOpenAskAI, onSwitc
 
   const handleMarkAllRead = () => {
     setNotifications(prev => prev.map(n => ({ ...n, unread: false })));
+  };
+
+  // Hydration interval countdown timer
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setHydrationSeconds(prev => (prev > 0 ? prev - 1 : 900));
+    }, 1000);
+    return () => clearInterval(timer);
+  }, []);
+
+  const formatTimer = (totalSeconds) => {
+    const mins = Math.floor(totalSeconds / 60);
+    const secs = totalSeconds % 60;
+    return `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+  };
+
+  const handleAddWater = () => {
+    if (waterGlasses < 12) {
+      setWaterGlasses(prev => prev + 1);
+      setHydrationSeconds(900); // reset to 15m
+    }
+  };
+
+  const handleMinusWater = () => {
+    if (waterGlasses > 0) {
+      setWaterGlasses(prev => prev - 1);
+    }
   };
 
   // Keyboard shortcut listener for Command/Ctrl + K to focus search
@@ -699,6 +732,19 @@ export default function ClientDeskDashboard({ onOpenAppeal, onOpenAskAI, onSwitc
                   )}
                 </div>
 
+                {/* Interactive Weather & Hydration Pill */}
+                <button 
+                  onClick={() => setShowWeatherModal(true)}
+                  title="Click to view full Weather Telemetry & Hydration Guard"
+                  className="flex items-center gap-2 bg-amber-50 hover:bg-amber-100/80 border border-amber-200/90 rounded-full px-3.5 py-1.5 text-xs font-semibold text-amber-900 transition-all cursor-pointer shadow-xs active:scale-95"
+                >
+                  <Thermometer className="w-3.5 h-3.5 text-amber-600 animate-pulse" />
+                  <span>38°C (Feels 42°C)</span>
+                  <span className="text-amber-300">•</span>
+                  <Droplets className="w-3.5 h-3.5 text-blue-500" />
+                  <span className="font-mono text-blue-700 font-bold">{formatTimer(hydrationSeconds)}</span>
+                </button>
+
                 {/* Draft Dispute Button */}
                 <button 
                   onClick={() => onOpenAppeal(MOCK_PAYOUT_SLIPS[0])}
@@ -1087,6 +1133,179 @@ export default function ClientDeskDashboard({ onOpenAppeal, onOpenAskAI, onSwitc
                   </div>
                 </div>
 
+                {/* 7. FULL WIDTH WEATHER, TEMPERATURE & HYDRATION TELEMETRY CARD */}
+                <div className="col-span-12 bg-white rounded-[28px] border border-slate-200/90 p-6 shadow-sm space-y-5">
+                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-4 border-b border-slate-100">
+                    <div className="flex items-center gap-3">
+                      <div className="w-10 h-10 rounded-2xl bg-amber-100 text-amber-700 flex items-center justify-center font-bold text-lg shadow-xs">
+                        ☀️
+                      </div>
+                      <div>
+                        <span className="text-[10px] font-bold text-amber-600 uppercase tracking-wider font-mono block">
+                          Microclimate & Physiology Telemetry
+                        </span>
+                        <h3 className="text-base font-extrabold text-slate-900">
+                          Chandigarh Tricity Weather, Temperature & Hydration Guard
+                        </h3>
+                      </div>
+                    </div>
+
+                    <div className="flex items-center gap-2">
+                      <span className="text-xs bg-rose-50 text-rose-700 border border-rose-200 px-3 py-1 rounded-full font-mono font-bold flex items-center gap-1.5 shadow-xs">
+                        <Thermometer className="w-3.5 h-3.5 text-rose-600 animate-pulse" />
+                        <span>38°C (Feels 42°C Heat Index)</span>
+                      </span>
+                      <span className="text-xs bg-blue-50 text-blue-700 border border-blue-200 px-3 py-1 rounded-full font-mono font-bold flex items-center gap-1.5 shadow-xs">
+                        <Droplets className="w-3.5 h-3.5 text-blue-600" />
+                        <span>Hydrate in {formatTimer(hydrationSeconds)}</span>
+                      </span>
+                    </div>
+                  </div>
+
+                  {/* 3-Column Studio Grid */}
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+                    
+                    {/* Col 1: Temperature & Heat Index */}
+                    <div className="bg-slate-50/70 rounded-2xl p-4 border border-slate-200/80 space-y-3 flex flex-col justify-between">
+                      <div className="flex items-start justify-between">
+                        <div>
+                          <span className="text-xs font-bold text-slate-400 uppercase tracking-wider">Current Temperature</span>
+                          <div className="text-3xl font-extrabold text-slate-900 font-mono tracking-tight mt-1 flex items-baseline gap-2">
+                            <span>38°C</span>
+                            <span className="text-xs font-semibold text-rose-600 font-sans">Feels like 42°C</span>
+                          </div>
+                          <p className="text-xs font-medium text-slate-600 mt-1">☀️ Severe afternoon heatwave in Sector 35</p>
+                        </div>
+                        <span className="px-2.5 py-1 rounded-full text-[10px] font-extrabold uppercase bg-amber-100 text-amber-800">
+                          Level 3 Alert
+                        </span>
+                      </div>
+
+                      <div className="grid grid-cols-3 gap-2 pt-2 border-t border-slate-200/80 text-center">
+                        <div className="bg-white p-2 rounded-xl border border-slate-100 shadow-xs">
+                          <span className="text-[10px] text-slate-400 block font-medium">Humidity</span>
+                          <span className="text-xs font-bold font-mono text-slate-800">48%</span>
+                        </div>
+                        <div className="bg-white p-2 rounded-xl border border-slate-100 shadow-xs">
+                          <span className="text-[10px] text-slate-400 block font-medium">Wind NW</span>
+                          <span className="text-xs font-bold font-mono text-slate-800">14 km/h</span>
+                        </div>
+                        <div className="bg-white p-2 rounded-xl border border-slate-100 shadow-xs">
+                          <span className="text-[10px] text-slate-400 block font-medium">Air Quality</span>
+                          <span className="text-xs font-bold font-mono text-amber-700">142 AQI</span>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Col 2: Interactive Hydration Tracker */}
+                    <div className="bg-blue-50/50 rounded-2xl p-4 border border-blue-200/80 space-y-3 flex flex-col justify-between">
+                      <div className="flex items-start justify-between">
+                        <div>
+                          <span className="text-xs font-bold text-blue-600 uppercase tracking-wider">Hydration Monitor</span>
+                          <div className="text-2xl font-extrabold text-slate-900 font-mono tracking-tight mt-1">
+                            {waterGlasses} / 8 <span className="text-xs font-normal text-slate-500 font-sans">Glasses ({waterGlasses * 250} ml)</span>
+                          </div>
+                          <p className="text-xs text-slate-600 mt-1">Target: 250ml every 30m in 38°C heat</p>
+                        </div>
+
+                        <div className="text-right">
+                          <span className="font-mono text-sm font-bold text-blue-700 bg-white border border-blue-200 px-2 py-1 rounded-lg block shadow-xs">
+                            {formatTimer(hydrationSeconds)}
+                          </span>
+                          <span className="text-[10px] text-blue-500 block mt-0.5">next break</span>
+                        </div>
+                      </div>
+
+                      {/* Progress Bar */}
+                      <div className="space-y-1.5">
+                        <div className="w-full bg-blue-100 rounded-full h-2.5 overflow-hidden">
+                          <div 
+                            className="bg-blue-600 h-full rounded-full transition-all duration-300 shadow-xs" 
+                            style={{ width: `${Math.min(100, Math.round((waterGlasses / 8) * 100))}%` }} 
+                          />
+                        </div>
+                      </div>
+
+                      {/* Controls */}
+                      <div className="flex items-center gap-2 pt-1">
+                        <button 
+                          onClick={handleAddWater}
+                          className="flex-1 py-2 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-xl text-xs flex items-center justify-center gap-1.5 transition-all shadow-xs cursor-pointer active:scale-95"
+                        >
+                          <Plus className="w-3.5 h-3.5" />
+                          <span>Drank 1 Glass (+250ml)</span>
+                        </button>
+                        <button 
+                          onClick={handleMinusWater}
+                          title="Undo 1 glass"
+                          className="w-9 h-9 bg-white hover:bg-slate-100 border border-blue-200 text-slate-600 rounded-xl text-xs flex items-center justify-center transition-colors shadow-xs"
+                        >
+                          <Minus className="w-3.5 h-3.5" />
+                        </button>
+                        <button 
+                          onClick={() => setHydrationSeconds(900)}
+                          title="Reset 15-minute countdown"
+                          className="w-9 h-9 bg-white hover:bg-slate-100 border border-blue-200 text-slate-600 rounded-xl text-xs flex items-center justify-center transition-colors shadow-xs"
+                        >
+                          <RefreshCw className="w-3.5 h-3.5" />
+                        </button>
+                      </div>
+                    </div>
+
+                    {/* Col 3: Hourly Forecast & Rain Surge */}
+                    <div className="bg-slate-50/70 rounded-2xl p-4 border border-slate-200/80 space-y-3 flex flex-col justify-between">
+                      <div className="flex items-center justify-between">
+                        <div>
+                          <span className="text-xs font-bold text-slate-400 uppercase tracking-wider">Shift Forecast</span>
+                          <p className="text-xs font-semibold text-slate-900 mt-0.5">Next 8 Hours Outlook</p>
+                        </div>
+                        <span className="text-[10px] font-bold text-emerald-700 bg-emerald-100 border border-emerald-200 px-2 py-0.5 rounded-full font-mono">
+                          Rain Surge at 6 PM
+                        </span>
+                      </div>
+
+                      {/* Hourly Timeline */}
+                      <div className="grid grid-cols-6 gap-1.5 pt-1 text-center">
+                        {[
+                          { t: 'Now', temp: '38°', icon: '☀️', surge: null },
+                          { t: '2 PM', temp: '39°', icon: '☀️', surge: null },
+                          { t: '4 PM', temp: '36°', icon: '⛅', surge: null },
+                          { t: '6 PM', temp: '32°', icon: '🌦️', surge: '+₹20' },
+                          { t: '8 PM', temp: '29°', icon: '🌧️', surge: '+₹30' },
+                          { t: '10 PM', temp: '27°', icon: '🌙', surge: null },
+                        ].map((h, idx) => (
+                          <div 
+                            key={idx}
+                            className={`p-1.5 rounded-xl border flex flex-col items-center justify-between transition-all ${
+                              h.surge 
+                                ? 'bg-emerald-50 border-emerald-300 text-emerald-900 shadow-xs' 
+                                : idx === 0 
+                                  ? 'bg-amber-50 border-amber-200 text-amber-900' 
+                                  : 'bg-white border-slate-200/70 text-slate-700'
+                            }`}
+                          >
+                            <span className="text-[9px] font-mono font-medium text-slate-500">{h.t}</span>
+                            <span className="text-sm my-0.5">{h.icon}</span>
+                            <span className="text-[11px] font-bold font-mono text-slate-900">{h.temp}</span>
+                            {h.surge ? (
+                              <span className="text-[8px] font-extrabold text-emerald-700 font-mono mt-0.5 bg-emerald-200/60 rounded px-1">
+                                {h.surge}
+                              </span>
+                            ) : (
+                              <span className="text-[8px] text-slate-400 font-mono mt-0.5">Norm</span>
+                            )}
+                          </div>
+                        ))}
+                      </div>
+
+                      <p className="text-[11px] text-slate-500 pt-1">
+                        🌧️ Rain surcharge triggers at 6:00 PM (+₹20 to +₹30). Platform payout slips will be automatically audited for this bonus.
+                      </p>
+                    </div>
+
+                  </div>
+                </div>
+
               </div>
             )}
 
@@ -1273,6 +1492,117 @@ export default function ClientDeskDashboard({ onOpenAppeal, onOpenAskAI, onSwitc
         </div>
 
       </div>
+
+      {/* ========================================================= */}
+      {/* WEATHER & HYDRATION TELEMETRY MODAL */}
+      {/* ========================================================= */}
+      {showWeatherModal && (
+        <div className="fixed inset-0 bg-black/60 backdrop-blur-xs z-50 flex items-center justify-center p-4">
+          <div className="bg-white rounded-3xl max-w-lg w-full p-6 shadow-2xl border border-slate-200 text-slate-900 space-y-5 animate-in fade-in">
+            <div className="flex items-center justify-between pb-3 border-b border-slate-100">
+              <div className="flex items-center gap-2.5">
+                <div className="w-8 h-8 rounded-xl bg-amber-100 text-amber-700 flex items-center justify-center text-base">
+                  ☀️
+                </div>
+                <div>
+                  <h3 className="text-sm font-bold text-slate-900">Chandigarh Hub Climate & Hydration</h3>
+                  <p className="text-[10px] text-slate-400">IMD Doppler Radar & Odometer Telemetry</p>
+                </div>
+              </div>
+              <button 
+                onClick={() => setShowWeatherModal(false)}
+                className="w-7 h-7 rounded-full bg-slate-100 text-slate-500 hover:text-slate-900 flex items-center justify-center text-xs font-bold"
+              >
+                ✕
+              </button>
+            </div>
+
+            {/* Current Temperature Stats */}
+            <div className="bg-amber-50/70 rounded-2xl p-4 border border-amber-200/80 space-y-2">
+              <div className="flex items-center justify-between">
+                <div>
+                  <span className="text-3xl font-extrabold text-amber-900 font-mono">38°C</span>
+                  <span className="text-xs font-semibold text-rose-600 ml-2">Feels like 42°C</span>
+                </div>
+                <span className="text-[10px] font-bold uppercase px-2 py-0.5 rounded-full bg-rose-100 text-rose-800">
+                  Heatwave Alert
+                </span>
+              </div>
+              <p className="text-xs text-slate-600">
+                Pavement and motorcycle saddle temperatures reach 48°C during peak sunlight. Drink 250ml water every 30m to avoid heat cramps.
+              </p>
+            </div>
+
+            {/* Hydration Tracker */}
+            <div className="bg-blue-50/60 rounded-2xl p-4 border border-blue-200/80 space-y-3">
+              <div className="flex items-center justify-between text-xs">
+                <span className="font-bold text-blue-900">Water Logged: {waterGlasses}/8 Glasses ({waterGlasses * 250}ml)</span>
+                <span className="font-mono font-bold text-blue-700 bg-white px-2 py-0.5 rounded border border-blue-200">
+                  Break in {formatTimer(hydrationSeconds)}
+                </span>
+              </div>
+
+              <div className="w-full bg-blue-100 rounded-full h-2.5 overflow-hidden">
+                <div 
+                  className="bg-blue-600 h-full rounded-full transition-all duration-300"
+                  style={{ width: `${Math.min(100, Math.round((waterGlasses / 8) * 100))}%` }}
+                />
+              </div>
+
+              <div className="flex gap-2 pt-1">
+                <button
+                  onClick={handleAddWater}
+                  className="flex-1 py-2 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-xl text-xs flex items-center justify-center gap-1.5 shadow-xs"
+                >
+                  <Plus className="w-3.5 h-3.5" />
+                  <span>Drank 1 Glass (+250ml)</span>
+                </button>
+                <button
+                  onClick={handleMinusWater}
+                  className="w-9 h-9 bg-white border border-blue-200 text-slate-600 rounded-xl text-xs flex items-center justify-center"
+                >
+                  <Minus className="w-3.5 h-3.5" />
+                </button>
+              </div>
+            </div>
+
+            {/* Forecast Row */}
+            <div className="space-y-2">
+              <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider block">
+                Shift Forecast (IMD Radar)
+              </span>
+              <div className="grid grid-cols-6 gap-1.5 text-center">
+                {[
+                  { t: 'Now', temp: '38°', icon: '☀️', surge: null },
+                  { t: '2 PM', temp: '39°', icon: '☀️', surge: null },
+                  { t: '4 PM', temp: '36°', icon: '⛅', surge: null },
+                  { t: '6 PM', temp: '32°', icon: '🌦️', surge: '+₹20' },
+                  { t: '8 PM', temp: '29°', icon: '🌧️', surge: '+₹30' },
+                  { t: '10 PM', temp: '27°', icon: '🌙', surge: null },
+                ].map((h, i) => (
+                  <div key={i} className="p-2 rounded-xl bg-slate-50 border border-slate-200/70 text-xs">
+                    <span className="text-[9px] text-slate-400 font-mono block">{h.t}</span>
+                    <span className="text-sm block my-0.5">{h.icon}</span>
+                    <span className="font-bold text-[11px] block">{h.temp}</span>
+                    {h.surge && (
+                      <span className="text-[8px] font-extrabold text-emerald-600 font-mono block bg-emerald-100 rounded px-0.5 mt-0.5">
+                        {h.surge}
+                      </span>
+                    )}
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <button 
+              onClick={() => setShowWeatherModal(false)}
+              className="w-full py-2 bg-slate-900 text-white rounded-xl text-xs font-semibold hover:bg-slate-800 transition-all"
+            >
+              Done
+            </button>
+          </div>
+        </div>
+      )}
 
       {/* ========================================================= */}
       {/* HELP & SHORTCUTS MODAL */}
