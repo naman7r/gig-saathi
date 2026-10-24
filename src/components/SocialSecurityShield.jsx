@@ -2,10 +2,75 @@ import React from 'react';
 import { RIDER_PROFILE } from '../data/mockData';
 import { ShieldCheck, HeartPulse, Award, AlertCircle } from 'lucide-react';
 
-export default function SocialSecurityShield() {
+const TRANSLATIONS = {
+  hinglish: {
+    statute: 'सामाजिक सुरक्षा संहिता (Central Rules 2026)',
+    dayProgress: 'दिन',
+    of: 'में से',
+    onPlatform: 'Zomato पर पूरे',
+    shiftsLeft: 'सिर्फ',
+    moreShifts: 'शिफ्ट और Zomato चलाना है',
+    unlockDesc: 'ताकि ₹5 लाख का सरकारी आयुष्मान कार्ड अनलॉक हो सके।',
+    complete: 'पूरा हुआ',
+    day1: 'दिन 1',
+    activeDay: 'दिन 84 (सक्रिय)',
+    targetDay: 'दिन 90 लक्ष्य',
+    benefit1Title: '₹5 लाख आयुष्मान कार्ड',
+    benefit1Desc: 'सरकारी व प्राइवेट अस्पतालों में परिवार का मुफ्त कैशलेस इलाज।',
+    benefit2Title: '₹2 लाख ई-श्रम बीमा',
+    benefit2Desc: 'दुर्घटना मृत्यु व पूर्ण विकलांगता पर सरकारी आर्थिक सुरक्षा।',
+    acceptanceTitle: 'स्वीकृति दर (Acceptance Rate): 76%',
+    safeBuffer: 'सुरक्षित बफ़र: +1%',
+    deactivationWarning: '75% से नीचे जाने पर ऐप ऑर्डर्स देना कम कर देता है। अपने 84 दिन के स्ट्रीक को सुरक्षित रखने के लिए अगला नजदीकी ऑर्डर जरूर लें।'
+  },
+  hi: {
+    statute: 'सामाजिक सुरक्षा संहिता (धारा 114)',
+    dayProgress: 'दिवस',
+    of: 'कुल',
+    onPlatform: 'Zomato पर पूर्ण',
+    shiftsLeft: 'केवल',
+    moreShifts: 'सक्रिय कार्य दिवस शेष',
+    unlockDesc: 'सांविधिक स्वास्थ्य एवं दुर्घटना बीमा सुरक्षा प्राप्त करने हेतु।',
+    complete: 'पूर्ण',
+    day1: 'दिन 1',
+    activeDay: 'दिन 84 (सक्रिय)',
+    targetDay: 'दिन 90 लक्ष्य',
+    benefit1Title: '₹5 लाख आयुष्मान भारत',
+    benefit1Desc: 'परिवार हेतु सूचीबद्ध चिकित्सालयों में कैशलेस उपचार।',
+    benefit2Title: '₹2 लाख ई-श्रम सुरक्षा',
+    benefit2Desc: 'दुर्घटना जनित मृत्यु एवं अपंगता पर आर्थिक सहायता।',
+    acceptanceTitle: 'ऑर्डर स्वीकृति दर: 76%',
+    safeBuffer: 'सुरक्षित सीमा: +1%',
+    deactivationWarning: '75% से कम स्वीकृति दर पर आवंटन में कमी आती है। अपनी 84-दिवसीय पात्रता सुरक्षित रखने हेतु अगला ऑर्डर स्वीकार करें।'
+  },
+  en: {
+    statute: 'Code on Social Security (Section 114)',
+    dayProgress: 'Day',
+    of: 'of',
+    onPlatform: 'on Zomato',
+    shiftsLeft: 'Just',
+    moreShifts: 'more active shifts to qualify',
+    unlockDesc: 'to unlock statutory health & accidental cover under Central Rules.',
+    complete: 'Complete',
+    day1: 'Day 1',
+    activeDay: 'Day 84 (Active)',
+    targetDay: 'Day 90 Target',
+    benefit1Title: '₹5 Lakh PM-JAY Cover',
+    benefit1Desc: 'Cashless hospital coverage for you and your family.',
+    benefit2Title: '₹2 Lakh e-Shram Insurance',
+    benefit2Desc: 'Accidental death and disability protection.',
+    acceptanceTitle: 'Acceptance Rate: 76%',
+    safeBuffer: 'Buffer: +1%',
+    deactivationWarning: 'Platform dispatch algorithms throttle order allocations below 75%. Accept your next short-distance trip to maintain safe standing and protect your 84-day streak.'
+  }
+};
+
+export default function SocialSecurityShield({ currentLang = 'hinglish' }) {
   const { targetDays, currentDays, platform } = RIDER_PROFILE.socialSecurityThreshold;
   const progressPercent = Math.round((currentDays / targetDays) * 100);
   const daysLeft = targetDays - currentDays;
+
+  const t = TRANSLATIONS[currentLang] || TRANSLATIONS.en;
 
   return (
     <div className="space-y-4">
@@ -14,19 +79,19 @@ export default function SocialSecurityShield() {
         <div className="flex items-start justify-between">
           <div>
             <span className="text-[10px] font-bold text-emerald-400 uppercase tracking-wider block">
-              Code on Social Security (Section 114)
+              {t.statute}
             </span>
             <h3 className="text-base font-bold text-zinc-100 mt-1">
-              Day {currentDays} of {targetDays} on {platform}
+              {t.dayProgress} {currentDays} {t.of} {targetDays} {t.onPlatform}
             </h3>
             <p className="text-xs text-zinc-400 mt-0.5">
-              <strong className="text-amber-400 font-semibold">{daysLeft} more active shifts</strong> to unlock statutory health & accidental cover.
+              <strong className="text-amber-400 font-semibold">{t.shiftsLeft} {daysLeft} {t.moreShifts}</strong> {t.unlockDesc}
             </p>
           </div>
 
           <div className="text-right">
             <span className="text-2xl font-bold font-mono text-emerald-400">{progressPercent}%</span>
-            <span className="text-[10px] text-zinc-500 block">Complete</span>
+            <span className="text-[10px] text-zinc-500 block">{t.complete}</span>
           </div>
         </div>
 
@@ -39,9 +104,9 @@ export default function SocialSecurityShield() {
             />
           </div>
           <div className="flex justify-between text-[10px] text-zinc-500 font-mono">
-            <span>Day 1</span>
-            <span className="text-amber-400 font-medium">Day 84 (Active)</span>
-            <span>Day 90 Target</span>
+            <span>{t.day1}</span>
+            <span className="text-amber-400 font-medium">{t.activeDay}</span>
+            <span>{t.targetDay}</span>
           </div>
         </div>
 
@@ -50,20 +115,20 @@ export default function SocialSecurityShield() {
           <div className="p-3 rounded-2xl bg-zinc-950/80 border border-zinc-800 space-y-1">
             <div className="flex items-center gap-1.5 text-emerald-400 text-xs font-bold">
               <HeartPulse className="w-3.5 h-3.5" />
-              <span>₹5 Lakh PM-JAY</span>
+              <span>{t.benefit1Title}</span>
             </div>
             <p className="text-[11px] text-zinc-400 leading-snug">
-              Cashless hospital cover for your family.
+              {t.benefit1Desc}
             </p>
           </div>
 
           <div className="p-3 rounded-2xl bg-zinc-950/80 border border-zinc-800 space-y-1">
             <div className="flex items-center gap-1.5 text-blue-400 text-xs font-bold">
               <Award className="w-3.5 h-3.5" />
-              <span>₹2 Lakh e-Shram</span>
+              <span>{t.benefit2Title}</span>
             </div>
             <p className="text-[11px] text-zinc-400 leading-snug">
-              Accidental death & disability insurance.
+              {t.benefit2Desc}
             </p>
           </div>
         </div>
@@ -73,14 +138,14 @@ export default function SocialSecurityShield() {
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2 text-amber-300 font-bold">
               <AlertCircle className="w-4 h-4 text-amber-400 shrink-0" />
-              <span>Acceptance Rate: 76%</span>
+              <span>{t.acceptanceTitle}</span>
             </div>
             <span className="text-[10px] bg-amber-500/20 text-amber-300 px-2 py-0.5 rounded-full font-mono font-bold">
-              Buffer: +1%
+              {t.safeBuffer}
             </span>
           </div>
           <p className="text-zinc-300 text-[11px] leading-relaxed">
-            Platform dispatch algorithms throttle order allocations below 75%. Accept your next short-distance trip to maintain safe standing and protect your 84-day streak.
+            {t.deactivationWarning}
           </p>
         </div>
       </div>

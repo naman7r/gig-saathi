@@ -2,10 +2,57 @@ import React, { useState } from 'react';
 import { MOCK_PAYOUT_SLIPS } from '../data/mockData';
 import { FileText, AlertCircle, ArrowRight, ShieldCheck, CheckCircle2 } from 'lucide-react';
 
-export default function SlipScanner({ onDraftDispute }) {
+const TRANSLATIONS = {
+  hinglish: {
+    auditing: "जीपीएस लॉग से कंपनी का हिसाब चेक हो रहा है...",
+    settled: "कंपनी ने दिया",
+    expected: "असली में देय: ₹",
+    basePay: "बेस पे",
+    distancePay: "दूरी का पैसा",
+    recorded: "किमी ऐप में दर्ज",
+    weatherSurge: "बारिश का सर्ज",
+    expectedSurge: "(₹20 मिलना चाहिए था)",
+    underpayDetected: "चोरी पकड़ी गई:",
+    shortchanged: "कम दिए",
+    draftAppeal: "शिकायत पत्र तैयार करें (₹",
+    recover: "वापस मांगें)"
+  },
+  hi: {
+    auditing: "जीपीएस लॉग के आधार पर ऑडिट जारी है...",
+    settled: "प्रदत्त राशि",
+    expected: "वास्तविक देय: ₹",
+    basePay: "मूल वेतन",
+    distancePay: "दूरी भुगतान",
+    recorded: "किमी दर्ज",
+    weatherSurge: "वर्षा सर्ज",
+    expectedSurge: "(₹20 देय था)",
+    underpayDetected: "कटौती चिह्नित:",
+    shortchanged: "कम भुगतान",
+    draftAppeal: "औपचारिक विवाद अपील तैयार करें (₹",
+    recover: "दावा करें)"
+  },
+  en: {
+    auditing: "Auditing statement against GPS logs...",
+    settled: "Settled",
+    expected: "Expected: ₹",
+    basePay: "Base pay",
+    distancePay: "Distance pay",
+    recorded: "km recorded",
+    weatherSurge: "Weather surge",
+    expectedSurge: "(expected ₹20)",
+    underpayDetected: "Underpayment Detected:",
+    shortchanged: "Shortchanged",
+    draftAppeal: "Draft Dispute Appeal (Recover ₹",
+    recover: ")"
+  }
+};
+
+export default function SlipScanner({ onDraftDispute, currentLang = 'hinglish' }) {
   const [selectedIdx, setSelectedIdx] = useState(0);
   const [isScanning, setIsScanning] = useState(false);
   const currentSlip = MOCK_PAYOUT_SLIPS[selectedIdx];
+
+  const t = TRANSLATIONS[currentLang] || TRANSLATIONS.en;
 
   const handleSelectSlip = (idx) => {
     setIsScanning(true);
@@ -13,6 +60,29 @@ export default function SlipScanner({ onDraftDispute }) {
       setSelectedIdx(idx);
       setIsScanning(false);
     }, 300);
+  };
+
+  const getFlags = (slip) => {
+    if (currentLang === 'en') return slip.anomalyFlags;
+    if (currentLang === 'hi') {
+      if (slip.id === 'slip-zomato-9482') return [
+        "दूरी कटौती: आपने 7.4 किमी यात्रा की, कंपनी ने केवल 5.1 किमी माना (-₹12 हानि)।",
+        "वर्षा भत्ता गायब: सेक्टर 17 में भारी वर्षा के बावजूद ₹0 सर्ज दिया गया (-₹20 हानि)।"
+      ];
+      return [
+        "ग्राहक द्वारा रद्द किए जाने के बावजूद राइडर पर ₹50 का जुर्माना लगाया गया।",
+        "दुकान पर प्रतीक्षा समय 18 मिनट से अधिक होने का कोई मुआवजा नहीं दिया गया।"
+      ];
+    }
+    // Hinglish
+    if (slip.id === 'slip-zomato-9482') return [
+      "किमी घटाया: आपने 7.4 किमी बाइक चलाई, कंपनी ने सिर्फ 5.1 किमी माना (-₹12 नुकसान)।",
+      "बारिश का पैसा गायब: सेक्टर 17 में तेज बारिश थी, फिर भी ₹0 सर्ज दिया (-₹20 नुकसान)।"
+    ];
+    return [
+      "कस्टमर ने कैंसिल किया फिर भी राइडर पर ₹50 पेनल्टी काटी गई।",
+      "रेस्टोरेंट पर 18 मिनट खड़ा रहने का कोई वेटिंग पैसा नहीं दिया।"
+    ];
   };
 
   return (
@@ -38,7 +108,9 @@ export default function SlipScanner({ onDraftDispute }) {
               </span>
             </div>
             <p className="text-xs font-medium text-zinc-300 mt-1 truncate">
-              {idx === 0 ? 'Shaved Km & Rain Surge' : 'Unfair Cancellation Fee'}
+              {idx === 0 
+                ? (currentLang === 'en' ? 'Shaved Km & Rain Surge' : currentLang === 'hi' ? 'दूरी व वर्षा कटौती' : 'किमी घटाया व बारिश सर्ज गायब')
+                : (currentLang === 'en' ? 'Unfair Cancellation Fee' : currentLang === 'hi' ? 'अनुचित रद्दीकरण शुल्क' : 'गलत कैंसिलेशन पेनल्टी')}
             </p>
             <p className="text-[10px] text-zinc-500 font-mono mt-0.5">#{slip.orderId.split('-')[1]}</p>
           </button>
@@ -50,7 +122,7 @@ export default function SlipScanner({ onDraftDispute }) {
         {isScanning ? (
           <div className="py-12 text-center space-y-3">
             <div className="w-8 h-8 border-2 border-amber-400 border-t-transparent rounded-full animate-spin mx-auto" />
-            <p className="text-xs text-zinc-400 font-medium">Auditing statement against GPS logs...</p>
+            <p className="text-xs text-zinc-400 font-medium">{t.auditing}</p>
           </div>
         ) : (
           <>
@@ -67,31 +139,31 @@ export default function SlipScanner({ onDraftDispute }) {
               </div>
 
               <div className="text-right">
-                <span className="text-[11px] text-zinc-500 block">Settled</span>
+                <span className="text-[11px] text-zinc-500 block">{t.settled}</span>
                 <span className={`text-xl font-bold font-mono ${currentSlip.totalPaid < 0 ? 'text-rose-400' : 'text-zinc-100'}`}>
                   ₹{currentSlip.totalPaid}
                 </span>
-                <span className="text-[10px] text-zinc-500 font-mono block">Expected: ₹{currentSlip.expectedFairPay}</span>
+                <span className="text-[10px] text-zinc-500 font-mono block">{t.expected}{currentSlip.expectedFairPay}</span>
               </div>
             </div>
 
             {/* Line Items */}
             <div className="bg-zinc-950/70 rounded-2xl p-4 border border-zinc-800/80 text-xs space-y-2">
               <div className="flex justify-between text-zinc-300">
-                <span>Base pay</span>
+                <span>{t.basePay}</span>
                 <span className="font-mono text-zinc-200 font-medium">₹{currentSlip.basePay}</span>
               </div>
 
               <div className="flex justify-between text-zinc-300">
-                <span>Distance pay ({currentSlip.recordedDistanceKm} km recorded)</span>
+                <span>{t.distancePay} ({currentSlip.recordedDistanceKm} {t.recorded})</span>
                 <span className="font-mono text-zinc-200 font-medium">₹{currentSlip.distancePay || 0}</span>
               </div>
 
               {currentSlip.peakSurgeLogged !== undefined && (
                 <div className="flex justify-between text-zinc-300">
-                  <span>Weather surge</span>
+                  <span>{t.weatherSurge}</span>
                   <span className="font-mono text-rose-400 font-semibold">
-                    ₹{currentSlip.peakSurgeLogged} <span className="text-zinc-500 font-normal">(expected ₹20)</span>
+                    ₹{currentSlip.peakSurgeLogged} <span className="text-zinc-500 font-normal">{t.expectedSurge}</span>
                   </span>
                 </div>
               )}
@@ -108,10 +180,10 @@ export default function SlipScanner({ onDraftDispute }) {
             <div className="bg-rose-500/10 border border-rose-500/25 rounded-2xl p-4 space-y-2">
               <div className="flex items-center gap-2 text-rose-300 text-xs font-bold">
                 <AlertCircle className="w-4 h-4 text-rose-400 shrink-0" />
-                <span>Underpayment Detected: ₹{currentSlip.underpaidAmount} Shortchanged</span>
+                <span>{t.underpayDetected} ₹{currentSlip.underpaidAmount} {t.shortchanged}</span>
               </div>
               <div className="space-y-1 pl-6 text-xs text-zinc-300">
-                {currentSlip.anomalyFlags.map((flag, idx) => (
+                {getFlags(currentSlip).map((flag, idx) => (
                   <p key={idx} className="leading-relaxed opacity-90">• {flag}</p>
                 ))}
               </div>
@@ -123,7 +195,7 @@ export default function SlipScanner({ onDraftDispute }) {
               onClick={() => onDraftDispute(currentSlip)}
               className="w-full py-3.5 px-4 bg-zinc-100 hover:bg-white text-zinc-900 font-extrabold rounded-xl text-xs transition-all flex items-center justify-center gap-2 shadow-lg min-h-[44px] cursor-pointer active:scale-95"
             >
-              <span>Draft Dispute Appeal (Recover ₹{currentSlip.underpaidAmount})</span>
+              <span>{t.draftAppeal}{currentSlip.underpaidAmount} {t.recover}</span>
               <ArrowRight className="w-3.5 h-3.5" />
             </button>
           </>

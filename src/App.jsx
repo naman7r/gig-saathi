@@ -179,11 +179,15 @@ export default function App() {
             {/* In-Phone Daily Ticker */}
             <div className="px-4 py-2 bg-zinc-900/80 border-b border-zinc-800/80 flex items-center justify-between text-xs">
               <div>
-                <span className="text-zinc-500">Gross: </span>
+                <span className="text-zinc-500">
+                  {currentLang === 'hi' ? 'सकल कमाई: ' : currentLang === 'hinglish' ? 'कुल कमाई: ' : 'Gross: '}
+                </span>
                 <span className="font-mono font-bold text-zinc-200">₹1,120</span>
               </div>
               <div className="text-right">
-                <span className="text-zinc-500">Net Take-Home: </span>
+                <span className="text-zinc-500">
+                  {currentLang === 'hi' ? 'शुद्ध बचत: ' : currentLang === 'hinglish' ? 'जेब में बचत: ' : 'Net Take-Home: '}
+                </span>
                 <span className="font-mono font-bold text-emerald-400">₹690</span>
                 <span className="text-[10px] text-zinc-500 ml-1 font-mono">(₹69/hr)</span>
               </div>
@@ -215,32 +219,40 @@ export default function App() {
 
             {/* In-Phone Scrollable Screen Body */}
             <div className="flex-1 px-4 pb-20 overflow-y-auto space-y-3">
-              {activeTab === 'trips' && <OrderEvaluator />}
-              {activeTab === 'audits' && <SlipScanner onDraftDispute={handleDraftDisputeFromSlip} />}
+              {activeTab === 'trips' && <OrderEvaluator currentLang={currentLang} />}
+              {activeTab === 'audits' && <SlipScanner currentLang={currentLang} onDraftDispute={handleDraftDisputeFromSlip} />}
               {activeTab === 'shield' && (
                 <div className="space-y-3">
-                  <SocialSecurityShield />
-                  <DocumentHelper />
-                  <SafetyGuardian />
+                  <SocialSecurityShield currentLang={currentLang} />
+                  <DocumentHelper currentLang={currentLang} />
+                  <SafetyGuardian currentLang={currentLang} />
                 </div>
               )}
-              {activeTab === 'voice' && <VoiceShiftLogger />}
-              {activeTab === 'dispute' && <DisputeDrafter prefilledSlip={prefilledSlip} />}
+              {activeTab === 'voice' && <VoiceShiftLogger currentLang={currentLang} />}
+              {activeTab === 'dispute' && <DisputeDrafter currentLang={currentLang} prefilledSlip={prefilledSlip} />}
             </div>
 
             {/* In-Phone Floating Ask AI Pill */}
             <div className="absolute bottom-4 left-0 right-0 px-4 z-40">
               <button
                 onClick={() => setShowAskModal(true)}
-                className="w-full bg-zinc-900/95 border border-zinc-700/80 text-zinc-200 py-2.5 px-3 rounded-2xl shadow-xl flex items-center justify-between text-xs font-medium"
+                className="w-full bg-zinc-900/95 border border-zinc-700/80 text-zinc-200 py-2.5 px-3 rounded-2xl shadow-xl flex items-center justify-between text-xs font-medium cursor-pointer"
               >
-                <div className="flex items-center gap-2">
-                  <div className="w-6 h-6 rounded-lg bg-amber-500/20 text-amber-400 flex items-center justify-center text-xs">
+                <div className="flex items-center gap-2 truncate">
+                  <div className="w-6 h-6 rounded-lg bg-amber-500/20 text-amber-400 flex items-center justify-center text-xs shrink-0">
                     🤖
                   </div>
-                  <span className="text-zinc-300 text-[11px]">Ask Saathi in Hindi or English...</span>
+                  <span className="text-zinc-300 text-[11px] truncate">
+                    {currentLang === 'en' 
+                      ? 'Ask Saathi AI for instant legal advice...' 
+                      : currentLang === 'hi' 
+                        ? 'साथी AI से सरकारी नियम या अधिकार पूछें...' 
+                        : 'साथी AI से हिंदी या Hinglish में पूछें...'}
+                  </span>
                 </div>
-                <span className="text-[10px] bg-zinc-800 px-2 py-0.5 rounded-full text-zinc-400">Ask AI</span>
+                <span className="text-[10px] bg-zinc-800 px-2 py-0.5 rounded-full text-zinc-300 font-semibold shrink-0">
+                  {currentLang === 'en' ? 'Ask AI' : currentLang === 'hi' ? 'पूछें' : 'पूछो'}
+                </span>
               </button>
             </div>
 
