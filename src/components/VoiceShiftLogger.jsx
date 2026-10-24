@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { Mic, MicOff, Sparkles, TrendingUp, DollarSign, Fuel, Wrench, AlertCircle, ArrowUpRight } from 'lucide-react';
+import React, { useState } from 'react';
+import { Mic, MicOff, DollarSign, Fuel, ArrowUpRight } from 'lucide-react';
 import { VOICE_SAMPLE_PRESETS, HISTORICAL_SHIFTS } from '../data/mockData';
 
 export default function VoiceShiftLogger() {
@@ -16,11 +16,9 @@ export default function VoiceShiftLogger() {
     trueHourlyRate: 69.0
   });
 
-  // Simple Hinglish Parser Simulator for live voice / text input
   const parseHinglishInput = (text) => {
     setSpokenText(text);
 
-    // Regex extraction for numbers and keywords
     const ordersMatch = text.match(/(\d+)\s*(order|delivery|orders)/i);
     const grossMatch = text.match(/(₹|rs\.?|inr)?\s*(\d+[\d,]*)\s*(mile|bane|mile hain|rupaye|gross)/i);
     const fuelMatch = text.match(/(₹|rs\.?|inr)?\s*(\d+[\d,]*)\s*(ka|ka petrol|petrol|diesel)/i);
@@ -32,7 +30,7 @@ export default function VoiceShiftLogger() {
     const fuel = fuelMatch ? parseInt(fuelMatch[2].replace(',', ''), 10) : (text.includes('140') ? 140 : (text.includes('210') ? 210 : 290));
     const deductions = penaltyMatch ? parseInt(penaltyMatch[2].replace(',', ''), 10) : (text.includes('60') ? 60 : 0);
     const hours = hoursMatch ? parseInt(hoursMatch[1], 10) : (text.includes('4') ? 4 : 10);
-    const bikeWear = Math.round(orders * 5); // ₹5 wear per order buffer
+    const bikeWear = Math.round(orders * 5);
 
     const net = gross - fuel - bikeWear - deductions;
     const hourly = hours > 0 ? parseFloat((net / hours).toFixed(1)) : 0;
@@ -52,13 +50,13 @@ export default function VoiceShiftLogger() {
   const handleStartMic = () => {
     const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
     if (!SpeechRecognition) {
-      alert("Speech Recognition not natively supported in this browser. You can click any of the 1-tap Hinglish voice presets below!");
+      alert("Speech Recognition not supported in this browser. Tap any of the Hinglish presets below!");
       return;
     }
 
     try {
       const recognition = new SpeechRecognition();
-      recognition.lang = 'hi-IN'; // Hindi (India)
+      recognition.lang = 'hi-IN';
       recognition.continuous = false;
       recognition.interimResults = false;
 
@@ -74,152 +72,127 @@ export default function VoiceShiftLogger() {
       recognition.start();
     } catch (e) {
       setIsListening(false);
-      alert("Mic permission needed or not available. Use the 1-tap voice presets for instant testing.");
     }
   };
 
   return (
     <div className="space-y-4">
-      {/* Header */}
-      <div className="bg-gradient-to-r from-slate-900 to-slate-800 border border-slate-800 rounded-2xl p-4">
-        <div className="flex items-center gap-2">
-          <div className="w-8 h-8 rounded-lg bg-amber-500/20 border border-amber-500/40 flex items-center justify-center text-amber-400">
-            <Mic className="w-4 h-4" />
-          </div>
-          <div>
-            <h2 className="text-sm font-bold text-slate-100 flex items-center gap-2">
-              Hinglish Voice Shift Logger
-              <span className="text-[10px] bg-amber-500/10 text-amber-400 border border-amber-500/30 px-1.5 py-0.5 rounded font-mono font-bold">
-                ZERO-TYPING FRICTION
-              </span>
-            </h2>
-            <p className="text-xs text-slate-400">
-              Speak naturally in Hindi/Punjabi. AI calculates true take-home after fuel and bike depreciation.
-            </p>
-          </div>
-        </div>
-
-        {/* 1-Tap Preset Chips */}
-        <div className="mt-3 pt-3 border-t border-slate-800 space-y-1.5">
-          <span className="text-[11px] font-semibold text-slate-400 uppercase tracking-wider">
-            1-Tap Voice Simulation Presets:
-          </span>
-          <div className="flex flex-wrap gap-1.5">
-            {VOICE_SAMPLE_PRESETS.map((preset, idx) => (
-              <button
-                key={idx}
-                onClick={() => parseHinglishInput(preset.text)}
-                className={`text-xs px-2.5 py-1 rounded-lg border transition-all ${
-                  spokenText === preset.text
-                    ? 'bg-amber-500 text-black font-bold border-amber-400'
-                    : 'bg-slate-950/80 text-slate-300 border-slate-800 hover:border-slate-700'
-                }`}
-              >
-                "{preset.label}"
-              </button>
-            ))}
-          </div>
-        </div>
-      </div>
-
-      {/* Mic Input Cockpit */}
-      <div className="bg-[#0F172A] border border-slate-700/80 rounded-2xl p-4 shadow-xl space-y-4">
-        {/* Active Speech Bar */}
-        <div className="flex items-center gap-3 bg-slate-950 p-3 rounded-xl border border-slate-800">
+      {/* Speech Recorder Cockpit */}
+      <div className="bg-zinc-900/90 border border-zinc-800 rounded-3xl p-5 shadow-2xl space-y-4">
+        {/* Record trigger & transcribed text */}
+        <div className="flex items-center gap-3.5 bg-zinc-950/80 p-3.5 rounded-2xl border border-zinc-800/80">
           <button
             onClick={handleStartMic}
-            className={`w-12 h-12 rounded-xl flex items-center justify-center shrink-0 transition-all ${
+            className={`w-12 h-12 rounded-2xl flex items-center justify-center shrink-0 transition-all ${
               isListening
-                ? 'bg-red-500 text-white animate-pulse ring-4 ring-red-500/30'
-                : 'bg-amber-500 hover:bg-amber-400 text-black shadow-lg shadow-amber-500/20'
+                ? 'bg-rose-500 text-white animate-pulse ring-4 ring-rose-500/20'
+                : 'bg-amber-500 hover:bg-amber-400 text-black shadow-lg shadow-amber-500/20 font-bold'
             }`}
           >
             {isListening ? <MicOff className="w-5 h-5" /> : <Mic className="w-5 h-5" />}
           </button>
 
           <div className="flex-1 min-w-0">
-            <p className="text-[11px] font-mono text-slate-500">
-              {isListening ? 'Listening in Hindi / Punjabi...' : 'Recognized Voice Input:'}
-            </p>
-            <p className="text-xs text-slate-200 font-medium italic truncate mt-0.5">
+            <span className="text-[10px] font-mono text-zinc-500 block uppercase tracking-wider">
+              {isListening ? 'Listening (Hindi/Punjabi)...' : 'Voice Input Transcript'}
+            </span>
+            <p className="text-xs text-zinc-200 font-medium italic truncate mt-0.5">
               "{spokenText}"
             </p>
           </div>
         </div>
 
-        {/* Real Take-Home Financial Metrics */}
-        <div className="grid grid-cols-2 gap-2.5">
-          <div className="bg-slate-950/90 p-3 rounded-xl border border-slate-800">
-            <span className="text-[11px] text-slate-400">Gross Platform Payout</span>
-            <div className="text-xl font-black font-mono text-slate-100 mt-0.5">
-              ₹{extractedData.grossPayout}
-            </div>
-            <span className="text-[10px] text-slate-500 font-mono">{extractedData.orders} deliveries completed</span>
-          </div>
-
-          <div className="bg-slate-950/90 p-3 rounded-xl border border-slate-800">
-            <span className="text-[11px] text-red-400">Total Operating Expenses</span>
-            <div className="text-xl font-black font-mono text-red-400 mt-0.5">
-              -₹{extractedData.fuelExpense + extractedData.bikeWear + extractedData.deductions}
-            </div>
-            <span className="text-[10px] text-slate-500 font-mono">
-              ₹{extractedData.fuelExpense} fuel + ₹{extractedData.bikeWear} wear
-            </span>
-          </div>
-
-          <div className="bg-emerald-950/40 p-3 rounded-xl border border-emerald-500/40 col-span-2 flex items-center justify-between">
-            <div>
-              <span className="text-xs text-emerald-300 font-bold uppercase tracking-wider">
-                True Take-Home Net Profit
-              </span>
-              <div className="text-2xl font-black font-mono text-emerald-400 mt-0.5">
-                ₹{extractedData.netTakeHome}
-              </div>
-              <p className="text-[11px] text-slate-300">
-                Effective Hourly Rate: <strong className="font-mono text-emerald-400">₹{extractedData.trueHourlyRate}/hr</strong> ({extractedData.hours} hrs)
-              </p>
-            </div>
-
-            <div className="text-right">
-              <span className={`text-[10px] font-bold px-2 py-1 rounded font-mono ${
-                extractedData.trueHourlyRate >= 85 ? 'bg-emerald-500/20 text-emerald-300' : 'bg-red-500/20 text-red-300'
-              }`}>
-                {extractedData.trueHourlyRate >= 85 ? '✓ Above Living Wage' : '⚠️ Below ₹85 Living Wage'}
-              </span>
-            </div>
+        {/* 1-Tap Presets */}
+        <div className="space-y-1.5">
+          <span className="text-[10px] font-semibold text-zinc-500 uppercase tracking-wider px-1">
+            Quick voice simulation presets:
+          </span>
+          <div className="flex flex-wrap gap-1.5">
+            {VOICE_SAMPLE_PRESETS.map((p, idx) => (
+              <button
+                key={idx}
+                onClick={() => parseHinglishInput(p.text)}
+                className={`text-xs px-3 py-1.5 rounded-xl border transition-all ${
+                  spokenText === p.text
+                    ? 'bg-zinc-800 text-zinc-100 font-bold border-zinc-600'
+                    : 'bg-zinc-950/70 text-zinc-400 border-zinc-800/80 hover:border-zinc-700'
+                }`}
+              >
+                {p.label}
+              </button>
+            ))}
           </div>
         </div>
 
-        {/* Historical Shift Comparison Intelligence */}
-        <div className="bg-slate-950/90 rounded-xl p-3 border border-slate-800 space-y-2">
-          <div className="flex items-center justify-between">
-            <span className="text-xs font-bold text-slate-200">
-              Shift Comparison Intelligence
-            </span>
-            <span className="text-[10px] text-amber-400 font-mono">IDinsight Grounded</span>
+        {/* Extracted Take-Home Grid */}
+        <div className="grid grid-cols-2 gap-2 pt-2">
+          <div className="bg-zinc-950/80 p-3.5 rounded-2xl border border-zinc-800/80">
+            <span className="text-[11px] text-zinc-500 block">Gross Payout</span>
+            <div className="text-xl font-bold font-mono text-zinc-100 mt-0.5">
+              ₹{extractedData.grossPayout}
+            </div>
+            <span className="text-[10px] text-zinc-500 font-mono">{extractedData.orders} deliveries completed</span>
           </div>
 
-          <div className="space-y-2 text-xs">
-            {HISTORICAL_SHIFTS.map((shift) => (
-              <div key={shift.id} className="p-2.5 rounded-lg bg-slate-900/60 border border-slate-800 flex items-center justify-between">
+          <div className="bg-zinc-950/80 p-3.5 rounded-2xl border border-zinc-800/80">
+            <span className="text-[11px] text-rose-400 block">Operating Costs</span>
+            <div className="text-xl font-bold font-mono text-rose-400 mt-0.5">
+              -₹{extractedData.fuelExpense + extractedData.bikeWear + extractedData.deductions}
+            </div>
+            <span className="text-[10px] text-zinc-500 font-mono">
+              ₹{extractedData.fuelExpense} fuel • ₹{extractedData.bikeWear} wear
+            </span>
+          </div>
+
+          <div className="bg-emerald-950/20 p-4 rounded-2xl border border-emerald-500/30 col-span-2 flex items-center justify-between">
+            <div>
+              <span className="text-xs text-emerald-400 font-bold uppercase tracking-wider block">
+                Real Net Take-Home
+              </span>
+              <div className="text-2xl font-bold font-mono text-emerald-400 mt-0.5">
+                ₹{extractedData.netTakeHome}
+              </div>
+              <span className="text-[11px] text-zinc-400 font-mono">
+                Effective rate: ₹{extractedData.trueHourlyRate}/hr ({extractedData.hours} hours logged)
+              </span>
+            </div>
+
+            <span className={`text-[10px] font-bold px-2 py-1 rounded-full font-mono ${
+              extractedData.trueHourlyRate >= 85 ? 'bg-emerald-500/20 text-emerald-300' : 'bg-rose-500/20 text-rose-300'
+            }`}>
+              {extractedData.trueHourlyRate >= 85 ? 'Above Min Wage' : 'Below Living Wage'}
+            </span>
+          </div>
+        </div>
+
+        {/* Shift Comparison */}
+        <div className="pt-2 border-t border-zinc-800/80 space-y-2">
+          <div className="flex items-center justify-between text-xs">
+            <span className="font-semibold text-zinc-300">Shift Efficiency Comparison</span>
+            <span className="text-zinc-500 font-mono text-[11px]">Last 48 hrs</span>
+          </div>
+
+          <div className="space-y-1.5 text-xs">
+            {HISTORICAL_SHIFTS.map((s) => (
+              <div key={s.id} className="p-2.5 rounded-xl bg-zinc-950/60 border border-zinc-800/60 flex items-center justify-between">
                 <div>
-                  <p className="font-semibold text-slate-200">{shift.period}</p>
-                  <p className="text-[11px] text-slate-400 font-mono">{shift.date} • {shift.orders} orders</p>
+                  <p className="font-medium text-zinc-200">{s.period.split('(')[0]}</p>
+                  <p className="text-[10px] text-zinc-500 font-mono">{s.date}</p>
                 </div>
                 <div className="text-right">
-                  <div className="font-mono font-bold text-slate-200">₹{shift.netTakeHome} net</div>
-                  <div className={`text-[11px] font-mono font-black ${
-                    shift.trueHourlyRate > 100 ? 'text-emerald-400' : 'text-red-400'
+                  <span className="font-mono text-zinc-200 block font-semibold">₹{s.netTakeHome} net</span>
+                  <span className={`text-[10px] font-mono font-bold ${
+                    s.trueHourlyRate > 100 ? 'text-emerald-400' : 'text-rose-400'
                   }`}>
-                    ₹{shift.trueHourlyRate}/hr
-                  </div>
+                    ₹{s.trueHourlyRate}/hr
+                  </span>
                 </div>
               </div>
             ))}
           </div>
 
-          <p className="text-[11px] text-amber-300/90 bg-amber-500/10 p-2 rounded border border-amber-500/20 mt-2">
-            💡 <strong>AI Observation:</strong> Dinner shifts net +275% higher true pay per hour because empty idling in heavy afternoon traffic cuts your take-home by half.
+          <p className="text-[11px] text-zinc-400 bg-zinc-950 p-3 rounded-xl border border-zinc-800/80 leading-relaxed">
+            💡 <strong>Observation:</strong> Dinner shifts net 275% higher per hour because idling in afternoon traffic consumes 45% more fuel for the same payout.
           </p>
         </div>
       </div>
