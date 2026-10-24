@@ -86,90 +86,90 @@ export default function SlipScanner({ onDraftDispute, currentLang = 'hinglish' }
   };
 
   return (
-    <div className="space-y-4">
+    <div className="space-y-4 text-slate-800 antialiased">
       {/* Slip Switcher */}
       <div className="grid grid-cols-2 gap-2">
         {MOCK_PAYOUT_SLIPS.map((slip, idx) => (
           <button
             key={slip.id}
             onClick={() => handleSelectSlip(idx)}
-            className={`p-3 rounded-2xl border text-left transition-all ${
+            className={`p-3 rounded-2xl border text-left transition-all cursor-pointer ${
               selectedIdx === idx
-                ? 'bg-zinc-800/90 border-zinc-600 text-zinc-100 shadow-sm'
-                : 'bg-zinc-950/60 border-zinc-800/60 hover:border-zinc-700 text-zinc-400'
+                ? 'bg-slate-900 border-slate-900 text-white shadow-xs'
+                : 'bg-white border-slate-200 hover:border-slate-300 text-slate-700'
             }`}
           >
-            <div className="flex items-center justify-between text-xs font-semibold">
-              <span className={slip.platform === 'Zomato' ? 'text-rose-400' : 'text-orange-400'}>
+            <div className="flex items-center justify-between text-xs font-bold">
+              <span className={slip.platform === 'Zomato' ? 'text-rose-500' : 'text-orange-500'}>
                 {slip.platform} Payout
               </span>
-              <span className="text-rose-400 font-mono text-[11px] font-bold">
+              <span className="text-rose-600 font-mono text-[11px] font-extrabold">
                 -₹{slip.underpaidAmount}
               </span>
             </div>
-            <p className="text-xs font-medium text-zinc-300 mt-1 truncate">
+            <p className="text-xs font-bold mt-1 truncate">
               {idx === 0 
                 ? (currentLang === 'en' ? 'Shaved Km & Rain Surge' : currentLang === 'hi' ? 'दूरी व वर्षा कटौती' : 'किमी घटाया व बारिश सर्ज गायब')
                 : (currentLang === 'en' ? 'Unfair Cancellation Fee' : currentLang === 'hi' ? 'अनुचित रद्दीकरण शुल्क' : 'गलत कैंसिलेशन पेनल्टी')}
             </p>
-            <p className="text-[10px] text-zinc-500 font-mono mt-0.5">#{slip.orderId.split('-')[1]}</p>
+            <p className="text-[10px] opacity-70 font-mono mt-0.5">#{slip.orderId.split('-')[1]}</p>
           </button>
         ))}
       </div>
 
       {/* Main Statement Audit Card */}
-      <div className="bg-zinc-900/90 border border-zinc-800 rounded-3xl p-5 shadow-2xl relative overflow-hidden space-y-4">
+      <div className="bg-white border border-slate-200/90 rounded-3xl p-5 shadow-xs relative overflow-hidden space-y-4">
         {isScanning ? (
           <div className="py-12 text-center space-y-3">
-            <div className="w-8 h-8 border-2 border-amber-400 border-t-transparent rounded-full animate-spin mx-auto" />
-            <p className="text-xs text-zinc-400 font-medium">{t.auditing}</p>
+            <div className="w-8 h-8 border-2 border-amber-500 border-t-transparent rounded-full animate-spin mx-auto" />
+            <p className="text-xs text-slate-500 font-semibold">{t.auditing}</p>
           </div>
         ) : (
           <>
             {/* Header */}
-            <div className="flex items-start justify-between pb-3 border-b border-zinc-800/80">
+            <div className="flex items-start justify-between pb-3.5 border-b border-slate-100">
               <div>
-                <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full ${
-                  currentSlip.platform === 'Zomato' ? 'bg-rose-500/15 text-rose-400' : 'bg-orange-500/15 text-orange-400'
+                <span className={`text-[10px] font-extrabold px-2 py-0.5 rounded-full ${
+                  currentSlip.platform === 'Zomato' ? 'bg-rose-50 text-rose-700 border border-rose-200' : 'bg-orange-50 text-orange-700 border border-orange-200'
                 }`}>
                   {currentSlip.platform} Trip Payout
                 </span>
-                <h3 className="text-sm font-bold text-zinc-200 mt-1.5">{currentSlip.restaurant}</h3>
-                <p className="text-xs text-zinc-400">{currentSlip.customerLoc}</p>
+                <h3 className="text-sm font-bold text-slate-900 mt-1.5">{currentSlip.restaurant}</h3>
+                <p className="text-xs text-slate-500">{currentSlip.customerLoc}</p>
               </div>
 
               <div className="text-right">
-                <span className="text-[11px] text-zinc-500 block">{t.settled}</span>
-                <span className={`text-xl font-bold font-mono ${currentSlip.totalPaid < 0 ? 'text-rose-400' : 'text-zinc-100'}`}>
+                <span className="text-[10px] text-slate-400 block font-semibold">{t.settled}</span>
+                <span className={`text-xl font-extrabold font-mono ${currentSlip.totalPaid < 0 ? 'text-rose-600' : 'text-slate-900'}`}>
                   ₹{currentSlip.totalPaid}
                 </span>
-                <span className="text-[10px] text-zinc-500 font-mono block">{t.expected}{currentSlip.expectedFairPay}</span>
+                <span className="text-[10px] text-slate-500 font-mono block font-medium">{t.expected}{currentSlip.expectedFairPay}</span>
               </div>
             </div>
 
             {/* Line Items */}
-            <div className="bg-zinc-950/70 rounded-2xl p-4 border border-zinc-800/80 text-xs space-y-2">
-              <div className="flex justify-between text-zinc-300">
+            <div className="bg-slate-50 rounded-2xl p-4 border border-slate-200/80 text-xs space-y-2">
+              <div className="flex justify-between text-slate-600">
                 <span>{t.basePay}</span>
-                <span className="font-mono text-zinc-200 font-medium">₹{currentSlip.basePay}</span>
+                <span className="font-mono text-slate-900 font-bold">₹{currentSlip.basePay}</span>
               </div>
 
-              <div className="flex justify-between text-zinc-300">
+              <div className="flex justify-between text-slate-600">
                 <span>{t.distancePay} ({currentSlip.recordedDistanceKm} {t.recorded})</span>
-                <span className="font-mono text-zinc-200 font-medium">₹{currentSlip.distancePay || 0}</span>
+                <span className="font-mono text-slate-900 font-bold">₹{currentSlip.distancePay || 0}</span>
               </div>
 
               {currentSlip.peakSurgeLogged !== undefined && (
-                <div className="flex justify-between text-zinc-300">
+                <div className="flex justify-between text-slate-600">
                   <span>{t.weatherSurge}</span>
-                  <span className="font-mono text-rose-400 font-semibold">
-                    ₹{currentSlip.peakSurgeLogged} <span className="text-zinc-500 font-normal">{t.expectedSurge}</span>
+                  <span className="font-mono text-rose-600 font-bold">
+                    ₹{currentSlip.peakSurgeLogged} <span className="text-slate-400 font-normal">{t.expectedSurge}</span>
                   </span>
                 </div>
               )}
 
               {currentSlip.penaltyDeduction && (
-                <div className="flex justify-between text-rose-400 font-semibold">
+                <div className="flex justify-between text-rose-600 font-bold">
                   <span>{currentSlip.penaltyReason}</span>
                   <span className="font-mono">₹{currentSlip.penaltyDeduction}</span>
                 </div>
@@ -177,12 +177,12 @@ export default function SlipScanner({ onDraftDispute, currentLang = 'hinglish' }
             </div>
 
             {/* Audit Anomaly Alert */}
-            <div className="bg-rose-500/10 border border-rose-500/25 rounded-2xl p-4 space-y-2">
-              <div className="flex items-center gap-2 text-rose-300 text-xs font-bold">
-                <AlertCircle className="w-4 h-4 text-rose-400 shrink-0" />
+            <div className="bg-rose-50 border border-rose-200 rounded-2xl p-4 space-y-2 text-rose-900">
+              <div className="flex items-center gap-2 text-xs font-bold">
+                <AlertCircle className="w-4 h-4 text-rose-600 shrink-0" />
                 <span>{t.underpayDetected} ₹{currentSlip.underpaidAmount} {t.shortchanged}</span>
               </div>
-              <div className="space-y-1 pl-6 text-xs text-zinc-300">
+              <div className="space-y-1 pl-6 text-xs text-slate-700">
                 {getFlags(currentSlip).map((flag, idx) => (
                   <p key={idx} className="leading-relaxed opacity-90">• {flag}</p>
                 ))}
@@ -193,10 +193,10 @@ export default function SlipScanner({ onDraftDispute, currentLang = 'hinglish' }
             <button
               type="button"
               onClick={() => onDraftDispute(currentSlip)}
-              className="w-full py-3.5 px-4 bg-zinc-100 hover:bg-white text-zinc-900 font-extrabold rounded-xl text-xs transition-all flex items-center justify-center gap-2 shadow-lg min-h-[44px] cursor-pointer active:scale-95"
+              className="w-full py-3 px-4 bg-slate-900 hover:bg-slate-800 text-white font-extrabold rounded-xl text-xs transition-all flex items-center justify-center gap-2 shadow-xs min-h-[44px] cursor-pointer active:scale-95"
             >
               <span>{t.draftAppeal}{currentSlip.underpaidAmount} {t.recover}</span>
-              <ArrowRight className="w-3.5 h-3.5" />
+              <ArrowRight className="w-3.5 h-3.5 text-emerald-400" />
             </button>
           </>
         )}

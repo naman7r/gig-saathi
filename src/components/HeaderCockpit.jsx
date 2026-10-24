@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { AlertTriangle, ShieldAlert, PhoneCall, Droplets, Sun, CloudRain, Thermometer, ChevronDown, Plus } from 'lucide-react';
+import { AlertTriangle, ShieldAlert, PhoneCall, Droplets, Sun, CloudRain, Thermometer, ChevronDown, Plus, Bike } from 'lucide-react';
 import { RIDER_PROFILE } from '../data/mockData';
 
 const TRANSLATIONS = {
@@ -64,36 +64,36 @@ export default function HeaderCockpit({ currentLang = 'hinglish', setCurrentLang
   ];
 
   return (
-    <header className="px-5 pt-4 pb-3 border-b border-zinc-800/80 bg-zinc-950/80 backdrop-blur-xl sticky top-0 z-30 space-y-3">
+    <header className="px-4 pt-3.5 pb-3 border-b border-slate-200/90 bg-white/95 backdrop-blur-xl sticky top-0 z-30 space-y-2.5 text-slate-800 shadow-xs">
       {/* Primary Nav Row */}
       <div className="flex items-center justify-between">
-        <div className="flex items-center gap-2.5">
-          <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-amber-500 to-amber-700 flex items-center justify-center text-lg shadow-md shadow-amber-500/20">
-            🛵
+        <div className="flex items-center gap-2">
+          <div className="w-8 h-8 rounded-xl bg-slate-900 text-emerald-400 flex items-center justify-center shadow-xs ring-1 ring-slate-800 shrink-0">
+            <Bike className="w-4 h-4" />
           </div>
           <div>
             <div className="flex items-center gap-1.5">
-              <h1 className="font-bold text-zinc-100 text-sm tracking-tight">GigSaathi</h1>
-              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+              <h1 className="font-extrabold text-slate-900 text-xs tracking-tight">GigSaathi</h1>
+              <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
             </div>
-            <p className="text-[11px] text-zinc-400 font-medium">
+            <p className="text-[10px] text-slate-500 font-medium truncate max-w-[150px]">
               {RIDER_PROFILE.name} • {RIDER_PROFILE.city.split('(')[0]}
             </p>
           </div>
         </div>
 
         {/* Right actions: Language pill + SOS */}
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-1.5">
           {/* Segmented language pill */}
-          <div className="flex bg-zinc-900 border border-zinc-800 rounded-full p-0.5 text-[11px] font-medium">
+          <div className="flex bg-slate-100 border border-slate-200 rounded-full p-0.5 text-[10px] font-medium shadow-inner">
             {languages.map((l) => (
               <button
                 key={l.code}
                 onClick={() => setCurrentLang(l.code)}
-                className={`px-2.5 py-1 rounded-full transition-all ${
+                className={`px-2 py-0.5 rounded-full transition-all ${
                   currentLang === l.code
-                    ? 'bg-zinc-800 text-zinc-100 font-semibold shadow-sm'
-                    : 'text-zinc-500 hover:text-zinc-300'
+                    ? 'bg-slate-900 text-white font-bold shadow-xs'
+                    : 'text-slate-600 hover:text-slate-900'
                 }`}
               >
                 {l.label}
@@ -104,14 +104,14 @@ export default function HeaderCockpit({ currentLang = 'hinglish', setCurrentLang
           {/* SOS button */}
           <button
             onClick={() => setSosActive(!sosActive)}
-            className={`p-2 rounded-full border transition-all ${
+            className={`p-1.5 rounded-full border transition-all ${
               sosActive
-                ? 'bg-rose-600 text-white border-rose-500 animate-pulse'
-                : 'bg-zinc-900 border-zinc-800 text-zinc-400 hover:text-rose-400'
+                ? 'bg-rose-600 text-white border-rose-600 shadow-sm'
+                : 'bg-rose-50 border-rose-200 text-rose-600 hover:bg-rose-100'
             }`}
             title="Emergency SOS"
           >
-            <ShieldAlert className="w-4 h-4" />
+            <ShieldAlert className="w-3.5 h-3.5" />
           </button>
         </div>
       </div>
@@ -119,39 +119,39 @@ export default function HeaderCockpit({ currentLang = 'hinglish', setCurrentLang
       {/* Interactive Weather & Hydration Pill */}
       <button 
         onClick={() => setWeatherExpanded(!weatherExpanded)}
-        className="w-full bg-amber-500/10 hover:bg-amber-500/15 border border-amber-500/25 rounded-xl px-3 py-2 flex items-center justify-between text-xs text-amber-300 transition-colors cursor-pointer text-left"
+        className="w-full bg-amber-50/80 hover:bg-amber-100/80 border border-amber-200/80 rounded-xl px-3 py-1.5 flex items-center justify-between text-xs text-amber-900 transition-colors cursor-pointer text-left shadow-xs"
       >
         <div className="flex items-center gap-2 truncate">
-          <Thermometer className="w-3.5 h-3.5 text-amber-400 shrink-0" />
-          <span className="truncate text-[11px] font-medium">
+          <Thermometer className="w-3.5 h-3.5 text-amber-600 shrink-0" />
+          <span className="truncate text-[11px] font-semibold">
             {t.weatherPill}
           </span>
         </div>
-        <ChevronDown className={`w-3.5 h-3.5 text-amber-400 shrink-0 transition-transform ${weatherExpanded ? 'rotate-180' : ''}`} />
+        <ChevronDown className={`w-3.5 h-3.5 text-amber-600 shrink-0 transition-transform ${weatherExpanded ? 'rotate-180' : ''}`} />
       </button>
 
       {/* Expanded Quick Weather & Hydration Mini-Drawer */}
       {weatherExpanded && (
-        <div className="bg-zinc-900/95 border border-zinc-800 rounded-2xl p-3.5 space-y-3 text-xs animate-in fade-in slide-in-from-top-1 text-zinc-200">
+        <div className="bg-white border border-slate-200 rounded-2xl p-3.5 space-y-3 text-xs animate-in fade-in slide-in-from-top-1 text-slate-800 shadow-lg">
           <div className="flex items-center justify-between">
             <div>
-              <span className="text-[10px] text-zinc-400 uppercase font-mono block">{t.currentWeather}</span>
-              <span className="text-base font-extrabold text-amber-400 font-mono">{t.weatherDesc}</span>
-              <span className="text-[10px] text-zinc-400 ml-1.5">{t.stats}</span>
+              <span className="text-[10px] text-slate-400 uppercase font-mono font-bold block">{t.currentWeather}</span>
+              <span className="text-base font-extrabold text-amber-600 font-mono">{t.weatherDesc}</span>
+              <span className="text-[10px] text-slate-500 ml-1.5">{t.stats}</span>
             </div>
             <div className="text-right">
-              <span className="text-[10px] text-zinc-400 block font-mono">{t.surgeForecast}</span>
-              <span className="text-xs font-bold text-emerald-400 font-mono">{t.surgeTime}</span>
+              <span className="text-[10px] text-slate-400 block font-mono font-bold">{t.surgeForecast}</span>
+              <span className="text-xs font-bold text-emerald-600 font-mono">{t.surgeTime}</span>
             </div>
           </div>
 
           {/* Quick Water Button */}
-          <div className="flex items-center justify-between bg-zinc-950 p-2.5 rounded-xl border border-zinc-800">
+          <div className="flex items-center justify-between bg-blue-50/60 p-2.5 rounded-xl border border-blue-100">
             <div className="flex items-center gap-2">
-              <Droplets className="w-4 h-4 text-blue-400" />
+              <Droplets className="w-4 h-4 text-blue-500" />
               <div>
-                <span className="font-semibold text-zinc-200 block text-[11px]">{t.waterIntake} {glasses}/8</span>
-                <span className="text-[10px] text-zinc-400">{glasses * 250} {t.glassesConsumed}</span>
+                <span className="font-bold text-slate-800 block text-[11px]">{t.waterIntake} {glasses}/8</span>
+                <span className="text-[10px] text-slate-500">{glasses * 250} {t.glassesConsumed}</span>
               </div>
             </div>
             <button
@@ -159,7 +159,7 @@ export default function HeaderCockpit({ currentLang = 'hinglish', setCurrentLang
                 e.stopPropagation();
                 if (glasses < 12) setGlasses(g => g + 1);
               }}
-              className="px-2.5 py-1 bg-blue-600 hover:bg-blue-500 text-white rounded-lg text-[11px] font-bold flex items-center gap-1 active:scale-95"
+              className="px-2.5 py-1 bg-blue-600 hover:bg-blue-700 text-white rounded-lg text-[11px] font-bold flex items-center gap-1 active:scale-95 shadow-xs"
             >
               <Plus className="w-3 h-3" />
               <span>{t.drinkBtn}</span>
@@ -170,21 +170,21 @@ export default function HeaderCockpit({ currentLang = 'hinglish', setCurrentLang
 
       {/* SOS Active Banner if triggered */}
       {sosActive && (
-        <div className="bg-rose-950/95 border-2 border-rose-500 rounded-2xl p-3.5 text-xs text-rose-200 flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 animate-fadeIn">
+        <div className="bg-rose-50 border-2 border-rose-300 rounded-2xl p-3.5 text-xs text-rose-900 flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 animate-fadeIn shadow-md">
           <div>
-            <p className="font-extrabold text-white text-sm flex items-center gap-1.5">
-              <span>🚨</span>
+            <p className="font-extrabold text-rose-950 text-sm flex items-center gap-1.5">
+              <AlertTriangle className="w-4 h-4 text-rose-600 shrink-0" />
               <span>{t.sosTitle}</span>
             </p>
-            <p className="text-[11px] text-rose-300 mt-0.5">
+            <p className="text-[11px] text-rose-700 mt-0.5">
               {t.sosSub}
             </p>
           </div>
           
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-2 pt-1 sm:pt-0">
             <a
               href="tel:112"
-              className="px-3.5 py-2 bg-rose-600 hover:bg-rose-500 text-white font-extrabold rounded-xl text-xs flex items-center gap-1.5 shadow-md min-h-[44px]"
+              className="px-3.5 py-2 bg-rose-600 hover:bg-rose-700 text-white font-extrabold rounded-xl text-xs flex items-center gap-1.5 shadow-xs min-h-[44px]"
             >
               <PhoneCall className="w-3.5 h-3.5" />
               <span>{t.call112}</span>
@@ -193,7 +193,7 @@ export default function HeaderCockpit({ currentLang = 'hinglish', setCurrentLang
             <button
               type="button"
               onClick={() => setSosActive(false)}
-              className="px-3 py-2 bg-zinc-900 hover:bg-zinc-800 text-zinc-300 rounded-xl text-xs font-semibold min-h-[44px]"
+              className="px-3 py-2 bg-white border border-rose-200 text-rose-700 hover:bg-rose-100 rounded-xl text-xs font-semibold min-h-[44px]"
             >
               {t.cancel}
             </button>

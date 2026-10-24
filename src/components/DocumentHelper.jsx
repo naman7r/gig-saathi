@@ -43,13 +43,13 @@ export default function DocumentHelper({ onNotify }) {
   ]);
 
   return (
-    <div className="bg-zinc-900/90 border border-zinc-800 rounded-3xl p-5 shadow-2xl space-y-4">
-      <div className="flex items-center justify-between pb-3 border-b border-zinc-800/80">
+    <div className="bg-white border border-slate-200/90 rounded-3xl p-5 shadow-xs space-y-4 text-slate-800 antialiased">
+      <div className="flex items-center justify-between pb-3 border-b border-slate-100">
         <div>
-          <span className="text-[10px] font-bold text-zinc-500 uppercase tracking-wider block">Document Vault</span>
-          <h3 className="text-sm font-bold text-zinc-200 mt-0.5">Welfare & Compliance Readiness</h3>
+          <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider block">Document Vault</span>
+          <h3 className="text-sm font-bold text-slate-900 mt-0.5">Welfare & Compliance Readiness</h3>
         </div>
-        <span className="text-xs bg-emerald-500/15 text-emerald-400 border border-emerald-500/25 px-2.5 py-1 rounded-full font-mono font-bold">
+        <span className="text-xs bg-emerald-50 text-emerald-700 border border-emerald-200 px-2.5 py-0.5 rounded-full font-mono font-bold">
           4/4 Ready
         </span>
       </div>
@@ -60,30 +60,30 @@ export default function DocumentHelper({ onNotify }) {
             key={doc.id}
             className={`p-3 rounded-2xl border text-xs transition-all ${
               doc.status === 'EXPIRING_SOON'
-                ? 'bg-amber-500/10 border-amber-500/30'
-                : 'bg-zinc-950/70 border-zinc-800/80'
+                ? 'bg-amber-50/80 border-amber-200'
+                : 'bg-slate-50 border-slate-200/80'
             }`}
           >
             <div className="flex items-start justify-between">
               <div>
-                <div className="flex items-center gap-1.5 font-semibold text-zinc-200">
+                <div className="flex items-center gap-1.5 font-bold text-slate-900">
                   <span>{doc.name}</span>
                   {doc.status === 'EXPIRING_SOON' ? (
-                    <span className="text-[10px] text-amber-400 font-normal">⚠️ Action needed</span>
+                    <span className="text-[10px] text-amber-800 font-semibold bg-amber-100 px-1.5 py-0.5 rounded">Action needed</span>
                   ) : (
-                    <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" />
+                    <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600" />
                   )}
                 </div>
-                <p className="text-[11px] text-zinc-400 font-mono mt-0.5">{doc.number}</p>
+                <p className="text-[11px] text-slate-500 font-mono mt-0.5">{doc.number}</p>
               </div>
               <span className={`text-[10px] font-mono ${
-                doc.status === 'EXPIRING_SOON' ? 'text-amber-400 font-bold' : 'text-zinc-500'
+                doc.status === 'EXPIRING_SOON' ? 'text-amber-800 font-bold' : 'text-slate-400 font-medium'
               }`}>
                 {doc.expiry}
               </span>
             </div>
 
-            <div className="mt-2 pt-2 border-t border-zinc-800/60 flex justify-between text-[11px] text-zinc-500">
+            <div className="mt-2 pt-2 border-t border-slate-200/60 flex justify-between text-[11px] text-slate-500">
               <span>{doc.schemeImpact}</span>
               <span>{doc.linkedMobile}</span>
             </div>
@@ -97,9 +97,9 @@ export default function DocumentHelper({ onNotify }) {
             onNotify("Scanner opened. Upload your RC, Insurance, or Health Card for automated OCR verification.", "info");
           }
         }}
-        className="w-full py-2.5 bg-zinc-800 hover:bg-zinc-700 text-zinc-200 border border-zinc-700/80 rounded-xl text-xs font-semibold transition-all flex items-center justify-center gap-2 cursor-pointer active:scale-95"
+        className="w-full py-2.5 bg-slate-900 hover:bg-slate-800 text-white rounded-xl text-xs font-bold transition-all flex items-center justify-center gap-2 cursor-pointer active:scale-95 shadow-xs"
       >
-        <UploadCloud className="w-3.5 h-3.5 text-zinc-400" />
+        <UploadCloud className="w-3.5 h-3.5 text-emerald-400" />
         <span>Scan & Upload New Document</span>
       </button>
     </div>

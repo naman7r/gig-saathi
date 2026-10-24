@@ -73,78 +73,78 @@ export default function SocialSecurityShield({ currentLang = 'hinglish' }) {
   const t = TRANSLATIONS[currentLang] || TRANSLATIONS.en;
 
   return (
-    <div className="space-y-4">
+    <div className="space-y-4 text-slate-800 antialiased">
       {/* 90-Day Statutory Progress Card */}
-      <div className="bg-zinc-900/90 border border-zinc-800 rounded-3xl p-5 shadow-2xl space-y-4">
+      <div className="bg-white border border-slate-200/90 rounded-3xl p-5 shadow-xs space-y-4">
         <div className="flex items-start justify-between">
           <div>
-            <span className="text-[10px] font-bold text-emerald-400 uppercase tracking-wider block">
+            <span className="text-[10px] font-bold text-emerald-700 uppercase tracking-wider block">
               {t.statute}
             </span>
-            <h3 className="text-base font-bold text-zinc-100 mt-1">
+            <h3 className="text-base font-extrabold text-slate-900 mt-1">
               {t.dayProgress} {currentDays} {t.of} {targetDays} {t.onPlatform}
             </h3>
-            <p className="text-xs text-zinc-400 mt-0.5">
-              <strong className="text-amber-400 font-semibold">{t.shiftsLeft} {daysLeft} {t.moreShifts}</strong> {t.unlockDesc}
+            <p className="text-xs text-slate-600 mt-0.5">
+              <strong className="text-amber-800 font-bold">{t.shiftsLeft} {daysLeft} {t.moreShifts}</strong> {t.unlockDesc}
             </p>
           </div>
 
           <div className="text-right">
-            <span className="text-2xl font-bold font-mono text-emerald-400">{progressPercent}%</span>
-            <span className="text-[10px] text-zinc-500 block">{t.complete}</span>
+            <span className="text-2xl font-extrabold font-mono text-emerald-600">{progressPercent}%</span>
+            <span className="text-[10px] text-slate-400 block font-semibold">{t.complete}</span>
           </div>
         </div>
 
         {/* Minimal Progress Bar */}
         <div className="space-y-1.5">
-          <div className="w-full bg-zinc-950 rounded-full h-2.5 p-0.5 border border-zinc-800 overflow-hidden">
+          <div className="w-full bg-slate-100 rounded-full h-2.5 p-0.5 border border-slate-200 overflow-hidden">
             <div
-              className="bg-emerald-400 h-full rounded-full transition-all duration-700 shadow-sm"
+              className="bg-emerald-500 h-full rounded-full transition-all duration-700 shadow-sm"
               style={{ width: `${progressPercent}%` }}
             />
           </div>
-          <div className="flex justify-between text-[10px] text-zinc-500 font-mono">
+          <div className="flex justify-between text-[10px] text-slate-400 font-mono">
             <span>{t.day1}</span>
-            <span className="text-amber-400 font-medium">{t.activeDay}</span>
+            <span className="text-amber-700 font-bold">{t.activeDay}</span>
             <span>{t.targetDay}</span>
           </div>
         </div>
 
         {/* Benefits Unlocking */}
-        <div className="grid grid-cols-2 gap-2.5 pt-2">
-          <div className="p-3 rounded-2xl bg-zinc-950/80 border border-zinc-800 space-y-1">
-            <div className="flex items-center gap-1.5 text-emerald-400 text-xs font-bold">
-              <HeartPulse className="w-3.5 h-3.5" />
+        <div className="grid grid-cols-2 gap-2.5 pt-1">
+          <div className="p-3 rounded-2xl bg-emerald-50/60 border border-emerald-100 space-y-1">
+            <div className="flex items-center gap-1.5 text-emerald-800 text-xs font-bold">
+              <HeartPulse className="w-3.5 h-3.5 text-emerald-600" />
               <span>{t.benefit1Title}</span>
             </div>
-            <p className="text-[11px] text-zinc-400 leading-snug">
+            <p className="text-[11px] text-slate-600 leading-snug">
               {t.benefit1Desc}
             </p>
           </div>
 
-          <div className="p-3 rounded-2xl bg-zinc-950/80 border border-zinc-800 space-y-1">
-            <div className="flex items-center gap-1.5 text-blue-400 text-xs font-bold">
-              <Award className="w-3.5 h-3.5" />
+          <div className="p-3 rounded-2xl bg-blue-50/60 border border-blue-100 space-y-1">
+            <div className="flex items-center gap-1.5 text-blue-800 text-xs font-bold">
+              <Award className="w-3.5 h-3.5 text-blue-600" />
               <span>{t.benefit2Title}</span>
             </div>
-            <p className="text-[11px] text-zinc-400 leading-snug">
+            <p className="text-[11px] text-slate-600 leading-snug">
               {t.benefit2Desc}
             </p>
           </div>
         </div>
 
         {/* Algorithmic Deactivation Risk Warning */}
-        <div className="bg-amber-500/10 border border-amber-500/25 rounded-2xl p-4 space-y-2 text-xs">
+        <div className="bg-amber-50 border border-amber-200 rounded-2xl p-4 space-y-2 text-xs">
           <div className="flex items-center justify-between">
-            <div className="flex items-center gap-2 text-amber-300 font-bold">
-              <AlertCircle className="w-4 h-4 text-amber-400 shrink-0" />
+            <div className="flex items-center gap-2 text-amber-900 font-bold">
+              <AlertCircle className="w-4 h-4 text-amber-600 shrink-0" />
               <span>{t.acceptanceTitle}</span>
             </div>
-            <span className="text-[10px] bg-amber-500/20 text-amber-300 px-2 py-0.5 rounded-full font-mono font-bold">
+            <span className="text-[10px] bg-amber-100 text-amber-800 border border-amber-200 px-2 py-0.5 rounded-full font-mono font-bold">
               {t.safeBuffer}
             </span>
           </div>
-          <p className="text-zinc-300 text-[11px] leading-relaxed">
+          <p className="text-slate-700 text-[11px] leading-relaxed">
             {t.deactivationWarning}
           </p>
         </div>

@@ -118,52 +118,52 @@ Partner ID: SWG-MH-55210`;
           onClick={() => setIssueType('surge')}
           className={`p-3 rounded-2xl border text-left transition-all cursor-pointer ${
             issueType === 'surge'
-              ? 'bg-zinc-800/90 border-zinc-600 text-zinc-100 font-bold'
-              : 'bg-zinc-950/60 border-zinc-800/60 text-zinc-400 hover:border-zinc-700'
+              ? 'bg-blue-50/80 border-blue-400 text-blue-900 font-bold shadow-xs'
+              : 'bg-white border-slate-200 text-slate-600 hover:border-slate-300'
           }`}
         >
           <span className="text-xs">{t.tabSurge}</span>
-          <span className="text-[10px] text-zinc-500 block font-mono">Order #ZOM-7782190</span>
+          <span className="text-[10px] text-slate-500 block font-mono">Order #ZOM-7782190</span>
         </button>
 
         <button
           onClick={() => setIssueType('cancellation')}
           className={`p-3 rounded-2xl border text-left transition-all cursor-pointer ${
             issueType === 'cancellation'
-              ? 'bg-zinc-800/90 border-zinc-600 text-zinc-100 font-bold'
-              : 'bg-zinc-950/60 border-zinc-800/60 text-zinc-400 hover:border-zinc-700'
+              ? 'bg-rose-50/80 border-rose-400 text-rose-900 font-bold shadow-xs'
+              : 'bg-white border-slate-200 text-slate-600 hover:border-slate-300'
           }`}
         >
           <span className="text-xs">{t.tabCancel}</span>
-          <span className="text-[10px] text-zinc-500 block font-mono">Order #SWG-4902188</span>
+          <span className="text-[10px] text-slate-500 block font-mono">Order #SWG-4902188</span>
         </button>
       </div>
 
       {/* Appeal Preview Card */}
-      <div className="bg-zinc-900/90 border border-zinc-800 rounded-3xl p-5 shadow-2xl space-y-4">
-        <div className="flex items-center justify-between pb-3 border-b border-zinc-800/80">
-          <div className="flex items-center gap-2 text-zinc-300 text-xs font-semibold">
-            <FileText className="w-4 h-4 text-amber-400" />
+      <div className="bg-white border border-slate-200/90 rounded-3xl p-5 shadow-xs space-y-4">
+        <div className="flex items-center justify-between pb-3 border-b border-slate-100">
+          <div className="flex items-center gap-2 text-slate-800 text-xs font-semibold">
+            <FileText className="w-4 h-4 text-blue-600" />
             <span>{t.cardTitle}</span>
           </div>
 
           <button
             onClick={handleCopy}
-            className="flex items-center gap-1.5 px-3 py-1.5 bg-zinc-800 hover:bg-zinc-700 border border-zinc-700 rounded-xl text-xs font-semibold text-zinc-200 transition-all cursor-pointer"
+            className="flex items-center gap-1.5 px-3 py-1.5 bg-slate-100 hover:bg-slate-200 border border-slate-200 rounded-xl text-xs font-semibold text-slate-700 transition-all cursor-pointer"
           >
-            {copied ? <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" /> : <Copy className="w-3.5 h-3.5" />}
+            {copied ? <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600" /> : <Copy className="w-3.5 h-3.5" />}
             <span>{copied ? t.copiedBtn : t.copyBtn}</span>
           </button>
         </div>
 
         {/* Text Container */}
-        <div className="bg-zinc-950 rounded-2xl p-4 border border-zinc-800 font-mono text-[11px] leading-relaxed text-zinc-300 max-h-64 overflow-y-auto whitespace-pre-wrap select-all">
+        <div className="bg-slate-50 rounded-2xl p-4 border border-slate-200 font-mono text-[11px] leading-relaxed text-slate-800 max-h-64 overflow-y-auto whitespace-pre-wrap select-all">
           {appealContent}
         </div>
 
         {/* Disclaimer */}
-        <div className="flex items-start gap-2 text-[11px] text-zinc-500">
-          <AlertCircle className="w-3.5 h-3.5 text-zinc-500 shrink-0 mt-0.5" />
+        <div className="flex items-start gap-2 text-[11px] text-slate-500">
+          <AlertCircle className="w-3.5 h-3.5 text-slate-400 shrink-0 mt-0.5" />
           <span>{t.disclaimer}</span>
         </div>
 
@@ -173,7 +173,7 @@ Partner ID: SWG-MH-55210`;
             href={`https://wa.me/?text=${encodeURIComponent(appealContent)}`}
             target="_blank"
             rel="noreferrer"
-            className="py-3 px-3 bg-emerald-600 hover:bg-emerald-500 text-white font-bold rounded-xl text-xs flex items-center justify-center gap-1.5 transition-all text-center min-h-[44px]"
+            className="py-3 px-3 bg-emerald-600 hover:bg-emerald-500 text-white font-bold rounded-xl text-xs flex items-center justify-center gap-1.5 transition-all text-center min-h-[44px] shadow-xs"
           >
             <Share2 className="w-3.5 h-3.5" />
             <span>{t.whatsappBtn}</span>
@@ -186,7 +186,7 @@ Partner ID: SWG-MH-55210`;
                 onNotify(t.evidenceNotice, "success");
               }
             }}
-            className="py-3 px-3 bg-zinc-800 hover:bg-zinc-700 text-zinc-200 border border-zinc-700 font-bold rounded-xl text-xs flex items-center justify-center gap-1.5 transition-all min-h-[44px] cursor-pointer"
+            className="py-3 px-3 bg-slate-100 hover:bg-slate-200 text-slate-800 border border-slate-200 font-bold rounded-xl text-xs flex items-center justify-center gap-1.5 transition-all min-h-[44px] cursor-pointer"
           >
             <span>{t.exportBtn}</span>
           </button>

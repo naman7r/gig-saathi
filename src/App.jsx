@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import HeaderCockpit from './components/HeaderCockpit';
+import MobileOverview from './components/MobileOverview';
 import OrderEvaluator from './components/OrderEvaluator';
 import SlipScanner from './components/SlipScanner';
 import SocialSecurityShield from './components/SocialSecurityShield';
@@ -11,13 +12,13 @@ import AskSaathiAssistant from './components/AskSaathiAssistant';
 import ClientDeskDashboard from './components/ClientDeskDashboard';
 import SightlineDashboard from './components/SightlineDashboard';
 import Toast from './components/Toast';
-import { Zap, FileSearch, ShieldCheck, Mic, Bot, Laptop, Smartphone, Bike, Briefcase } from 'lucide-react';
+import { Home, Zap, FileSearch, ShieldCheck, Mic, Bot, Laptop, Smartphone, Bike, Briefcase } from 'lucide-react';
 import { MOCK_PAYOUT_SLIPS } from './data/mockData';
 
 export default function App() {
   const [viewMode, setViewMode] = useState('laptop'); // 'laptop' | 'mobile'
   const [laptopTheme, setLaptopTheme] = useState('desi'); // 'desi' (Plain-Speak Worker Mode with Audio) | 'clientdesk' (Pro Auditor Desk)
-  const [activeTab, setActiveTab] = useState('trips'); // 'trips' | 'audits' | 'shield' | 'voice' | 'dispute'
+  const [activeTab, setActiveTab] = useState('overview'); // 'overview' | 'trips' | 'audits' | 'shield' | 'voice' | 'dispute'
   const [currentLang, setCurrentLang] = useState('hinglish');
   const [prefilledSlip, setPrefilledSlip] = useState(null);
   const [showAskModal, setShowAskModal] = useState(false);
@@ -35,16 +36,19 @@ export default function App() {
   };
 
   const navSegments = currentLang === 'hi' ? [
+    { id: 'overview', label: 'डैशबोर्ड', icon: Home },
     { id: 'trips', label: 'ऑर्डर रडार', icon: Zap },
     { id: 'audits', label: 'वेतन ऑडिट', icon: FileSearch },
     { id: 'shield', label: 'अधिकार कवच', icon: ShieldCheck },
     { id: 'voice', label: 'वॉइस लॉग', icon: Mic },
   ] : currentLang === 'hinglish' ? [
+    { id: 'overview', label: 'Overview', icon: Home },
     { id: 'trips', label: 'Trip Radar', icon: Zap },
     { id: 'audits', label: 'Pay Audit', icon: FileSearch },
     { id: 'shield', label: 'Govt Shield', icon: ShieldCheck },
     { id: 'voice', label: 'Voice Shift', icon: Mic },
   ] : [
+    { id: 'overview', label: 'Overview', icon: Home },
     { id: 'trips', label: 'Trip Radar', icon: Zap },
     { id: 'audits', label: 'Pay Audit', icon: FileSearch },
     { id: 'shield', label: 'Rights Shield', icon: ShieldCheck },
@@ -57,7 +61,7 @@ export default function App() {
       <div className="sticky top-0 z-50 bg-white/95 backdrop-blur-md border-b border-slate-200/90 px-6 py-2.5 flex items-center justify-between shadow-xs">
         <div className="flex items-center gap-2.5">
           <div className="w-7 h-7 rounded-lg bg-blue-600 text-white flex items-center justify-center text-sm shadow-xs font-bold">
-            🛵
+            <Bike className="w-4 h-4 text-white" />
           </div>
           <span className="font-extrabold text-sm tracking-tight text-slate-900">
             GigSaathi <span className="text-slate-400 font-normal text-xs">| Dual Viewport Cockpit</span>
@@ -70,7 +74,7 @@ export default function App() {
             <div className="flex items-center bg-slate-100 border border-slate-200 rounded-full p-1 text-xs">
               <button
                 onClick={() => setLaptopTheme('desi')}
-                className={`flex items-center gap-1.5 px-3 py-1 rounded-full font-bold transition-all ${
+                className={`flex items-center gap-1.5 px-3 py-1 rounded-full font-bold transition-all cursor-pointer ${
                   laptopTheme === 'desi'
                     ? 'bg-emerald-600 text-white shadow-xs'
                     : 'text-slate-600 hover:text-slate-900'
@@ -88,7 +92,7 @@ export default function App() {
 
               <button
                 onClick={() => setLaptopTheme('clientdesk')}
-                className={`flex items-center gap-1.5 px-3 py-1 rounded-full font-bold transition-all ${
+                className={`flex items-center gap-1.5 px-3 py-1 rounded-full font-bold transition-all cursor-pointer ${
                   laptopTheme === 'clientdesk'
                     ? 'bg-slate-900 text-white shadow-xs'
                     : 'text-slate-600 hover:text-slate-900'
@@ -109,9 +113,9 @@ export default function App() {
           <div className="flex items-center bg-slate-100 border border-slate-200 rounded-full p-1 shadow-inner">
             <button
               onClick={() => setViewMode('laptop')}
-              className={`flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-bold transition-all ${
+              className={`flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-bold transition-all cursor-pointer ${
                 viewMode === 'laptop'
-                  ? 'bg-slate-900 text-white shadow-sm'
+                  ? 'bg-slate-900 text-white shadow-xs'
                   : 'text-slate-500 hover:text-slate-800'
               }`}
             >
@@ -121,9 +125,9 @@ export default function App() {
 
             <button
               onClick={() => setViewMode('mobile')}
-              className={`flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-bold transition-all ${
+              className={`flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-bold transition-all cursor-pointer ${
                 viewMode === 'mobile'
-                  ? 'bg-slate-900 text-white shadow-sm'
+                  ? 'bg-slate-900 text-white shadow-xs'
                   : 'text-slate-500 hover:text-slate-800'
               }`}
             >
@@ -174,113 +178,125 @@ export default function App() {
       {viewMode === 'mobile' && (
         <div className="flex-1 flex items-center justify-center py-8 px-4 bg-[#F4F5F7]">
           {/* Smartphone Frame Mockup */}
-          <div className="w-full max-w-[400px] min-h-[820px] bg-zinc-950 rounded-[44px] border-[8px] border-zinc-800 shadow-[0_30px_90px_rgba(0,0,0,0.35)] ring-1 ring-zinc-700/80 flex flex-col relative overflow-hidden text-zinc-100">
-            {/* Dynamic Island / Speaker Notch */}
-            <div className="absolute top-2 left-1/2 -translate-x-1/2 w-28 h-4 bg-black rounded-full z-50 flex items-center justify-end px-2">
-              <span className="w-2 h-2 rounded-full bg-zinc-800" />
-            </div>
-
-            {/* In-Phone Header */}
-            <HeaderCockpit
-              currentLang={currentLang}
-              setCurrentLang={setCurrentLang}
-            />
-
-            {/* In-Phone Daily Ticker */}
-            <div className="px-4 py-2 bg-zinc-900/80 border-b border-zinc-800/80 flex items-center justify-between text-xs">
-              <div>
-                <span className="text-zinc-500">
-                  {currentLang === 'hi' ? 'सकल कमाई: ' : currentLang === 'hinglish' ? 'कुल कमाई: ' : 'Gross: '}
-                </span>
-                <span className="font-mono font-bold text-zinc-200">₹1,120</span>
+          <div className="w-full max-w-[420px] min-h-[850px] bg-slate-900 rounded-[48px] p-2.5 shadow-[0_25px_70px_rgba(15,23,42,0.25)] ring-1 ring-slate-800/80 flex flex-col relative">
+            
+            {/* Inner Phone Screen Display */}
+            <div className="w-full flex-1 bg-[#F4F5F7] rounded-[40px] overflow-hidden flex flex-col relative border border-slate-200/80 text-slate-800">
+              
+              {/* Dynamic Island / Speaker Notch */}
+              <div className="absolute top-2 left-1/2 -translate-x-1/2 w-28 h-4 bg-slate-900 rounded-full z-50 flex items-center justify-end px-2">
+                <span className="w-2 h-2 rounded-full bg-slate-700" />
               </div>
-              <div className="text-right">
-                <span className="text-zinc-500">
-                  {currentLang === 'hi' ? 'शुद्ध बचत: ' : currentLang === 'hinglish' ? 'जेब में बचत: ' : 'Net Take-Home: '}
-                </span>
-                <span className="font-mono font-bold text-emerald-400">₹690</span>
-                <span className="text-[10px] text-zinc-500 ml-1 font-mono">(₹69/hr)</span>
-              </div>
-            </div>
 
-            {/* In-Phone Navigation Segment */}
-            <div className="px-4 py-2.5">
-              <div className="grid grid-cols-4 bg-zinc-900/90 p-1 rounded-2xl border border-zinc-800">
-                {navSegments.map((seg) => {
-                  const Icon = seg.icon;
-                  const isActive = activeTab === seg.id;
-                  return (
-                    <button
-                      key={seg.id}
-                      onClick={() => setActiveTab(seg.id)}
-                      className={`py-1.5 rounded-xl text-xs font-semibold transition-all flex flex-col items-center justify-center gap-0.5 ${
-                        isActive
-                          ? 'bg-zinc-800 text-zinc-100 font-bold'
-                          : 'text-zinc-500'
-                      }`}
-                    >
-                      <Icon className={`w-3.5 h-3.5 ${isActive ? 'text-amber-400' : 'text-zinc-500'}`} />
-                      <span className="text-[10px] truncate">{seg.label.split(' ')[0]}</span>
-                    </button>
-                  );
-                })}
-              </div>
-            </div>
+              {/* In-Phone Header */}
+              <HeaderCockpit
+                currentLang={currentLang}
+                setCurrentLang={setCurrentLang}
+              />
 
-            {/* In-Phone Scrollable Screen Body */}
-            <div className="flex-1 px-4 pb-20 overflow-y-auto space-y-3">
-              {activeTab === 'trips' && <OrderEvaluator currentLang={currentLang} onNotify={showToast} />}
-              {activeTab === 'audits' && <SlipScanner currentLang={currentLang} onDraftDispute={handleDraftDisputeFromSlip} />}
-              {activeTab === 'shield' && (
-                <div className="space-y-3">
-                  <SocialSecurityShield currentLang={currentLang} />
-                  <DocumentHelper currentLang={currentLang} onNotify={showToast} />
-                  <SafetyGuardian currentLang={currentLang} />
-                </div>
-              )}
-              {activeTab === 'voice' && <VoiceShiftLogger currentLang={currentLang} />}
-              {activeTab === 'dispute' && <DisputeDrafter currentLang={currentLang} prefilledSlip={prefilledSlip} onNotify={showToast} />}
-            </div>
-
-            {/* In-Phone Floating Ask AI Pill */}
-            <div className="absolute bottom-4 left-0 right-0 px-4 z-40">
-              <button
-                onClick={() => setShowAskModal(true)}
-                className="w-full bg-zinc-900/95 border border-zinc-700/80 text-zinc-200 py-2.5 px-3 rounded-2xl shadow-xl flex items-center justify-between text-xs font-medium cursor-pointer"
-              >
-                <div className="flex items-center gap-2 truncate">
-                  <div className="w-6 h-6 rounded-lg bg-amber-500/20 text-amber-400 flex items-center justify-center text-xs shrink-0">
-                    <Bot className="w-3.5 h-3.5" />
-                  </div>
-                  <span className="text-zinc-300 text-[11px] truncate">
-                    {currentLang === 'en' 
-                      ? 'Ask Saathi AI for instant legal advice...' 
-                      : currentLang === 'hi' 
-                        ? 'साथी AI से सरकारी नियम या अधिकार पूछें...' 
-                        : 'साथी AI से हिंदी या Hinglish में पूछें...'}
+              {/* In-Phone Daily Ticker */}
+              <div className="px-4 py-2 bg-white border-b border-slate-200/90 flex items-center justify-between text-xs shadow-2xs">
+                <div>
+                  <span className="text-slate-500">
+                    {currentLang === 'hi' ? 'सकल कमाई: ' : currentLang === 'hinglish' ? 'कुल कमाई: ' : 'Gross: '}
                   </span>
+                  <span className="font-mono font-bold text-slate-900">₹1,120</span>
                 </div>
-                <span className="text-[10px] bg-zinc-800 px-2 py-0.5 rounded-full text-zinc-300 font-semibold shrink-0">
-                  {currentLang === 'en' ? 'Ask AI' : currentLang === 'hi' ? 'पूछें' : 'पूछो'}
-                </span>
-              </button>
-            </div>
+                <div className="text-right">
+                  <span className="text-slate-500">
+                    {currentLang === 'hi' ? 'शुद्ध बचत: ' : currentLang === 'hinglish' ? 'जेब में बचत: ' : 'Net Take-Home: '}
+                  </span>
+                  <span className="font-mono font-bold text-emerald-600">₹690</span>
+                  <span className="text-[10px] text-slate-500 ml-1 font-mono">(₹69/hr)</span>
+                </div>
+              </div>
 
-            {/* In-Phone Bottom Home Bar */}
-            <div className="absolute bottom-1 left-1/2 -translate-x-1/2 w-28 h-1 bg-zinc-600 rounded-full z-50 pointer-events-none" />
+              {/* In-Phone Navigation Segment */}
+              <div className="px-3.5 py-2.5">
+                <div className="grid grid-cols-5 bg-white p-1 rounded-2xl border border-slate-200 shadow-xs">
+                  {navSegments.map((seg) => {
+                    const Icon = seg.icon;
+                    const isActive = activeTab === seg.id;
+                    return (
+                      <button
+                        key={seg.id}
+                        onClick={() => setActiveTab(seg.id)}
+                        className={`py-1.5 rounded-xl text-xs font-semibold transition-all flex flex-col items-center justify-center gap-0.5 cursor-pointer ${
+                          isActive
+                            ? 'bg-slate-900 text-white font-bold shadow-xs'
+                            : 'text-slate-500 hover:text-slate-800'
+                        }`}
+                      >
+                        <Icon className={`w-3.5 h-3.5 ${isActive ? 'text-white' : 'text-slate-400'}`} />
+                        <span className="text-[10px] truncate">{seg.label.split(' ')[0]}</span>
+                      </button>
+                    );
+                  })}
+                </div>
+              </div>
+
+              {/* In-Phone Scrollable Screen Body */}
+              <div className="flex-1 px-3.5 pb-20 overflow-y-auto space-y-3">
+                {activeTab === 'overview' && (
+                  <MobileOverview 
+                    currentLang={currentLang} 
+                    onOpenAppeal={handleDraftDisputeFromSlip} 
+                    onNotify={showToast} 
+                  />
+                )}
+                {activeTab === 'trips' && <OrderEvaluator currentLang={currentLang} onNotify={showToast} />}
+                {activeTab === 'audits' && <SlipScanner currentLang={currentLang} onDraftDispute={handleDraftDisputeFromSlip} />}
+                {activeTab === 'shield' && (
+                  <div className="space-y-3">
+                    <SocialSecurityShield currentLang={currentLang} />
+                    <DocumentHelper currentLang={currentLang} onNotify={showToast} />
+                    <SafetyGuardian currentLang={currentLang} />
+                  </div>
+                )}
+                {activeTab === 'voice' && <VoiceShiftLogger currentLang={currentLang} />}
+                {activeTab === 'dispute' && <DisputeDrafter currentLang={currentLang} prefilledSlip={prefilledSlip} onNotify={showToast} />}
+              </div>
+
+              {/* In-Phone Floating Ask AI Pill */}
+              <div className="absolute bottom-3 left-0 right-0 px-3.5 z-40">
+                <button
+                  onClick={() => setShowAskModal(true)}
+                  className="w-full bg-white/95 backdrop-blur-md border border-slate-200/90 text-slate-800 py-2.5 px-3 rounded-2xl shadow-lg flex items-center justify-between text-xs font-medium cursor-pointer"
+                >
+                  <div className="flex items-center gap-2 truncate">
+                    <div className="w-6 h-6 rounded-lg bg-blue-100 text-blue-600 flex items-center justify-center text-xs shrink-0">
+                      <Bot className="w-3.5 h-3.5" />
+                    </div>
+                    <span className="text-slate-700 text-[11px] truncate font-medium">
+                      {currentLang === 'en' 
+                        ? 'Ask Saathi AI for instant legal advice...' 
+                        : currentLang === 'hi' 
+                          ? 'साथी AI से सरकारी नियम या अधिकार पूछें...' 
+                          : 'साथी AI से हिंदी या Hinglish में पूछें...'}
+                    </span>
+                  </div>
+                  <span className="text-[10px] bg-slate-100 border border-slate-200 px-2 py-0.5 rounded-full text-slate-700 font-semibold shrink-0">
+                    {currentLang === 'en' ? 'Ask AI' : currentLang === 'hi' ? 'पूछें' : 'पूछो'}
+                  </span>
+                </button>
+              </div>
+
+              {/* In-Phone Bottom Home Bar */}
+              <div className="absolute bottom-1.5 left-1/2 -translate-x-1/2 w-28 h-1 bg-slate-400/80 rounded-full z-50 pointer-events-none" />
+            </div>
           </div>
         </div>
       )}
 
       {/* Appeal Generator Modal (Accessible from Laptop Dashboard) */}
       {activeModalContent === 'appeal' && (
-        <div className="fixed inset-0 bg-black/60 backdrop-blur-xs z-50 flex items-center justify-center p-4">
-          <div className="bg-zinc-950 border border-zinc-800 rounded-3xl max-w-lg w-full p-6 shadow-2xl text-zinc-100 space-y-4">
-            <div className="flex items-center justify-between pb-3 border-b border-zinc-800">
-              <h3 className="text-base font-bold text-zinc-100">Formal Grievance Appeal Draft</h3>
+        <div className="fixed inset-0 bg-black/50 backdrop-blur-xs z-50 flex items-center justify-center p-4">
+          <div className="bg-white border border-slate-200 rounded-3xl max-w-lg w-full p-6 shadow-2xl text-slate-800 space-y-4">
+            <div className="flex items-center justify-between pb-3 border-b border-slate-100">
+              <h3 className="text-base font-bold text-slate-900">Formal Grievance Appeal Draft</h3>
               <button 
                 onClick={() => setActiveModalContent(null)}
-                className="w-8 h-8 rounded-full bg-zinc-900 text-zinc-400 hover:text-white flex items-center justify-center text-xs font-bold"
+                className="w-8 h-8 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-500 hover:text-slate-800 flex items-center justify-center text-xs font-bold transition-all cursor-pointer"
               >
                 ✕
               </button>
@@ -288,6 +304,7 @@ export default function App() {
             <DisputeDrafter 
               prefilledSlip={prefilledSlip || MOCK_PAYOUT_SLIPS[0]} 
               onNotify={showToast} 
+              currentLang={currentLang}
             />
           </div>
         </div>
@@ -295,23 +312,23 @@ export default function App() {
 
       {/* Grounded Assistant Modal */}
       {showAskModal && (
-        <div className="fixed inset-0 bg-black/60 backdrop-blur-xs z-50 flex items-center justify-center p-4">
-          <div className="bg-zinc-950 border border-zinc-800 rounded-3xl max-w-md w-full p-6 shadow-2xl text-zinc-100 space-y-3">
-            <div className="flex items-center justify-between pb-3 border-b border-zinc-800">
+        <div className="fixed inset-0 bg-black/50 backdrop-blur-xs z-50 flex items-center justify-center p-4">
+          <div className="bg-white border border-slate-200 rounded-3xl max-w-md w-full p-6 shadow-2xl text-slate-800 space-y-3">
+            <div className="flex items-center justify-between pb-3 border-b border-slate-100">
               <div className="flex items-center gap-2">
-                <div className="w-8 h-8 rounded-xl bg-amber-500/20 text-amber-400 flex items-center justify-center">
+                <div className="w-8 h-8 rounded-xl bg-blue-100 text-blue-600 flex items-center justify-center">
                   <Bot className="w-4 h-4" />
                 </div>
                 <div>
-                  <h3 className="text-sm font-bold text-zinc-100">Saathi AI Companion</h3>
-                  <p className="text-[10px] text-zinc-400">Central Rules 2026 Grounded Guidance</p>
+                  <h3 className="text-sm font-bold text-slate-900">Saathi AI Companion</h3>
+                  <p className="text-[10px] text-slate-500">Central Rules 2026 Grounded Guidance</p>
                 </div>
               </div>
 
               <button 
                 type="button"
                 onClick={() => setShowAskModal(false)}
-                className="w-7 h-7 rounded-full bg-zinc-900 border border-zinc-800 text-zinc-400 hover:text-zinc-200 flex items-center justify-center text-xs font-bold"
+                className="w-7 h-7 rounded-full bg-slate-100 border border-slate-200 text-slate-400 hover:text-slate-800 flex items-center justify-center text-xs font-bold transition-all cursor-pointer"
               >
                 ✕
               </button>

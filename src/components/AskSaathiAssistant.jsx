@@ -218,16 +218,16 @@ export default function AskSaathiAssistant({ currentLang = 'hinglish', initialQu
   return (
     <div className="space-y-3">
       {/* Engine Status & API Key Header Bar */}
-      <div className="flex items-center justify-between pb-1 border-b border-zinc-800/80">
+      <div className="flex items-center justify-between pb-1 border-b border-slate-100">
         <div className="flex items-center gap-1.5">
           {apiKey ? (
-            <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-[10px] text-emerald-400 font-semibold">
-              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+            <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-emerald-50 border border-emerald-200 text-[10px] text-emerald-700 font-semibold">
+              <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
               <span>Google Gemini 2.5 Flash Live</span>
             </span>
           ) : (
-            <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-amber-500/10 border border-amber-500/30 text-[10px] text-amber-400 font-semibold">
-              <ShieldCheck className="w-3 h-3" />
+            <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-amber-50 border border-amber-200 text-[10px] text-amber-800 font-semibold">
+              <ShieldCheck className="w-3.5 h-3.5 text-amber-600" />
               <span>{isEn ? "Verified Legal KB (Local)" : "सत्यापित कानूनी डेटाबेस (Local)"}</span>
             </span>
           )}
@@ -239,17 +239,17 @@ export default function AskSaathiAssistant({ currentLang = 'hinglish', initialQu
             setKeyInput(apiKey);
             setShowKeyModal(true);
           }}
-          className="flex items-center gap-1 text-[10px] font-medium text-zinc-400 hover:text-zinc-200 px-2 py-1 rounded-lg bg-zinc-900 border border-zinc-800 transition-colors min-h-[32px]"
+          className="flex items-center gap-1 text-[10px] font-semibold text-slate-700 hover:text-slate-900 px-2.5 py-1 rounded-lg bg-slate-100 border border-slate-200 transition-colors min-h-[32px] cursor-pointer"
           title={isEn ? "Configure Google Gemini API Key" : "Google Gemini API Key जोड़ें या बदलें"}
         >
-          <Key className="w-3 h-3 text-amber-400" />
+          <Key className="w-3 h-3 text-amber-600" />
           <span>{apiKey ? (isEn ? 'API Key Active' : 'API Key सक्रिय') : (isEn ? 'Add Google API' : 'Google API जोड़ें')}</span>
         </button>
       </div>
 
       {/* 1-Tap Questions */}
       <div className="space-y-1.5">
-        <span className="text-[10px] font-semibold text-zinc-500 uppercase tracking-wider block">
+        <span className="text-[10px] font-semibold text-slate-500 uppercase tracking-wider block">
           {isEn ? "Verified Legal Prompts (1-Tap):" : "सत्यापित डेटाबेस प्रश्न (1-टैप):"}
         </span>
         <div className="grid grid-cols-2 gap-1.5">
@@ -257,7 +257,7 @@ export default function AskSaathiAssistant({ currentLang = 'hinglish', initialQu
             <button
               key={idx}
               onClick={() => handleSend(pq.query)}
-              className="p-2 rounded-xl bg-zinc-900 border border-zinc-800 hover:border-zinc-700 text-left text-xs text-zinc-300 font-medium transition-all truncate min-h-[44px]"
+              className="p-2.5 rounded-xl bg-slate-50 border border-slate-200 hover:border-slate-300 text-left text-xs text-slate-700 font-medium transition-all truncate min-h-[44px] cursor-pointer"
             >
               {pq.label}
             </button>
@@ -268,7 +268,7 @@ export default function AskSaathiAssistant({ currentLang = 'hinglish', initialQu
       {/* Messages Scroll Area */}
       <div
         ref={chatScrollRef}
-        className="bg-zinc-950 rounded-2xl p-3 border border-zinc-800 space-y-2.5 min-h-[220px] max-h-[300px] overflow-y-auto"
+        className="bg-slate-50 rounded-2xl p-3 border border-slate-200 space-y-2.5 min-h-[220px] max-h-[300px] overflow-y-auto"
       >
         {messages.map((m, idx) => (
           <div
@@ -278,42 +278,42 @@ export default function AskSaathiAssistant({ currentLang = 'hinglish', initialQu
             }`}
           >
             {m.role === 'assistant' && (
-              <div className="w-6 h-6 rounded-lg bg-amber-500/20 text-amber-400 flex items-center justify-center shrink-0 text-xs font-bold mt-0.5">
-                {m.source === 'gemini_api' ? <Sparkles className="w-3.5 h-3.5 text-emerald-400" /> : '🤖'}
+              <div className="w-6 h-6 rounded-lg bg-blue-100 text-blue-700 flex items-center justify-center shrink-0 text-xs font-bold mt-0.5">
+                {m.source === 'gemini_api' ? <Sparkles className="w-3.5 h-3.5 text-blue-600" /> : <Bot className="w-3.5 h-3.5 text-blue-600" />}
               </div>
             )}
             <div
               className={`p-3 rounded-2xl max-w-[88%] text-xs leading-relaxed whitespace-pre-wrap ${
                 m.role === 'user'
-                  ? 'bg-zinc-100 text-zinc-900 font-semibold rounded-tr-none'
-                  : 'bg-zinc-900 border border-zinc-800 text-zinc-200 rounded-tl-none font-sans'
+                  ? 'bg-slate-900 text-white font-semibold rounded-tr-none shadow-xs'
+                  : 'bg-white border border-slate-200 text-slate-800 rounded-tl-none font-sans shadow-2xs'
               }`}
             >
               {/* Message Source & Audio bar */}
               {m.role === 'assistant' && (
-                <div className="flex items-center justify-between pb-1.5 mb-1.5 border-b border-zinc-800/60 text-[10px] text-zinc-400">
+                <div className="flex items-center justify-between pb-1.5 mb-1.5 border-b border-slate-100 text-[10px] text-slate-500">
                   <span className="flex items-center gap-1 font-mono">
                     {m.source === 'gemini_api' ? (
-                      <span className="text-emerald-400 font-semibold">✨ Gemini 2.5 Flash</span>
+                      <span className="text-emerald-700 font-semibold">✨ Gemini 2.5 Flash</span>
                     ) : (
-                      <span className="text-amber-400 font-semibold">⚖️ Central Rules 2026 KB</span>
+                      <span className="text-blue-700 font-semibold">⚖️ Central Rules 2026 KB</span>
                     )}
                   </span>
 
                   <button
                     type="button"
                     onClick={() => toggleSpeech(m.text, idx)}
-                    className="flex items-center gap-1 text-[10px] text-zinc-400 hover:text-amber-400 transition-colors px-1 py-0.5 rounded"
+                    className="flex items-center gap-1 text-[10px] text-slate-500 hover:text-slate-800 transition-colors px-1 py-0.5 rounded cursor-pointer"
                     title={speakingIndex === idx ? (isEn ? "Stop Audio" : "आवाज़ बंद करें") : (isEn ? "Listen Out Loud" : "आवाज़ में सुनें")}
                   >
                     {speakingIndex === idx ? (
                       <>
-                        <VolumeX className="w-3 h-3 text-rose-400 animate-pulse" />
-                        <span className="text-rose-400">{isEn ? 'Stop' : 'बंद करें'}</span>
+                        <VolumeX className="w-3 h-3 text-rose-500 animate-pulse" />
+                        <span className="text-rose-600 font-medium">{isEn ? 'Stop' : 'बंद करें'}</span>
                       </>
                     ) : (
                       <>
-                        <Volume2 className="w-3 h-3" />
+                        <Volume2 className="w-3 h-3 text-slate-600" />
                         <span>{isEn ? 'Listen' : 'बोलकर सुनो'}</span>
                       </>
                     )}
@@ -328,8 +328,8 @@ export default function AskSaathiAssistant({ currentLang = 'hinglish', initialQu
         ))}
 
         {isTyping && (
-          <div className="flex items-center gap-2 text-xs text-zinc-500 font-mono pl-8">
-            <span className="w-1.5 h-1.5 bg-amber-400 rounded-full animate-ping" />
+          <div className="flex items-center gap-2 text-xs text-slate-500 font-mono pl-8">
+            <span className="w-1.5 h-1.5 bg-blue-600 rounded-full animate-ping" />
             <span>
               {apiKey 
                 ? (isEn ? "Analyzing via Google Gemini 2.5 Flash..." : "Google Gemini 2.5 Flash से कानूनी विश्लेषण हो रहा है...") 
@@ -349,59 +349,59 @@ export default function AskSaathiAssistant({ currentLang = 'hinglish', initialQu
           placeholder={apiKey 
             ? (isEn ? "Ask Google Gemini for legal & rights advice..." : "Google Gemini से कानूनी सलाह पूछें...") 
             : (isEn ? "Ask in English, Hindi, or Hinglish..." : "हिंदी या Hinglish में पूछें...")}
-          className="flex-1 bg-zinc-900 border border-zinc-800 rounded-xl px-3.5 py-2.5 text-xs text-zinc-200 placeholder-zinc-500 focus:outline-none focus:border-zinc-600 min-h-[44px]"
+          className="flex-1 bg-white border border-slate-200 rounded-xl px-3.5 py-2.5 text-xs text-slate-800 placeholder-slate-400 focus:outline-none focus:border-blue-500 min-h-[44px] shadow-2xs"
         />
 
         <button
           type="button"
           onClick={() => handleSend()}
           disabled={isTyping}
-          className="w-11 h-11 rounded-xl bg-zinc-100 hover:bg-white text-zinc-900 flex items-center justify-center shrink-0 transition-all font-bold min-h-[44px] min-w-[44px] disabled:opacity-50"
+          className="w-11 h-11 rounded-xl bg-slate-900 hover:bg-slate-800 text-white flex items-center justify-center shrink-0 transition-all font-bold min-h-[44px] min-w-[44px] disabled:opacity-50 cursor-pointer shadow-xs"
         >
           <Send className="w-4 h-4" />
         </button>
       </div>
 
       {/* Official Emergency & Grievance Helpline Speed-Dial */}
-      <div className="flex items-center justify-between pt-1 px-1 text-[11px] text-zinc-400">
+      <div className="flex items-center justify-between pt-1 px-1 text-[11px] text-slate-500">
         <span>{isEn ? "Official Helplines:" : "आधिकारिक सहायता:"}</span>
         <div className="flex items-center gap-2 font-mono">
-          <a href="tel:1915" className="text-amber-400 hover:underline">{isEn ? "1915 (Consumer)" : "1915 (उपभोक्ता)"}</a>
-          <span className="text-zinc-600">•</span>
-          <a href="tel:14434" className="text-blue-400 hover:underline">14434 (e-Shram)</a>
-          <span className="text-zinc-600">•</span>
-          <a href="tel:112" className="text-rose-400 hover:underline">{isEn ? "112 (Emergency)" : "112 (आपातकाल)"}</a>
+          <a href="tel:1915" className="text-amber-700 hover:underline">{isEn ? "1915 (Consumer)" : "1915 (उपभोक्ता)"}</a>
+          <span className="text-slate-300">•</span>
+          <a href="tel:14434" className="text-blue-700 hover:underline">14434 (e-Shram)</a>
+          <span className="text-slate-300">•</span>
+          <a href="tel:112" className="text-rose-700 hover:underline">{isEn ? "112 (Emergency)" : "112 (आपातकाल)"}</a>
         </div>
       </div>
 
       {/* Google API Key Configuration Modal */}
       {showKeyModal && (
-        <div className="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4">
-          <div className="bg-zinc-900 border border-zinc-800 rounded-2xl max-w-sm w-full p-4 space-y-3.5 shadow-2xl">
+        <div className="fixed inset-0 z-50 bg-black/50 backdrop-blur-xs flex items-center justify-center p-4">
+          <div className="bg-white border border-slate-200 rounded-2xl max-w-sm w-full p-5 space-y-3.5 shadow-2xl">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-2">
-                <Sparkles className="w-4 h-4 text-emerald-400" />
-                <h3 className="text-sm font-bold text-white">
+                <Sparkles className="w-4 h-4 text-blue-600" />
+                <h3 className="text-sm font-bold text-slate-900">
                   {isEn ? "Google Gemini API Setup" : "Google Gemini API सेटअप"}
                 </h3>
               </div>
               <button
                 type="button"
                 onClick={() => setShowKeyModal(false)}
-                className="p-1 rounded-lg hover:bg-zinc-800 text-zinc-400 min-h-[32px] min-w-[32px] flex items-center justify-center"
+                className="p-1 rounded-lg hover:bg-slate-100 text-slate-500 min-h-[32px] min-w-[32px] flex items-center justify-center cursor-pointer"
               >
                 <X className="w-4 h-4" />
               </button>
             </div>
 
-            <p className="text-xs text-zinc-400 leading-relaxed">
+            <p className="text-xs text-slate-600 leading-relaxed">
               {isEn 
                 ? "Enter your Google Gemini 2.5 Flash API Key to enable natural language legal reasoning grounded in verified Indian Labour Gazette rules." 
                 : "Google Gemini 2.5 Flash API Key जोड़ें। यह प्राकृतिक भाषा और जटिल कानूनी सवालों के सटीक Hinglish जवाब देता है।"}
             </p>
 
             <div className="space-y-1.5">
-              <label className="text-[11px] font-semibold text-zinc-300 block">
+              <label className="text-[11px] font-semibold text-slate-700 block">
                 Google Gemini API Key:
               </label>
               <input
@@ -409,13 +409,13 @@ export default function AskSaathiAssistant({ currentLang = 'hinglish', initialQu
                 value={keyInput}
                 onChange={(e) => setKeyInput(e.target.value)}
                 placeholder="AIzaSy..."
-                className="w-full bg-zinc-950 border border-zinc-800 rounded-xl px-3 py-2 text-xs text-white placeholder-zinc-600 focus:outline-none focus:border-emerald-500 font-mono"
+                className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-xs text-slate-800 placeholder-slate-400 focus:outline-none focus:border-blue-500 font-mono"
               />
             </div>
 
-            <div className="text-[11px] text-zinc-500 space-y-1">
+            <div className="text-[11px] text-slate-500 space-y-1">
               <div>
-                🔒 <span className="text-zinc-400">{isEn ? "Secure:" : "सुरक्षित:"}</span> {isEn ? "Stored locally in your browser only." : "यह API Key सिर्फ आपके ब्राउज़र के LocalStorage में सुरक्षित रहती है।"}
+                🔒 <span className="text-slate-700 font-medium">{isEn ? "Secure:" : "सुरक्षित:"}</span> {isEn ? "Stored locally in your browser only." : "यह API Key सिर्फ आपके ब्राउज़र के LocalStorage में सुरक्षित रहती है।"}
               </div>
               <div>
                 🔑 {isEn ? "Get a free key here: " : "मुफ्त की यहाँ से लें: "}
@@ -423,7 +423,7 @@ export default function AskSaathiAssistant({ currentLang = 'hinglish', initialQu
                   href="https://aistudio.google.com/app/apikey"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-amber-400 hover:underline"
+                  className="text-blue-600 hover:underline font-medium"
                 >
                   Google AI Studio ↗
                 </a>
@@ -434,7 +434,7 @@ export default function AskSaathiAssistant({ currentLang = 'hinglish', initialQu
               <button
                 type="button"
                 onClick={saveApiKey}
-                className="flex-1 bg-emerald-500 hover:bg-emerald-400 text-black font-bold py-2 rounded-xl text-xs flex items-center justify-center gap-1.5 min-h-[40px] transition-colors"
+                className="flex-1 bg-blue-600 hover:bg-blue-500 text-white font-bold py-2 rounded-xl text-xs flex items-center justify-center gap-1.5 min-h-[40px] transition-colors cursor-pointer shadow-xs"
               >
                 <Check className="w-3.5 h-3.5" />
                 <span>{isEn ? "Save" : "सहेजें (Save)"}</span>
@@ -448,7 +448,7 @@ export default function AskSaathiAssistant({ currentLang = 'hinglish', initialQu
                     setKeyInput('');
                     setShowKeyModal(false);
                   }}
-                  className="px-3 bg-zinc-800 hover:bg-rose-950/40 text-rose-400 border border-zinc-700 hover:border-rose-800 rounded-xl text-xs py-2 min-h-[40px] transition-colors"
+                  className="px-3 bg-slate-100 hover:bg-rose-50 text-rose-600 border border-slate-200 hover:border-rose-200 rounded-xl text-xs py-2 min-h-[40px] transition-colors cursor-pointer"
                 >
                   {isEn ? "Remove" : "हटाएं"}
                 </button>
