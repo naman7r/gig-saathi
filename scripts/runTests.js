@@ -58,6 +58,15 @@ assert(kbResult.found === true && kbResult.citationId === "KB-003", "Knowledge B
 const outOfScope = queryKnowledgeBase("Should I invest in bitcoin cryptocurrency?");
 assert(outOfScope.found === false && outOfScope.outOfScope === true, "Explicitly refuses out-of-scope queries with helpline fallback");
 
+// Test 8: Gemini Assistant graceful fallback without API key
+const { askGeminiAssistant } = await import('../src/utils/geminiAssistant.js');
+const assistantRes = await askGeminiAssistant("90 दिन का नियम क्या है?", "");
+assert(assistantRes.source === 'local_kb' && assistantRes.citationId === 'KB-002', "Gemini Assistant falls back to local KB-002 citation when no API key provided");
+
+// Test 9: Gemini Assistant handles out-of-scope gracefully without crashing
+const outOfScopeAssistant = await askGeminiAssistant("Recipe for biryani", "");
+assert(outOfScopeAssistant.source === 'local_kb' && (outOfScopeAssistant.text.includes("1915") || outOfScopeAssistant.text.includes("14434")), "Gemini Assistant out-of-scope fallback returns verified helpline numbers (1915/14434)");
+
 console.log(`\n========================================`);
 console.log(`Summary: ${passed} Passed, ${failed} Failed`);
 console.log(`========================================\n`);

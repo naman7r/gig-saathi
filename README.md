@@ -5,7 +5,7 @@
 [![React](https://img.shields.io/badge/React-19.0-61DAFB?logo=react&logoColor=black)](https://react.dev/)
 [![Vite](https://img.shields.io/badge/Vite-6.2-646CFF?logo=vite&logoColor=white)](https://vitejs.dev/)
 [![Tailwind CSS](https://img.shields.io/badge/Tailwind-v4.0-38B2AC?logo=tailwind-css&logoColor=white)](https://tailwindcss.com/)
-[![Tests](https://img.shields.io/badge/Tests-9%20Passed-emerald)](./scripts/runTests.js)
+[![Tests](https://img.shields.io/badge/Tests-11%20Passed-emerald)](./scripts/runTests.js)
 [![License](https://img.shields.io/badge/License-MIT-blue)](./LICENSE)
 
 ---
@@ -121,6 +121,7 @@ gig-saathi/
 │   │   ├── mockData.js            # Field research telemetry & shift logs
 │   │   └── translations.js        # Multilingual localization dictionaries
 │   ├── utils/
+│   │   ├── geminiAssistant.js     # Google Gemini API client with legal prompt grounding & fallback
 │   │   └── ledgerEngine.js        # Deterministic math & audit algorithms
 │   ├── App.jsx                    # Root application with dual-viewport controller
 │   ├── index.css                  # Tailwind CSS v4 styling rules
@@ -128,6 +129,41 @@ gig-saathi/
 ├── package.json
 └── vite.config.js
 ```
+
+---
+
+## Google Gemini 2.5 Flash Architecture
+
+The **Ask Saathi (साथी से पूछें)** assistant operates on a hybrid dual-engine architecture:
+
+```
+                            User Legal / Welfare Query
+                                        │
+                                        ▼
+                     Is Gemini API Key Configured?
+                    (VITE_GEMINI_API_KEY / LocalStorage)
+                                   /         \
+                             [YES]             [NO]
+                               /                 \
+                              ▼                   ▼
+                 Google Gemini 2.5 Flash    Grounded Local Engine
+              - System prompt grounded in     (Pure Deterministic)
+                Central Rules 2026 gazette  - Direct lookup in verified KB
+              - Strict citations [KB-001..6] - Instant sub-millisecond response
+              - Actionable mobile formatting  - 100% offline & zero downtime
+                               \                 /
+                                ▼               ▼
+                            Unified Response Object
+                                        │
+                         ┌──────────────┴──────────────┐
+                         ▼                             ▼
+                Screen UI Response              Audio Text-to-Speech
+              (Formatted Hinglish Text)        (🔊 बोलकर सुनो / hi-IN)
+```
+
+- **Zero-Crash Graceful Fallback**: If network fails or no key is provided, the co-pilot automatically answers from the verified Central Rules statutory database without throwing errors or breaking the interface.
+- **In-App Key Setup**: Users and evaluators can connect their own key via the `[Google API जोड़ें]` modal or pass `VITE_GEMINI_API_KEY` in `.env.local`. Keys are stored client-side in browser storage.
+- **Accessible Voice Playback**: Uneducated gig workers can press `🔊 बोलकर सुनो` to have any AI response read aloud in Hindi/Indian accent.
 
 ---
 
