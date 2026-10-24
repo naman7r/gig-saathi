@@ -9,7 +9,7 @@ import { MOCK_PAYOUT_SLIPS } from '../data/mockData';
 
 const TRANSLATIONS = {
   hinglish: {
-    greeting: 'नमस्ते रवि भाई!',
+    greeting: 'नमस्ते नमन भाई!',
     subGreeting: 'चंडीगढ़ सेक्टर 35 • हीरो स्प्लेंडर 110cc',
     voiceBtnListen: 'बोलकर सुनो',
     voiceBtnStop: 'आवाज़ बंद करें',
@@ -49,11 +49,11 @@ const TRANSLATIONS = {
     hydrationTitle: 'पानी ब्रेक:',
     drankWaterBtn: 'पानी पी लिया',
     rainSurgeDesc: 'शाम 6:00 बजे बारिश सर्ज (+₹20/ऑर्डर)',
-    hydrationResetMsg: 'शाबाश रवि भाई! हाइड्रेशन टाइमर रीसेट हो गया।',
-    audioOverview: 'नमस्ते रवि भाई! आज आपने कुल 1120 रुपये कमाए, जिसमें से 370 रुपये पेट्रोल और बाइक में गए, और 690 रुपये आपकी असली जेब में बचे।'
+    hydrationResetMsg: 'शाबाश नमन भाई! हाइड्रेशन टाइमर रीसेट हो गया।',
+    audioOverview: 'नमस्ते नमन भाई! आज आपने कुल 1120 रुपये कमाए, जिसमें से 370 रुपये पेट्रोल और बाइक में गए, और 690 रुपये आपकी असली जेब में बचे।'
   },
   hi: {
-    greeting: 'नमस्ते रवि जी!',
+    greeting: 'नमस्ते नमन जी!',
     subGreeting: 'चंडीगढ़ सेक्टर 35 • हीरो स्प्लेंडर',
     voiceBtnListen: 'बोलकर सुनें',
     voiceBtnStop: 'आवाज़ रोकें',
@@ -94,10 +94,10 @@ const TRANSLATIONS = {
     drankWaterBtn: 'जलपान पूर्ण',
     rainSurgeDesc: 'सायं 6:00 बजे वर्षा सर्ज (+₹20/ऑर्डर)',
     hydrationResetMsg: 'उत्कृष्ट! जलपान टाइमर 20 मिनट हेतु पुनर्गठित।',
-    audioOverview: 'नमस्ते रवि जी! आज आपकी कुल कमाई 1120 रुपये रही। पेट्रोल खर्च 370 रुपये काटकर शुद्ध बचत 690 रुपये हुई।'
+    audioOverview: 'नमस्ते नमन जी! आज आपकी कुल कमाई 1120 रुपये रही। पेट्रोल खर्च 370 रुपये काटकर शुद्ध बचत 690 रुपये हुई।'
   },
   en: {
-    greeting: 'Good afternoon, Ravi',
+    greeting: 'Good afternoon, Naman',
     subGreeting: 'Chandigarh Sector 35 • Hero Splendor 110cc',
     voiceBtnListen: 'Listen Out Loud',
     voiceBtnStop: 'Stop Audio',
@@ -137,8 +137,8 @@ const TRANSLATIONS = {
     hydrationTitle: 'Hydration in:',
     drankWaterBtn: 'Drank Water',
     rainSurgeDesc: '6:00 PM Rain Surge (+₹20/order)',
-    hydrationResetMsg: 'Great job Ravi! Hydration timer reset to 20 minutes.',
-    audioOverview: 'Good afternoon Ravi. Today you earned 1120 gross. After deducting 370 rupees for petrol and maintenance, your real pocket savings are 690 rupees.'
+    hydrationResetMsg: 'Great job Naman! Hydration timer reset to 20 minutes.',
+    audioOverview: 'Good afternoon Naman. Today you earned 1120 gross. After deducting 370 rupees for petrol and maintenance, your real pocket savings are 690 rupees.'
   }
 };
 

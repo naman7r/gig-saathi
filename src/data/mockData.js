@@ -2,7 +2,7 @@
 // Grounded in IDinsight 2024, NITI Aayog 2022, and Fairwork India studies
 
 export const RIDER_PROFILE = {
-  name: "Ravi Kumar",
+  name: "Naman",
   age: 26,
   city: "Chandigarh (Tricity Hub - Sec 35 / Mohali)",
   vehicle: "Hero Splendor 110cc (Petrol @ ₹98.4/L)",
@@ -211,7 +211,7 @@ export const GOVERNMENT_WELFARE_SCHEMES = [
     ministry: "National Health Authority",
     benefit: "₹5,00,000 Cashless Family Hospitalization Cover per Year",
     cost: "Covered under aggregator welfare levy",
-    qualificationCriteria: "90 days continuous engagement with registered aggregator (Ravi is on Day 84!)",
+    qualificationCriteria: "90 days continuous engagement with registered aggregator (Naman is on Day 84!)",
     status: "6 Days Remaining to Qualify",
     requiredDocs: ["Aggregator Partner ID", "e-Shram UAN", "Ration Card / Income Certificate"],
     portalUrl: "https://mera.pmjay.gov.in"

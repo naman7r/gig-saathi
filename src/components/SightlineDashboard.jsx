@@ -30,7 +30,7 @@ const TRANSLATIONS = {
     daysDone: '84 दिन पूरे',
     daysLeft: 'सिर्फ 6 दिन बाकी!',
     viewMobile: 'मोबाइल स्क्रीन देखें (Mobile View)',
-    greeting: 'नमस्ते रवि भाई!',
+    greeting: 'नमस्ते नमन भाई!',
     subGreeting: 'चंडीगढ़ सेक्टर 35 • हीरो स्प्लेंडर 110cc',
     voiceBtnListen: 'बोलकर सुनो (Listen)',
     voiceBtnStop: 'आवाज़ बंद करें (Stop)',
@@ -105,7 +105,7 @@ const TRANSLATIONS = {
     shortcut2: 'सरकारी ₹5 लाख मुफ्त इलाज (90/120 दिन नियम) देखें',
     shortcut3: 'मोबाइल फोन व्यू खोलें',
     pressEnter: '↵ दबाएं',
-    audioOverview: 'नमस्ते रवि भाई! आज आपने कुल 1120 रुपये कमाए, जिसमें से 370 रुपये पेट्रोल और बाइक में गए, और 690 रुपये आपकी असली जेब में बचे।',
+    audioOverview: 'नमस्ते नमन भाई! आज आपने कुल 1120 रुपये कमाए, जिसमें से 370 रुपये पेट्रोल और बाइक में गए, और 690 रुपये आपकी असली जेब में बचे।',
     audioTripSkip: 'भाई, यह ऑर्डर मत लो। खरड़ से खाली वापस आने में 39 रुपये का पेट्रोल लगेगा, सिर्फ 13 रुपये बचेंगे। 3 मिनट रुको, अच्छा ऑर्डर आएगा।',
     audioTripAccept: 'यह बहुत बढ़िया ऑर्डर है भाई। पास की दूरी है और 25 रुपये बारिश का बोनस भी है। इसे तुरंत स्वीकार करो।',
     audioAudit: 'सावधान भाई, जोमैटो ने आपके 32 रुपये कम दिए हैं। आपने 7.4 किमी बाइक चलाई लेकिन ऐप ने सिर्फ 5.1 किमी दिखाया। नीचे बटन दबाकर तुरंत शिकायत भेजो।',
@@ -115,7 +115,7 @@ const TRANSLATIONS = {
     hydrationTitle: 'पानी पीने का समय:',
     drankWaterBtn: 'पानी पी लिया',
     rainSurgeDesc: 'शाम 6:00 बजे बारिश सर्ज (+₹20/ऑर्डर बोनस)',
-    hydrationResetMsg: 'शाबाश रवि भाई! हाइड्रेशन टाइमर 20 मिनट के लिए रीसेट हो गया।'
+    hydrationResetMsg: 'शाबाश नमन भाई! हाइड्रेशन टाइमर 20 मिनट के लिए रीसेट हो गया।'
   },
   hi: {
     langLabel: 'हिन्दी (सरल हिन्दी)',
@@ -136,7 +136,7 @@ const TRANSLATIONS = {
     daysDone: '84 दिन पूर्ण',
     daysLeft: 'केवल 6 दिन शेष!',
     viewMobile: 'मोबाइल दृश्य देखें (Mobile View)',
-    greeting: 'नमस्ते रवि जी!',
+    greeting: 'नमस्ते नमन जी!',
     subGreeting: 'चंडीगढ़ सेक्टर 35 • हीरो स्प्लेंडर',
     voiceBtnListen: 'बोलकर सुनें (Listen)',
     voiceBtnStop: 'आवाज़ रोकें (Stop)',
@@ -211,7 +211,7 @@ const TRANSLATIONS = {
     shortcut2: 'आयुष्मान भारत ₹5 लाख सुरक्षा (90/120 दिन नियम) देखें',
     shortcut3: 'मोबाइल फोन दृश्य खोलें',
     pressEnter: '↵ दबाएं',
-    audioOverview: 'नमस्ते रवि जी! आज आपकी कुल कमाई 1120 रुपये रही। पेट्रोल खर्च 370 रुपये काटकर शुद्ध बचत 690 रुपये हुई।',
+    audioOverview: 'नमस्ते नमन जी! आज आपकी कुल कमाई 1120 रुपये रही। पेट्रोल खर्च 370 रुपये काटकर शुद्ध बचत 690 रुपये हुई।',
     audioTripSkip: 'कृपया यह ऑर्डर स्वीकार न करें। खरड़ से खाली वापसी में भारी पेट्रोल खर्च होगा।',
     audioTripAccept: 'यह ऑर्डर लाभदायक है, इसमें वर्षा भत्ता भी शामिल है। इसे तुरंत स्वीकार करें।',
     audioAudit: 'जोमैटो ने आपके 32 रुपये कम दिए हैं। कृपया नीचे दिए गए बटन से तुरंत शिकायत दर्ज करें।',
@@ -242,7 +242,7 @@ const TRANSLATIONS = {
     daysDone: '84 Days Completed',
     daysLeft: 'Just 6 shifts left to qualify!',
     viewMobile: 'View Mobile Screen (Mobile View)',
-    greeting: 'Good afternoon, Ravi',
+    greeting: 'Good afternoon, Naman',
     subGreeting: 'Chandigarh Sector 35 • Hero Splendor 110cc',
     voiceBtnListen: 'Listen to Briefing',
     voiceBtnStop: 'Stop Audio',
@@ -317,8 +317,8 @@ const TRANSLATIONS = {
     shortcut2: 'Check Govt ₹5 Lakh Ayushman Cover (90/120 day rules)',
     shortcut3: 'Open Rider Mobile Phone View',
     pressEnter: 'Press ↵',
-    audioOverview: 'Good afternoon Ravi. Today you earned 1120 gross. After deducting 370 rupees for petrol and maintenance, your real pocket savings are 690 rupees.',
-    audioTripSkip: 'Do not take this order Ravi. The empty return trip from Kharar eats 39 rupees of fuel, leaving you only 13 rupees profit.',
+    audioOverview: 'Good afternoon Naman. Today you earned 1120 gross. After deducting 370 rupees for petrol and maintenance, your real pocket savings are 690 rupees.',
+    audioTripSkip: 'Do not take this order Naman. The empty return trip from Kharar eats 39 rupees of fuel, leaving you only 13 rupees profit.',
     audioTripAccept: 'This is a great order. Short distance and 25 rupees rain bonus included. Accept it right away.',
     audioAudit: 'Zomato shortchanged you by 32 rupees on this order. Click the dispute button to send a notice.',
     weatherTitle: 'Live Weather & Hydration Sentinel',
@@ -327,7 +327,7 @@ const TRANSLATIONS = {
     hydrationTitle: 'Hydration Break in:',
     drankWaterBtn: 'Drank Water',
     rainSurgeDesc: '6:00 PM Rain Surge predicted (+₹20/order platform bonus)',
-    hydrationResetMsg: 'Great job Ravi! Hydration timer reset to 20 minutes.'
+    hydrationResetMsg: 'Great job Naman! Hydration timer reset to 20 minutes.'
   }
 };
 
