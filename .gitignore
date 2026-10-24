@@ -1,6 +1,14 @@
+# Dependencies
 node_modules
 dist
 dist-ssr
-*.local
 .DS_Store
+
+# Credentials & Environment Variables
 .env
+.env.local
+.env.*.local
+*.pem
+*.key
+*.cert
+*.log

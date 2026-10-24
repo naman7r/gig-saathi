@@ -124,25 +124,27 @@ export default function OrderEvaluator() {
         {/* Action Buttons */}
         <div className="grid grid-cols-2 gap-3 mt-4">
           <button
-            onClick={() => alert(`Order declined. Estimated fuel saved: ₹${order.realFuelCost.toFixed(0)}.`)}
-            className={`py-3 px-4 rounded-xl text-xs font-semibold transition-all ${
+            type="button"
+            onClick={() => alert(`ऑर्डर छोड़ दिया। आपने ₹${order.realFuelCost.toFixed(0)} का खाली वापसी पेट्रोल बचा लिया!`)}
+            className={`py-3 px-4 rounded-xl text-xs font-bold transition-all min-h-[44px] cursor-pointer ${
               isSkip
                 ? 'bg-rose-600 hover:bg-rose-500 text-white shadow-lg shadow-rose-600/20'
                 : 'bg-zinc-800 hover:bg-zinc-700 text-zinc-300'
             }`}
           >
-            Decline Order
+            ऑर्डर छोड़ें (Decline)
           </button>
 
           <button
-            onClick={() => alert(`Order accepted. Tracking fuel & mileage for your daily report.`)}
-            className={`py-3 px-4 rounded-xl text-xs font-semibold transition-all flex items-center justify-center gap-1.5 ${
+            type="button"
+            onClick={() => alert(`ऑर्डर स्वीकार किया। जीपीएस माइलेज और ईंधन ट्रैकिंग सक्रिय है।`)}
+            className={`py-3 px-4 rounded-xl text-xs font-bold transition-all flex items-center justify-center gap-1.5 min-h-[44px] cursor-pointer ${
               !isSkip
-                ? 'bg-emerald-500 hover:bg-emerald-400 text-black font-bold shadow-lg shadow-emerald-500/20'
+                ? 'bg-emerald-500 hover:bg-emerald-400 text-black font-extrabold shadow-lg shadow-emerald-500/20'
                 : 'bg-zinc-800 hover:bg-zinc-700 text-zinc-300'
             }`}
           >
-            <span>Accept Trip</span>
+            <span>ऑर्डर लें (Accept)</span>
             <ArrowRight className="w-3.5 h-3.5" />
           </button>
         </div>

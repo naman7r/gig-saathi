@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { FileText, Copy, CheckCircle2, Share2, AlertCircle } from 'lucide-react';
 import { RIDER_PROFILE } from '../data/mockData';
 
-export default function DisputeDrafter({ prefilledSlip }) {
+export default function DisputeDrafter({ prefilledSlip, onNotify }) {
   const [issueType, setIssueType] = useState(
     prefilledSlip ? (prefilledSlip.penaltyDeduction ? 'cancellation' : 'surge') : 'surge'
   );
@@ -63,6 +63,9 @@ Partner ID: SWG-MH-55210`;
   const handleCopy = () => {
     navigator.clipboard.writeText(appealContent);
     setCopied(true);
+    if (onNotify) {
+      onNotify("शिकायत पत्र कॉपी हो गया! / Grievance letter copied to clipboard.", "success");
+    }
     setTimeout(() => setCopied(false), 2000);
   };
 
@@ -136,8 +139,13 @@ Partner ID: SWG-MH-55210`;
           </a>
 
           <button
-            onClick={() => alert("Evidence pack exported with timestamps, GPS telemetry and receipt proof.")}
-            className="py-3 px-3 bg-zinc-800 hover:bg-zinc-700 text-zinc-200 border border-zinc-700 font-bold rounded-xl text-xs flex items-center justify-center gap-1.5 transition-all"
+            type="button"
+            onClick={() => {
+              if (onNotify) {
+                onNotify("सबूत पैक तैयार! जीपीएस ओडोमीटर और टाइमस्टैम्प सुरक्षित हैं। / Evidence pack exported.", "success");
+              }
+            }}
+            className="py-3 px-3 bg-zinc-800 hover:bg-zinc-700 text-zinc-200 border border-zinc-700 font-bold rounded-xl text-xs flex items-center justify-center gap-1.5 transition-all min-h-[44px]"
           >
             <span>Export Evidence Pack</span>
           </button>

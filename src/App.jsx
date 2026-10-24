@@ -10,6 +10,7 @@ import DocumentHelper from './components/DocumentHelper';
 import AskSaathiAssistant from './components/AskSaathiAssistant';
 import ClientDeskDashboard from './components/ClientDeskDashboard';
 import SightlineDashboard from './components/SightlineDashboard';
+import Toast from './components/Toast';
 import { Zap, FileSearch, ShieldCheck, Mic, Bot, Laptop, Smartphone } from 'lucide-react';
 import { MOCK_PAYOUT_SLIPS } from './data/mockData';
 
@@ -21,6 +22,11 @@ export default function App() {
   const [prefilledSlip, setPrefilledSlip] = useState(null);
   const [showAskModal, setShowAskModal] = useState(false);
   const [activeModalContent, setActiveModalContent] = useState(null);
+  const [toast, setToast] = useState(null); // { message, type }
+
+  const showToast = (message, type = 'info') => {
+    setToast({ message, type });
+  };
 
   const handleDraftDisputeFromSlip = (slip) => {
     setPrefilledSlip(slip);
@@ -237,7 +243,10 @@ export default function App() {
                 ✕
               </button>
             </div>
-            <DisputeDrafter prefilledSlip={MOCK_PAYOUT_SLIPS[0]} />
+            <DisputeDrafter 
+              prefilledSlip={prefilledSlip || MOCK_PAYOUT_SLIPS[0]} 
+              onNotify={showToast} 
+            />
           </div>
         </div>
       )}
@@ -257,7 +266,8 @@ export default function App() {
                 </div>
               </div>
 
-              <button
+              <button 
+                type="button"
                 onClick={() => setShowAskModal(false)}
                 className="w-7 h-7 rounded-full bg-zinc-900 border border-zinc-800 text-zinc-400 hover:text-zinc-200 flex items-center justify-center text-xs font-bold"
               >
@@ -269,6 +279,13 @@ export default function App() {
           </div>
         </div>
       )}
+
+      {/* Global Toast Notification */}
+      <Toast 
+        message={toast?.message} 
+        type={toast?.type} 
+        onClose={() => setToast(null)} 
+      />
     </div>
   );
 }

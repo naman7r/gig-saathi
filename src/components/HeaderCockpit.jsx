@@ -120,17 +120,34 @@ export default function HeaderCockpit({ currentLang, setCurrentLang }) {
 
       {/* SOS Active Banner if triggered */}
       {sosActive && (
-        <div className="bg-rose-950/90 border border-rose-500/40 rounded-xl p-3 text-xs text-rose-200 flex items-center justify-between animate-fadeIn">
+        <div className="bg-rose-950/95 border-2 border-rose-500 rounded-2xl p-3.5 text-xs text-rose-200 flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 animate-fadeIn">
           <div>
-            <p className="font-bold text-rose-100">Emergency Protocol Active</p>
-            <p className="text-[11px] text-rose-300">GPS location shared with 112 emergency services.</p>
+            <p className="font-extrabold text-white text-sm flex items-center gap-1.5">
+              <span>🚨</span>
+              <span>Emergency Protocol Active (आपातकाल सक्रिय)</span>
+            </p>
+            <p className="text-[11px] text-rose-300 mt-0.5">
+              Live GPS coordinates ready. Tap to dial national emergency dispatch.
+            </p>
           </div>
-          <button
-            onClick={() => setSosActive(false)}
-            className="bg-rose-800 hover:bg-rose-700 text-white px-2 py-1 rounded-lg text-[10px] font-bold"
-          >
-            Cancel
-          </button>
+          
+          <div className="flex items-center gap-2">
+            <a
+              href="tel:112"
+              className="px-3.5 py-2 bg-rose-600 hover:bg-rose-500 text-white font-extrabold rounded-xl text-xs flex items-center gap-1.5 shadow-md min-h-[44px]"
+            >
+              <PhoneCall className="w-3.5 h-3.5" />
+              <span>Call 112 (Police/Ambulance)</span>
+            </a>
+
+            <button
+              type="button"
+              onClick={() => setSosActive(false)}
+              className="px-3 py-2 bg-zinc-900 hover:bg-zinc-800 text-zinc-300 rounded-xl text-xs font-semibold min-h-[44px]"
+            >
+              Cancel
+            </button>
+          </div>
         </div>
       )}
     </header>

@@ -120,15 +120,28 @@ export default function AskSaathiAssistant() {
           onChange={(e) => setInputQuery(e.target.value)}
           onKeyDown={(e) => e.key === 'Enter' && handleSend()}
           placeholder="हिंदी या Hinglish में पूछें..."
-          className="flex-1 bg-zinc-900 border border-zinc-800 rounded-xl px-3.5 py-2.5 text-xs text-zinc-200 placeholder-zinc-500 focus:outline-none focus:border-zinc-600"
+          className="flex-1 bg-zinc-900 border border-zinc-800 rounded-xl px-3.5 py-2.5 text-xs text-zinc-200 placeholder-zinc-500 focus:outline-none focus:border-zinc-600 min-h-[44px]"
         />
 
         <button
+          type="button"
           onClick={() => handleSend()}
-          className="w-9 h-9 rounded-xl bg-zinc-100 hover:bg-white text-zinc-900 flex items-center justify-center shrink-0 transition-all font-bold"
+          className="w-11 h-11 rounded-xl bg-zinc-100 hover:bg-white text-zinc-900 flex items-center justify-center shrink-0 transition-all font-bold min-h-[44px] min-w-[44px]"
         >
-          <Send className="w-3.5 h-3.5" />
+          <Send className="w-4 h-4" />
         </button>
+      </div>
+
+      {/* Official Emergency & Grievance Helpline Speed-Dial */}
+      <div className="flex items-center justify-between pt-1 px-1 text-[11px] text-zinc-400">
+        <span>आधिकारिक सहायता:</span>
+        <div className="flex items-center gap-2 font-mono">
+          <a href="tel:1915" className="text-amber-400 hover:underline">1915 (उपभोक्ता)</a>
+          <span className="text-zinc-600">•</span>
+          <a href="tel:14434" className="text-blue-400 hover:underline">14434 (ई-श्रम)</a>
+          <span className="text-zinc-600">•</span>
+          <a href="tel:112" className="text-rose-400 hover:underline">112 (आपातकाल)</a>
+        </div>
       </div>
     </div>
   );

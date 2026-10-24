@@ -119,8 +119,9 @@ export default function SlipScanner({ onDraftDispute }) {
 
             {/* 1-Click Appeal Action */}
             <button
+              type="button"
               onClick={() => onDraftDispute(currentSlip)}
-              className="w-full py-3 px-4 bg-zinc-100 hover:bg-white text-zinc-900 font-bold rounded-xl text-xs transition-all flex items-center justify-center gap-2 shadow-lg"
+              className="w-full py-3.5 px-4 bg-zinc-100 hover:bg-white text-zinc-900 font-extrabold rounded-xl text-xs transition-all flex items-center justify-center gap-2 shadow-lg min-h-[44px] cursor-pointer active:scale-95"
             >
               <span>Draft Dispute Appeal (Recover ₹{currentSlip.underpaidAmount})</span>
               <ArrowRight className="w-3.5 h-3.5" />

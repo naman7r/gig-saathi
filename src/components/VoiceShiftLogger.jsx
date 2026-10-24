@@ -47,10 +47,13 @@ export default function VoiceShiftLogger() {
     });
   };
 
+  const [micStatusMsg, setMicStatusMsg] = useState(null);
+
   const handleStartMic = () => {
     const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
     if (!SpeechRecognition) {
-      alert("Speech Recognition not supported in this browser. Tap any of the Hinglish presets below!");
+      setMicStatusMsg("ब्राउज़र में माइक सपोर्ट नहीं है। कृपया नीचे दिए गए 1-टैप प्रीसेट चुनें!");
+      setTimeout(() => setMicStatusMsg(null), 4000);
       return;
     }
 
@@ -101,6 +104,12 @@ export default function VoiceShiftLogger() {
             </p>
           </div>
         </div>
+
+        {micStatusMsg && (
+          <div className="p-2.5 rounded-xl bg-amber-500/15 border border-amber-500/30 text-amber-300 text-xs font-medium animate-in fade-in">
+            {micStatusMsg}
+          </div>
+        )}
 
         {/* 1-Tap Presets */}
         <div className="space-y-1.5">

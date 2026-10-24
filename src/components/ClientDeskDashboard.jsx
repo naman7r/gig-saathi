@@ -13,6 +13,7 @@ import SlipScanner from './SlipScanner';
 import SocialSecurityShield from './SocialSecurityShield';
 import DocumentHelper from './DocumentHelper';
 import SafetyGuardian from './SafetyGuardian';
+import EmptyState from './EmptyState';
 
 const DATE_RANGE_DATA = {
   today: {
@@ -686,6 +687,21 @@ export default function ClientDeskDashboard({ onOpenAppeal, onOpenAskAI, onSwitc
                           ))}
                         </div>
                       )}
+                    </div>
+                  )}
+
+                  {/* Empty Search State */}
+                  {showSearchResults && searchQuery.trim().length > 0 && !hasSearchResults && (
+                    <div className="absolute right-0 top-10 w-80 bg-white rounded-2xl shadow-2xl border border-slate-200 p-4 z-50 text-left animate-in fade-in">
+                      <EmptyState 
+                        title="कोई परिणाम नहीं मिला / No Match"
+                        description={`"${searchQuery}" से मेल खाती कोई ट्रिप या नियम नहीं मिला।`}
+                        actionLabel="सर्च रीसेट करें"
+                        onAction={() => {
+                          setSearchQuery('');
+                          setShowSearchResults(false);
+                        }}
+                      />
                     </div>
                   )}
                 </div>
@@ -1638,7 +1654,13 @@ export default function ClientDeskDashboard({ onOpenAppeal, onOpenAskAI, onSwitc
               </div>
               <div className="flex items-center justify-between py-1.5">
                 <span className="font-semibold text-slate-800">Government Helplines:</span>
-                <span className="font-mono text-blue-600 font-bold">112 (SOS) • 14434 (e-Shram)</span>
+                <span className="space-x-1.5 font-mono text-xs font-bold">
+                  <a href="tel:112" className="text-rose-600 hover:underline">112 (SOS)</a>
+                  <span className="text-slate-300">•</span>
+                  <a href="tel:14434" className="text-blue-600 hover:underline">14434 (e-Shram)</a>
+                  <span className="text-slate-300">•</span>
+                  <a href="tel:1915" className="text-emerald-600 hover:underline">1915 (Consumer)</a>
+                </span>
               </div>
             </div>
 

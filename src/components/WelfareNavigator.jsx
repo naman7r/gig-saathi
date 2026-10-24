@@ -92,8 +92,8 @@ export default function WelfareNavigator() {
                 <a
                   href={scheme.portalUrl}
                   target="_blank"
-                  rel="noreferrer"
-                  className="flex items-center gap-1 text-xs text-teal-400 hover:text-teal-300 font-bold"
+                  rel="noreferrer noopener"
+                  className="flex items-center gap-1 text-xs text-teal-400 hover:text-teal-300 font-bold min-h-[44px] min-w-[44px]"
                 >
                   <span>Official Portal</span>
                   <ExternalLink className="w-3 h-3" />
