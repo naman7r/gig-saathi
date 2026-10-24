@@ -33,6 +33,11 @@ const TRANSLATIONS = {
     voiceBtnListen: '🔊 बोलकर सुनो (Listen)',
     voiceBtnStop: 'आवाज़ बंद करें (Stop)',
     disputeBtnTop: 'कंपनी को शिकायत भेजो',
+    grossTitle: 'कुल कमाई (Gross Payout)',
+    grossSub: 'ज़ोमैटो (₹680) + स्विगी (₹440) मिलाके',
+    grossBadge: 'ऐप कमाई',
+    grossRate: '₹112.0 / घंटा ऐप दर',
+    audioGross: 'आज आपकी ज़ोमैटो और स्विगी मिलाकर कुल सकल कमाई 1120 रुपये है।',
     netTitle: 'जेब में क्या बचा? (Real Net)',
     netSub: 'पेट्रोल और बाइक खर्चा काट कर',
     netBadge: '₹69.0 / घंटा असली कमाई',
@@ -127,6 +132,11 @@ const TRANSLATIONS = {
     voiceBtnListen: '🔊 बोलकर सुनें (Listen)',
     voiceBtnStop: 'आवाज़ रोकें (Stop)',
     disputeBtnTop: 'कंपनी को शिकायत भेजें',
+    grossTitle: 'कुल कमाई (सकल आय)',
+    grossSub: 'ज़ोमैटो (₹680) + स्विगी (₹440) मिलाकर',
+    grossBadge: 'सकल राशि',
+    grossRate: '₹112.0 / घंटा सकल दर',
+    audioGross: 'आज आपकी ज़ोमैटो और स्विगी मिलाकर कुल सकल आय 1120 रुपये है।',
     netTitle: 'आपकी शुद्ध जेब बचत',
     netSub: 'पेट्रोल व वाहन खर्च घटाकर',
     netBadge: '₹69.0 / घंटा शुद्ध आय',
@@ -221,6 +231,11 @@ const TRANSLATIONS = {
     voiceBtnListen: '🔊 Listen Out Loud',
     voiceBtnStop: 'Stop Audio',
     disputeBtnTop: 'File Dispute Notice',
+    grossTitle: 'Total Gross Earnings',
+    grossSub: 'Zomato (₹680) + Swiggy (₹440) combined',
+    grossBadge: 'App Payout',
+    grossRate: '₹112.0 / hr nominal rate',
+    audioGross: 'Today your total gross payout across Zomato and Swiggy is 1120 rupees.',
     netTitle: 'Real Net in Pocket',
     netSub: 'After fuel & maintenance deducted',
     netBadge: '₹69.0 / hr effective rate',
@@ -623,11 +638,43 @@ export default function SightlineDashboard({
             </div>
 
             {/* ========================================================= */}
-            {/* 4 TOP RIDER KPI CARDS */}
+            {/* 5 TOP RIDER KPI CARDS (Dedicated Total Gross & Real Net) */}
             {/* ========================================================= */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-5 gap-4">
               
-              {/* Card 1: Real Net Take-Home */}
+              {/* Card 1: Total Gross Earnings (App Payout) */}
+              <div className="bg-blue-50/50 rounded-2xl p-5 border-2 border-blue-300 shadow-sm space-y-3 relative overflow-hidden">
+                <div className="flex items-center justify-between text-xs text-blue-950 font-bold">
+                  <span className="flex items-center gap-1.5">
+                    <span className="w-6 h-6 rounded-lg bg-blue-600 text-white flex items-center justify-center font-bold text-xs shadow-xs">
+                      <DollarSign className="w-3.5 h-3.5 text-white" />
+                    </span>
+                    <span>{t.grossTitle}</span>
+                  </span>
+                  <button
+                    onClick={() => speakText('audioGross', t.audioGross)}
+                    title={t.voiceBtnListen}
+                    className="p-1 rounded-full bg-white text-blue-800 hover:bg-blue-100 border border-blue-200 shadow-xs"
+                  >
+                    <Volume2 className="w-3.5 h-3.5" />
+                  </button>
+                </div>
+
+                <div className="space-y-1">
+                  <div className="text-3xl font-extrabold text-blue-950 font-mono tracking-tight">
+                    ₹1,120<span className="text-base text-blue-700 font-semibold">.00</span>
+                  </div>
+                  <div className="flex items-center gap-1.5 text-xs font-bold text-blue-700">
+                    <TrendingUp className="w-3.5 h-3.5 text-blue-600" />
+                    <span>{t.grossRate}</span>
+                  </div>
+                  <p className="text-[11px] text-slate-500 font-medium">
+                    {t.grossSub}
+                  </p>
+                </div>
+              </div>
+
+              {/* Card 2: Real Net Take-Home */}
               <div className="bg-emerald-50/40 rounded-2xl p-5 border-2 border-emerald-300 shadow-sm space-y-3 relative overflow-hidden">
                 <div className="flex items-center justify-between text-xs text-emerald-950 font-bold">
                   <span className="flex items-center gap-1.5">
@@ -652,29 +699,8 @@ export default function SightlineDashboard({
                     <span>{t.netBadge}</span>
                   </div>
                   <p className="text-[11px] text-slate-500 font-medium">
-                    {t.netSub} ({t.totalOf})
+                    {t.netSub}
                   </p>
-                </div>
-              </div>
-
-              {/* Card 2: Deliveries Completed */}
-              <div className="bg-white rounded-2xl p-5 border border-slate-200/90 shadow-xs space-y-3">
-                <div className="flex items-center justify-between text-xs text-slate-700 font-bold">
-                  <span className="flex items-center gap-1.5">
-                    <span className="w-6 h-6 rounded-lg bg-blue-50 text-blue-600 flex items-center justify-center font-bold text-xs">📦</span>
-                    <span>{t.deliveriesTitle}</span>
-                  </span>
-                  <span className="font-mono text-[11px] bg-slate-100 text-slate-600 px-2 py-0.5 rounded-full font-bold">{t.today}</span>
-                </div>
-
-                <div className="space-y-1">
-                  <div className="text-3xl font-extrabold text-slate-900 font-mono tracking-tight">
-                    16 <span className="text-base font-semibold text-slate-500 font-sans">{t.ordersUnit}</span>
-                  </div>
-                  <div className="flex items-center gap-1.5 text-xs font-semibold text-slate-600">
-                    <span>{t.deliveriesRate}</span>
-                  </div>
-                  <p className="text-[11px] text-slate-400 font-medium">{t.deliveriesSub}</p>
                 </div>
               </div>
 
@@ -699,7 +725,28 @@ export default function SightlineDashboard({
                 </div>
               </div>
 
-              {/* Card 4: Underpayment & Anomaly Flags */}
+              {/* Card 4: Deliveries Completed */}
+              <div className="bg-white rounded-2xl p-5 border border-slate-200/90 shadow-xs space-y-3">
+                <div className="flex items-center justify-between text-xs text-slate-700 font-bold">
+                  <span className="flex items-center gap-1.5">
+                    <span className="w-6 h-6 rounded-lg bg-blue-50 text-blue-600 flex items-center justify-center font-bold text-xs">📦</span>
+                    <span>{t.deliveriesTitle}</span>
+                  </span>
+                  <span className="font-mono text-[11px] bg-slate-100 text-slate-600 px-2 py-0.5 rounded-full font-bold">{t.today}</span>
+                </div>
+
+                <div className="space-y-1">
+                  <div className="text-3xl font-extrabold text-slate-900 font-mono tracking-tight">
+                    16 <span className="text-base font-semibold text-slate-500 font-sans">{t.ordersUnit}</span>
+                  </div>
+                  <div className="flex items-center gap-1.5 text-xs font-semibold text-slate-600">
+                    <span>{t.deliveriesRate}</span>
+                  </div>
+                  <p className="text-[11px] text-slate-400 font-medium">{t.deliveriesSub}</p>
+                </div>
+              </div>
+
+              {/* Card 5: Underpayment & Anomaly Flags */}
               <div className="bg-rose-50/50 rounded-2xl p-5 border-2 border-rose-300 shadow-sm space-y-3 relative overflow-hidden">
                 <div className="flex items-center justify-between text-xs text-rose-900 font-bold">
                   <span className="flex items-center gap-1.5">
