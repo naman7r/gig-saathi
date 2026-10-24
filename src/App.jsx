@@ -182,12 +182,6 @@ export default function App() {
             
             {/* Inner Phone Screen Display */}
             <div className="w-full flex-1 bg-[#F4F5F7] rounded-[40px] overflow-hidden flex flex-col relative border border-slate-200/80 text-slate-800">
-              
-              {/* Dynamic Island / Speaker Notch */}
-              <div className="absolute top-2 left-1/2 -translate-x-1/2 w-28 h-4 bg-slate-900 rounded-full z-50 flex items-center justify-end px-2">
-                <span className="w-2 h-2 rounded-full bg-slate-700" />
-              </div>
-
               {/* In-Phone Header */}
               <HeaderCockpit
                 currentLang={currentLang}
