@@ -251,7 +251,7 @@ export default function ClientDeskDashboard({ onOpenAppeal, onOpenAskAI, onSwitc
   return (
     <div className="w-full bg-[#EAECEF] min-h-screen p-4 sm:p-6 lg:p-8 font-sans text-slate-800 antialiased selection:bg-slate-900 selection:text-white relative">
       
-      {/* Main Studio White Canvas (Inspired strictly by Scrolltide Client Desk) */}
+      {/* Main Studio White Canvas (High-Density Professional Auditor Desk) */}
       <div className="max-w-[1520px] mx-auto bg-white rounded-[32px] shadow-[0_25px_70px_rgba(0,0,0,0.06)] border border-slate-200/80 p-6 lg:p-8 relative overflow-hidden">
         
         {/* ========================================================= */}
@@ -487,7 +487,7 @@ export default function ClientDeskDashboard({ onOpenAppeal, onOpenAskAI, onSwitc
         {/* ========================================================= */}
         <div className="flex gap-6 pt-6">
           
-          {/* Left Vertical Icon Rail (Scrolltide desk signature) */}
+          {/* Left Vertical Icon Rail (Auditor desk navigation) */}
           <div className="hidden sm:flex flex-col items-center justify-between py-2 w-12 border-r border-slate-100 pr-4 shrink-0">
             <div className="space-y-4">
               <button 

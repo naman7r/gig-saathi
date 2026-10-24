@@ -16,7 +16,7 @@ import { MOCK_PAYOUT_SLIPS } from './data/mockData';
 
 export default function App() {
   const [viewMode, setViewMode] = useState('laptop'); // 'laptop' | 'mobile'
-  const [laptopTheme, setLaptopTheme] = useState('desi'); // 'desi' (Plain-Speak Worker Mode with Audio) | 'clientdesk' (Scrolltide)
+  const [laptopTheme, setLaptopTheme] = useState('desi'); // 'desi' (Plain-Speak Worker Mode with Audio) | 'clientdesk' (Pro Auditor Desk)
   const [activeTab, setActiveTab] = useState('trips'); // 'trips' | 'audits' | 'shield' | 'voice' | 'dispute'
   const [currentLang, setCurrentLang] = useState('hinglish');
   const [prefilledSlip, setPrefilledSlip] = useState(null);
@@ -75,7 +75,11 @@ export default function App() {
                     : 'text-slate-600 hover:text-slate-900'
                 }`}
               >
-                🛵 सरल वर्कर मोड (आवाज़ & देसी भाषा)
+                {currentLang === 'en'
+                  ? '🛵 Rider Cockpit (Plain-Speak)'
+                  : currentLang === 'hi'
+                    ? '🛵 सरल वर्कर मोड (आवाज़ व हिन्दी)'
+                    : '🛵 सरल वर्कर मोड (आवाज़ & देसी भाषा)'}
               </button>
 
               <button
@@ -86,7 +90,11 @@ export default function App() {
                     : 'text-slate-600 hover:text-slate-900'
                 }`}
               >
-                💼 Scrolltide Desk
+                {currentLang === 'en'
+                  ? '💼 Pro Auditor Desk'
+                  : currentLang === 'hi'
+                    ? '💼 ऑडिट व विश्लेषण डेस्क'
+                    : '💼 प्रो ऑडिट डेस्क'}
               </button>
             </div>
           )}
