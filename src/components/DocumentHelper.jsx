@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { FileText, CheckCircle2, AlertTriangle, ShieldCheck, UploadCloud } from 'lucide-react';
 import { RIDER_PROFILE } from '../data/mockData';
 
-export default function DocumentHelper() {
+export default function DocumentHelper({ onNotify }) {
   const [documents] = useState([
     {
       id: 'doc-aadhaar',
@@ -92,8 +92,12 @@ export default function DocumentHelper() {
       </div>
 
       <button
-        onClick={() => alert("Scanner opened. You can take a photo of your new RC, Insurance, or Health Card for automated OCR verification.")}
-        className="w-full py-2.5 bg-zinc-800 hover:bg-zinc-700 text-zinc-200 border border-zinc-700/80 rounded-xl text-xs font-semibold transition-all flex items-center justify-center gap-2"
+        onClick={() => {
+          if (onNotify) {
+            onNotify("Scanner opened. Upload your RC, Insurance, or Health Card for automated OCR verification.", "info");
+          }
+        }}
+        className="w-full py-2.5 bg-zinc-800 hover:bg-zinc-700 text-zinc-200 border border-zinc-700/80 rounded-xl text-xs font-semibold transition-all flex items-center justify-center gap-2 cursor-pointer active:scale-95"
       >
         <UploadCloud className="w-3.5 h-3.5 text-zinc-400" />
         <span>Scan & Upload New Document</span>

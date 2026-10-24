@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { Send, Bot, ExternalLink, ShieldCheck, Key, Sparkles, Volume2, VolumeX, X, Check } from 'lucide-react';
 import { askGeminiAssistant } from '../utils/geminiAssistant.js';
 
-export default function AskSaathiAssistant({ currentLang = 'hinglish' }) {
+export default function AskSaathiAssistant({ currentLang = 'hinglish', initialQuery = '', onNotify }) {
   const isEn = currentLang === 'en';
   const isHi = currentLang === 'hi';
 
@@ -151,6 +151,13 @@ export default function AskSaathiAssistant({ currentLang = 'hinglish' }) {
     }
   };
 
+  // If opened with an initial query from dashboard/shortcuts, execute it
+  useEffect(() => {
+    if (initialQuery && initialQuery.trim()) {
+      handleSend(initialQuery.trim());
+    }
+  }, [initialQuery]);
+
   const saveApiKey = () => {
     const trimmed = keyInput.trim();
     if (trimmed) {
@@ -165,7 +172,10 @@ export default function AskSaathiAssistant({ currentLang = 'hinglish' }) {
 
   const toggleSpeech = (text, index) => {
     if (typeof window === 'undefined' || !('speechSynthesis' in window)) {
-      alert(isEn ? "Text-to-Speech is not supported in your browser." : "आपके ब्राउज़र में आवाज़ (Text-to-Speech) समर्थित नहीं है।");
+      const msg = isEn ? "Text-to-Speech is not supported in your browser." : "आपके ब्राउज़र में आवाज़ (Text-to-Speech) समर्थित नहीं है।";
+      if (onNotify) {
+        onNotify(msg, 'warning');
+      }
       return;
     }
 

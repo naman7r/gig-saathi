@@ -114,8 +114,12 @@ export async function askGeminiAssistant(userQuery, userApiKey = '', lang = 'hin
       source: 'fallback_kb',
       error: err.message,
       text: fallback.found 
-        ? `【सत्यापित संदर्भ: ${fallback.citationId}】\n${fallback.summary}\n\n📌 कानूनी स्थिति: ${fallback.disclaimer || 'सत्यापित सरकारी नियम'}\n🔗 आधिकारिक स्रोत: ${fallback.sourceUrl}`
-        : `⚠️ ${fallback.refusalMessage || 'सेवा अभी उपलब्ध नहीं है। कृपया थोड़ी देर बाद प्रयास करें।'}`
+        ? (isEn
+            ? `[Verified Citation: ${fallback.citationId}]\n${fallback.summary}\n\n📌 Legal Status: ${fallback.disclaimer || 'Official Gazette Rules'}\n🔗 Official Gazette Source: ${fallback.sourceUrl}`
+            : `【सत्यापित संदर्भ: ${fallback.citationId}】\n${fallback.summary}\n\n📌 कानूनी स्थिति: ${fallback.disclaimer || 'सत्यापित सरकारी नियम'}\n🔗 आधिकारिक स्रोत: ${fallback.sourceUrl}`)
+        : (isEn 
+            ? `⚠️ ${fallback.refusalMessage || 'Service is temporarily unavailable. Please try again or consult the helplines.'}` 
+            : `⚠️ ${fallback.refusalMessage || 'सेवा अभी उपलब्ध नहीं है। कृपया थोड़ी देर बाद प्रयास करें।'}`)
     };
   }
 }

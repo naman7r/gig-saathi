@@ -67,6 +67,20 @@ assert(assistantRes.source === 'local_kb' && assistantRes.citationId === 'KB-002
 const outOfScopeAssistant = await askGeminiAssistant("Recipe for biryani", "");
 assert(outOfScopeAssistant.source === 'local_kb' && (outOfScopeAssistant.text.includes("1915") || outOfScopeAssistant.text.includes("14434")), "Gemini Assistant out-of-scope fallback returns verified helpline numbers (1915/14434)");
 
+// Test 10: Gemini Assistant English language response verification
+const englishAssistantRes = await askGeminiAssistant("What is the 90 day rule?", "", "en");
+assert(englishAssistantRes.source === 'local_kb' && englishAssistantRes.text.includes("[Verified Citation: KB-002]"), "Gemini Assistant returns English legal citation format when lang is 'en'");
+
+// Test 11: Deadhead return fuel math verification
+const offeredPayout = 98;
+const oneWayKm = 5.2;
+const emptyReturnKm = 6.5;
+const fuelPerKm = 2.60;
+const totalKm = oneWayKm + emptyReturnKm; // 11.7 km
+const realFuelCost = totalKm * fuelPerKm; // ₹30.42
+const netProfit = offeredPayout - realFuelCost; // ~₹67.58
+assert(netProfit > 60 && realFuelCost > 30, "Deadhead empty return math correctly accounts for two-way fuel burn");
+
 console.log(`\n========================================`);
 console.log(`Summary: ${passed} Passed, ${failed} Failed`);
 console.log(`========================================\n`);

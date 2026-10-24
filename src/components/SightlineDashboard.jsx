@@ -6,7 +6,7 @@ import {
   Home, Wallet, FileText, Settings, Award, AlertTriangle, Eye, RefreshCw,
   Volume2, VolumeX, Sparkles, MessageSquare, PhoneCall, Check, ExternalLink,
   Bike, PackageCheck, WalletCards, Coins, ShieldAlert, XCircle, Info,
-  Wrench, Send, X, Compass, MapPin
+  Wrench, Send, X, Compass, MapPin, Sun, Droplets, CloudRain
 } from 'lucide-react';
 import { RIDER_PROFILE, INCOMING_ORDER_SCENARIOS, MOCK_PAYOUT_SLIPS, HISTORICAL_SHIFTS } from '../data/mockData';
 
@@ -108,7 +108,14 @@ const TRANSLATIONS = {
     audioOverview: 'नमस्ते रवि भाई! आज आपने कुल 1120 रुपये कमाए, जिसमें से 370 रुपये पेट्रोल और बाइक में गए, और 690 रुपये आपकी असली जेब में बचे।',
     audioTripSkip: 'भाई, यह ऑर्डर मत लो। खरड़ से खाली वापस आने में 39 रुपये का पेट्रोल लगेगा, सिर्फ 13 रुपये बचेंगे। 3 मिनट रुको, अच्छा ऑर्डर आएगा।',
     audioTripAccept: 'यह बहुत बढ़िया ऑर्डर है भाई। पास की दूरी है और 25 रुपये बारिश का बोनस भी है। इसे तुरंत स्वीकार करो।',
-    audioAudit: 'सावधान भाई, जोमैटो ने आपके 32 रुपये कम दिए हैं। आपने 7.4 किमी बाइक चलाई लेकिन ऐप ने सिर्फ 5.1 किमी दिखाया। नीचे बटन दबाकर तुरंत शिकायत भेजो।'
+    audioAudit: 'सावधान भाई, जोमैटो ने आपके 32 रुपये कम दिए हैं। आपने 7.4 किमी बाइक चलाई लेकिन ऐप ने सिर्फ 5.1 किमी दिखाया। नीचे बटन दबाकर तुरंत शिकायत भेजो।',
+    weatherTitle: 'मौसम व सेहत रडार (Weather & Hydration)',
+    tempValue: '38°C धूप (महसूस 42°C)',
+    heatAlert: 'दोपहर की धूप: समय पर पानी पिएं',
+    hydrationTitle: 'पानी पीने का समय:',
+    drankWaterBtn: 'पानी पी लिया',
+    rainSurgeDesc: 'शाम 6:00 बजे बारिश सर्ज (+₹20/ऑर्डर बोनस)',
+    hydrationResetMsg: 'शाबाश रवि भाई! हाइड्रेशन टाइमर 20 मिनट के लिए रीसेट हो गया।'
   },
   hi: {
     langLabel: 'हिन्दी (सरल हिन्दी)',
@@ -207,7 +214,14 @@ const TRANSLATIONS = {
     audioOverview: 'नमस्ते रवि जी! आज आपकी कुल कमाई 1120 रुपये रही। पेट्रोल खर्च 370 रुपये काटकर शुद्ध बचत 690 रुपये हुई।',
     audioTripSkip: 'कृपया यह ऑर्डर स्वीकार न करें। खरड़ से खाली वापसी में भारी पेट्रोल खर्च होगा।',
     audioTripAccept: 'यह ऑर्डर लाभदायक है, इसमें वर्षा भत्ता भी शामिल है। इसे तुरंत स्वीकार करें।',
-    audioAudit: 'जोमैटो ने आपके 32 रुपये कम दिए हैं। कृपया नीचे दिए गए बटन से तुरंत शिकायत दर्ज करें।'
+    audioAudit: 'जोमैटो ने आपके 32 रुपये कम दिए हैं। कृपया नीचे दिए गए बटन से तुरंत शिकायत दर्ज करें।',
+    weatherTitle: 'मौसम एवं स्वास्थ्य रडार',
+    tempValue: '38°C तापमान (महसूस 42°C)',
+    heatAlert: 'तीव्र ग्रीष्म चेतावनी: पर्याप्त जलपान करें',
+    hydrationTitle: 'जलपान हेतु शेष समय:',
+    drankWaterBtn: 'जलपान पूर्ण',
+    rainSurgeDesc: 'सायं 6:00 बजे वर्षा संभावित (+₹20 प्रति ऑर्डर वर्षा भत्ता)',
+    hydrationResetMsg: 'उत्कृष्ट! जलपान टाइमर 20 मिनट हेतु पुनर्गठित।'
   },
   en: {
     langLabel: 'English (Clear & Professional)',
@@ -306,7 +320,14 @@ const TRANSLATIONS = {
     audioOverview: 'Good afternoon Ravi. Today you earned 1120 gross. After deducting 370 rupees for petrol and maintenance, your real pocket savings are 690 rupees.',
     audioTripSkip: 'Do not take this order Ravi. The empty return trip from Kharar eats 39 rupees of fuel, leaving you only 13 rupees profit.',
     audioTripAccept: 'This is a great order. Short distance and 25 rupees rain bonus included. Accept it right away.',
-    audioAudit: 'Zomato shortchanged you by 32 rupees on this order. Click the dispute button to send a notice.'
+    audioAudit: 'Zomato shortchanged you by 32 rupees on this order. Click the dispute button to send a notice.',
+    weatherTitle: 'Live Weather & Hydration Sentinel',
+    tempValue: '38°C Sunny (Feels 42°C)',
+    heatAlert: 'Peak Heat Advisory: Hydrate frequently',
+    hydrationTitle: 'Hydration Break in:',
+    drankWaterBtn: 'Drank Water',
+    rainSurgeDesc: '6:00 PM Rain Surge predicted (+₹20/order platform bonus)',
+    hydrationResetMsg: 'Great job Ravi! Hydration timer reset to 20 minutes.'
   }
 };
 
@@ -314,6 +335,7 @@ export default function SightlineDashboard({
   onOpenAppeal, 
   onOpenAskAI, 
   onSwitchToMobile,
+  onNotify,
   currentLang: externalLang,
   setCurrentLang: externalSetLang
 }) {
@@ -327,6 +349,28 @@ export default function SightlineDashboard({
   const [selectedOrderIdx, setSelectedOrderIdx] = useState(0);
   const [commandPaletteOpen, setCommandPaletteOpen] = useState(false);
   const [speakingText, setSpeakingText] = useState(null);
+  const [hydrationSeconds, setHydrationSeconds] = useState(840); // 14:00 countdown
+
+  // 1-second countdown for health & hydration safety
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setHydrationSeconds(prev => (prev > 0 ? prev - 1 : 0));
+    }, 1000);
+    return () => clearInterval(timer);
+  }, []);
+
+  const formatTimer = (seconds) => {
+    const mins = Math.floor(seconds / 60);
+    const secs = seconds % 60;
+    return `${mins}:${secs.toString().padStart(2, '0')}`;
+  };
+
+  const handleDrankWater = () => {
+    setHydrationSeconds(1200); // reset to 20 mins
+    if (onNotify) {
+      onNotify(t.hydrationResetMsg, 'success');
+    }
+  };
 
   const t = TRANSLATIONS[currentLang] || TRANSLATIONS.en;
   const order = INCOMING_ORDER_SCENARIOS[selectedOrderIdx];
@@ -651,6 +695,47 @@ export default function SightlineDashboard({
                   <AlertCircle className="w-3.5 h-3.5" />
                   <span>{t.disputeBtnTop}</span>
                 </button>
+              </div>
+            </div>
+
+            {/* Weather & Hydration Sentinel Banner */}
+            <div className="bg-gradient-to-r from-amber-500/10 via-sky-500/10 to-emerald-500/10 border border-slate-200/90 rounded-2xl p-3.5 sm:p-4 shadow-xs flex flex-col md:flex-row md:items-center justify-between gap-3 text-xs">
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 rounded-xl bg-amber-500/20 text-amber-600 flex items-center justify-center shrink-0">
+                  <Sun className="w-5 h-5" />
+                </div>
+                <div>
+                  <div className="flex items-center gap-2">
+                    <span className="font-extrabold text-slate-900 text-sm font-mono">{t.tempValue}</span>
+                    <span className="text-[10px] font-bold text-amber-800 bg-amber-100/90 border border-amber-200 px-2 py-0.5 rounded-full">
+                      {t.heatAlert}
+                    </span>
+                  </div>
+                  <p className="text-[11px] text-slate-500 font-medium mt-0.5">
+                    Sector 35, Chandigarh • 48°C asphalt road surface
+                  </p>
+                </div>
+              </div>
+
+              <div className="flex items-center flex-wrap gap-2.5">
+                {/* Hydration countdown badge with Drank Water button */}
+                <div className="flex items-center gap-2 bg-white/90 border border-slate-200 rounded-xl px-3 py-1.5 shadow-xs">
+                  <Droplets className="w-4 h-4 text-blue-500 shrink-0" />
+                  <span className="text-slate-600 font-medium">{t.hydrationTitle}</span>
+                  <span className="font-mono font-extrabold text-blue-600 text-xs">{formatTimer(hydrationSeconds)}</span>
+                  <button
+                    onClick={handleDrankWater}
+                    className="ml-1 text-[10px] font-bold bg-blue-50 hover:bg-blue-100 text-blue-700 border border-blue-200 px-2 py-0.5 rounded-md transition-all active:scale-95 cursor-pointer"
+                  >
+                    {t.drankWaterBtn}
+                  </button>
+                </div>
+
+                {/* Rain surge forecast */}
+                <div className="flex items-center gap-2 bg-white/90 border border-slate-200 rounded-xl px-3 py-1.5 shadow-xs">
+                  <CloudRain className="w-4 h-4 text-indigo-500 shrink-0" />
+                  <span className="text-slate-700 font-semibold">{t.rainSurgeDesc}</span>
+                </div>
               </div>
             </div>
 
@@ -1075,15 +1160,23 @@ export default function SightlineDashboard({
 
                 <div className="grid grid-cols-2 gap-2.5">
                   <button 
-                    onClick={() => alert(t.alertDeclined)}
-                    className="py-2.5 px-3 bg-slate-50 hover:bg-slate-100 text-slate-700 font-bold rounded-xl text-xs transition-all border border-slate-200 flex items-center justify-center gap-1.5"
+                    onClick={() => {
+                      if (onNotify) {
+                        onNotify(t.alertDeclined, 'info');
+                      }
+                    }}
+                    className="py-2.5 px-3 bg-slate-50 hover:bg-slate-100 text-slate-700 font-bold rounded-xl text-xs transition-all border border-slate-200 flex items-center justify-center gap-1.5 cursor-pointer active:scale-95"
                   >
                     <X className="w-3.5 h-3.5 text-slate-500" />
                     <span>{t.declineBtn}</span>
                   </button>
                   <button 
-                    onClick={() => alert(t.alertAccepted)}
-                    className="py-2.5 px-3 bg-slate-900 hover:bg-slate-800 text-white font-bold rounded-xl text-xs transition-all shadow-xs flex items-center justify-center gap-1.5"
+                    onClick={() => {
+                      if (onNotify) {
+                        onNotify(t.alertAccepted, 'success');
+                      }
+                    }}
+                    className="py-2.5 px-3 bg-slate-900 hover:bg-slate-800 text-white font-bold rounded-xl text-xs transition-all shadow-xs flex items-center justify-center gap-1.5 cursor-pointer active:scale-95"
                   >
                     <Check className="w-3.5 h-3.5 text-emerald-400" />
                     <span>{t.acceptBtn}</span>

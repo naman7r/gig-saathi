@@ -21,6 +21,7 @@ export default function App() {
   const [currentLang, setCurrentLang] = useState('hinglish');
   const [prefilledSlip, setPrefilledSlip] = useState(null);
   const [showAskModal, setShowAskModal] = useState(false);
+  const [askQuery, setAskQuery] = useState('');
   const [activeModalContent, setActiveModalContent] = useState(null);
   const [toast, setToast] = useState(null); // { message, type }
 
@@ -140,11 +141,13 @@ export default function App() {
         <SightlineDashboard 
           currentLang={currentLang}
           setCurrentLang={setCurrentLang}
+          onNotify={showToast}
           onOpenAppeal={(slip) => {
             if (slip) setPrefilledSlip(slip);
             setActiveModalContent('appeal');
           }}
           onOpenAskAI={(query) => {
+            if (query) setAskQuery(query);
             setShowAskModal(true);
           }}
           onSwitchToMobile={() => setViewMode('mobile')}
@@ -158,6 +161,7 @@ export default function App() {
             setActiveModalContent('appeal');
           }}
           onOpenAskAI={(query) => {
+            if (query) setAskQuery(query);
             setShowAskModal(true);
           }}
           onSwitchToMobile={() => setViewMode('mobile')}
@@ -225,17 +229,17 @@ export default function App() {
 
             {/* In-Phone Scrollable Screen Body */}
             <div className="flex-1 px-4 pb-20 overflow-y-auto space-y-3">
-              {activeTab === 'trips' && <OrderEvaluator currentLang={currentLang} />}
+              {activeTab === 'trips' && <OrderEvaluator currentLang={currentLang} onNotify={showToast} />}
               {activeTab === 'audits' && <SlipScanner currentLang={currentLang} onDraftDispute={handleDraftDisputeFromSlip} />}
               {activeTab === 'shield' && (
                 <div className="space-y-3">
                   <SocialSecurityShield currentLang={currentLang} />
-                  <DocumentHelper currentLang={currentLang} />
+                  <DocumentHelper currentLang={currentLang} onNotify={showToast} />
                   <SafetyGuardian currentLang={currentLang} />
                 </div>
               )}
               {activeTab === 'voice' && <VoiceShiftLogger currentLang={currentLang} />}
-              {activeTab === 'dispute' && <DisputeDrafter currentLang={currentLang} prefilledSlip={prefilledSlip} />}
+              {activeTab === 'dispute' && <DisputeDrafter currentLang={currentLang} prefilledSlip={prefilledSlip} onNotify={showToast} />}
             </div>
 
             {/* In-Phone Floating Ask AI Pill */}
@@ -246,7 +250,7 @@ export default function App() {
               >
                 <div className="flex items-center gap-2 truncate">
                   <div className="w-6 h-6 rounded-lg bg-amber-500/20 text-amber-400 flex items-center justify-center text-xs shrink-0">
-                    🤖
+                    <Bot className="w-3.5 h-3.5" />
                   </div>
                   <span className="text-zinc-300 text-[11px] truncate">
                     {currentLang === 'en' 
@@ -313,7 +317,11 @@ export default function App() {
               </button>
             </div>
 
-            <AskSaathiAssistant currentLang={currentLang} />
+            <AskSaathiAssistant 
+              currentLang={currentLang} 
+              initialQuery={askQuery}
+              onNotify={showToast} 
+            />
           </div>
         </div>
       )}

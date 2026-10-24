@@ -65,7 +65,7 @@ const TRANSLATIONS = {
   }
 };
 
-export default function OrderEvaluator({ currentLang = 'hinglish' }) {
+export default function OrderEvaluator({ currentLang = 'hinglish', onNotify }) {
   const [selectedIdx, setSelectedIdx] = useState(0);
   const order = INCOMING_ORDER_SCENARIOS[selectedIdx];
   const isSkip = order.verdict === 'SKIP';
@@ -204,7 +204,11 @@ export default function OrderEvaluator({ currentLang = 'hinglish' }) {
         <div className="grid grid-cols-2 gap-3 mt-4">
           <button
             type="button"
-            onClick={() => alert(t.alertDeclined)}
+            onClick={() => {
+              if (onNotify) {
+                onNotify(t.alertDeclined, 'info');
+              }
+            }}
             className={`py-3 px-4 rounded-xl text-xs font-bold transition-all min-h-[44px] cursor-pointer ${
               isSkip
                 ? 'bg-rose-600 hover:bg-rose-500 text-white shadow-lg shadow-rose-600/20'
@@ -216,7 +220,11 @@ export default function OrderEvaluator({ currentLang = 'hinglish' }) {
 
           <button
             type="button"
-            onClick={() => alert(t.alertAccepted)}
+            onClick={() => {
+              if (onNotify) {
+                onNotify(t.alertAccepted, 'success');
+              }
+            }}
             className={`py-3 px-4 rounded-xl text-xs font-bold transition-all flex items-center justify-center gap-1.5 min-h-[44px] cursor-pointer ${
               !isSkip
                 ? 'bg-emerald-500 hover:bg-emerald-400 text-black font-extrabold shadow-lg shadow-emerald-500/20'
