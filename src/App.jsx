@@ -15,6 +15,7 @@ import { MOCK_PAYOUT_SLIPS } from './data/mockData';
 
 export default function App() {
   const [viewMode, setViewMode] = useState('laptop'); // 'laptop' | 'mobile'
+  const [laptopTheme, setLaptopTheme] = useState('desi'); // 'desi' (Plain-Speak Worker Mode with Audio) | 'clientdesk' (Scrolltide)
   const [activeTab, setActiveTab] = useState('trips'); // 'trips' | 'audits' | 'shield' | 'voice' | 'dispute'
   const [currentLang, setCurrentLang] = useState('hinglish');
   const [prefilledSlip, setPrefilledSlip] = useState(null);
@@ -46,38 +47,79 @@ export default function App() {
           </span>
         </div>
 
-        {/* Viewport Toggle */}
-        <div className="flex items-center bg-slate-100 border border-slate-200 rounded-full p-1 shadow-inner">
-          <button
-            onClick={() => setViewMode('laptop')}
-            className={`flex items-center gap-1.5 px-4 py-1.5 rounded-full text-xs font-semibold transition-all ${
-              viewMode === 'laptop'
-                ? 'bg-slate-900 text-white shadow-sm font-bold'
-                : 'text-slate-500 hover:text-slate-800'
-            }`}
-          >
-            <Laptop className="w-3.5 h-3.5" />
-            <span>Laptop Dashboard</span>
-          </button>
+        {/* Viewport & Theme Controls */}
+        <div className="flex items-center gap-2">
+          {viewMode === 'laptop' && (
+            <div className="flex items-center bg-slate-100 border border-slate-200 rounded-full p-1 text-xs">
+              <button
+                onClick={() => setLaptopTheme('desi')}
+                className={`px-3 py-1 rounded-full font-bold transition-all ${
+                  laptopTheme === 'desi'
+                    ? 'bg-emerald-600 text-white shadow-xs'
+                    : 'text-slate-600 hover:text-slate-900'
+                }`}
+              >
+                🛵 सरल वर्कर मोड (आवाज़ & देसी भाषा)
+              </button>
 
-          <button
-            onClick={() => setViewMode('mobile')}
-            className={`flex items-center gap-1.5 px-4 py-1.5 rounded-full text-xs font-semibold transition-all ${
-              viewMode === 'mobile'
-                ? 'bg-slate-900 text-white shadow-sm font-bold'
-                : 'text-slate-500 hover:text-slate-800'
-            }`}
-          >
-            <Smartphone className="w-3.5 h-3.5" />
-            <span>Rider Mobile Frame</span>
-          </button>
+              <button
+                onClick={() => setLaptopTheme('clientdesk')}
+                className={`px-3 py-1 rounded-full font-bold transition-all ${
+                  laptopTheme === 'clientdesk'
+                    ? 'bg-slate-900 text-white shadow-xs'
+                    : 'text-slate-600 hover:text-slate-900'
+                }`}
+              >
+                💼 Scrolltide Desk
+              </button>
+            </div>
+          )}
+
+          <div className="flex items-center bg-slate-100 border border-slate-200 rounded-full p-1 shadow-inner">
+            <button
+              onClick={() => setViewMode('laptop')}
+              className={`flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-bold transition-all ${
+                viewMode === 'laptop'
+                  ? 'bg-slate-900 text-white shadow-sm'
+                  : 'text-slate-500 hover:text-slate-800'
+              }`}
+            >
+              <Laptop className="w-3.5 h-3.5" />
+              <span>Laptop View</span>
+            </button>
+
+            <button
+              onClick={() => setViewMode('mobile')}
+              className={`flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-bold transition-all ${
+                viewMode === 'mobile'
+                  ? 'bg-slate-900 text-white shadow-sm'
+                  : 'text-slate-500 hover:text-slate-800'
+              }`}
+            >
+              <Smartphone className="w-3.5 h-3.5" />
+              <span>Rider Phone</span>
+            </button>
+          </div>
         </div>
       </div>
 
       {/* ========================================================= */}
-      {/* 1. LAPTOP STUDIO VIEW (Scrolltide Client Desk Flagship) */}
+      {/* 1. LAPTOP VIEWS */}
       {/* ========================================================= */}
-      {viewMode === 'laptop' && (
+      {viewMode === 'laptop' && laptopTheme === 'desi' && (
+        <SightlineDashboard 
+          onOpenAppeal={(slip) => {
+            if (slip) setPrefilledSlip(slip);
+            setActiveModalContent('appeal');
+          }}
+          onOpenAskAI={(query) => {
+            setShowAskModal(true);
+          }}
+          onSwitchToMobile={() => setViewMode('mobile')}
+        />
+      )}
+
+      {viewMode === 'laptop' && laptopTheme === 'clientdesk' && (
         <ClientDeskDashboard 
           onOpenAppeal={(slip) => {
             if (slip) setPrefilledSlip(slip);
