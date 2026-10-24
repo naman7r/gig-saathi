@@ -8,6 +8,7 @@ import DisputeDrafter from './components/DisputeDrafter';
 import SafetyGuardian from './components/SafetyGuardian';
 import DocumentHelper from './components/DocumentHelper';
 import AskSaathiAssistant from './components/AskSaathiAssistant';
+import ClientDeskDashboard from './components/ClientDeskDashboard';
 import SightlineDashboard from './components/SightlineDashboard';
 import { Zap, FileSearch, ShieldCheck, Mic, Bot, Laptop, Smartphone } from 'lucide-react';
 import { MOCK_PAYOUT_SLIPS } from './data/mockData';
@@ -74,11 +75,12 @@ export default function App() {
       </div>
 
       {/* ========================================================= */}
-      {/* 1. LAPTOP SIGHTLINE DASHBOARD VIEW */}
+      {/* 1. LAPTOP STUDIO VIEW (Scrolltide Client Desk Flagship) */}
       {/* ========================================================= */}
       {viewMode === 'laptop' && (
-        <SightlineDashboard 
-          onOpenAppeal={() => {
+        <ClientDeskDashboard 
+          onOpenAppeal={(slip) => {
+            if (slip) setPrefilledSlip(slip);
             setActiveModalContent('appeal');
           }}
           onOpenAskAI={(query) => {
