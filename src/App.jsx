@@ -11,8 +11,13 @@ import DocumentHelper from './components/DocumentHelper';
 import AskSaathiAssistant from './components/AskSaathiAssistant';
 import ClientDeskDashboard from './components/ClientDeskDashboard';
 import SightlineDashboard from './components/SightlineDashboard';
+import JudgeBriefModal from './components/JudgeBriefModal';
+import AuditEvidenceModal from './components/AuditEvidenceModal';
 import Toast from './components/Toast';
-import { Home, Zap, FileSearch, ShieldCheck, Mic, Bot, Laptop, Smartphone, Bike, Briefcase } from 'lucide-react';
+import { 
+  Home, Zap, FileSearch, ShieldCheck, Mic, Bot, Laptop, 
+  Smartphone, Bike, Briefcase, Trophy, Sparkles 
+} from 'lucide-react';
 import { MOCK_PAYOUT_SLIPS } from './data/mockData';
 
 export default function App() {
@@ -22,6 +27,9 @@ export default function App() {
   const [currentLang, setCurrentLang] = useState('hinglish');
   const [prefilledSlip, setPrefilledSlip] = useState(null);
   const [showAskModal, setShowAskModal] = useState(false);
+  const [showJudgeModal, setShowJudgeModal] = useState(false);
+  const [showEvidenceModal, setShowEvidenceModal] = useState(false);
+  const [demoScenario, setDemoScenario] = useState('baseline'); // 'baseline' | 'rain_rush' | 'wage_theft'
   const [askQuery, setAskQuery] = useState('');
   const [activeModalContent, setActiveModalContent] = useState(null);
   const [toast, setToast] = useState(null); // { message, type }
@@ -58,20 +66,74 @@ export default function App() {
   return (
     <div className="min-h-screen bg-[#F4F5F7] text-slate-800 flex flex-col justify-between selection:bg-blue-600 selection:text-white">
       {/* Top Floating Viewport Controller (Laptop vs Mobile Switcher) */}
-      <div className="sticky top-0 z-50 bg-white/95 backdrop-blur-md border-b border-slate-200/90 px-6 py-2.5 flex items-center justify-between shadow-xs">
+      <div className="sticky top-0 z-50 bg-white/95 backdrop-blur-md border-b border-slate-200/90 px-4 sm:px-6 py-2.5 flex items-center justify-between shadow-xs gap-2">
+        
+        {/* Left Side: Brand + Pitch Brief Button */}
         <div className="flex items-center gap-2.5">
-          <div className="w-7 h-7 rounded-lg bg-blue-600 text-white flex items-center justify-center text-sm shadow-xs font-bold">
+          <div className="w-7 h-7 rounded-lg bg-blue-600 text-white flex items-center justify-center text-sm shadow-xs font-bold shrink-0">
             <Bike className="w-4 h-4 text-white" />
           </div>
-          <span className="font-extrabold text-sm tracking-tight text-slate-900">
+          <span className="font-extrabold text-sm tracking-tight text-slate-900 hidden sm:inline">
             GigSaathi <span className="text-slate-400 font-normal text-xs">| Dual Viewport Cockpit</span>
           </span>
+
+          {/* Executive Pitch Brief Button (Evaluator Walkthrough) */}
+          <button
+            onClick={() => setShowJudgeModal(true)}
+            className="flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-bold bg-amber-50 hover:bg-amber-100 text-amber-900 border border-amber-200 shadow-2xs transition-all cursor-pointer"
+            title="Open Executive Pitch & Architecture Brief for Evaluators"
+          >
+            <Trophy className="w-3.5 h-3.5 text-amber-600" />
+            <span>Pitch Brief</span>
+          </button>
         </div>
 
-        {/* Viewport & Theme Controls */}
-        <div className="flex items-center gap-2">
+        {/* Center / Right: Demo Scenarios + Viewport Controls */}
+        <div className="flex items-center gap-2 flex-wrap justify-end">
+          
+          {/* Quick Demo Simulator Toggles */}
+          <div className="hidden lg:flex items-center bg-slate-100 border border-slate-200 rounded-full p-0.5 text-xs">
+            <span className="px-2 py-0.5 text-[10px] font-bold text-slate-400 uppercase tracking-wider font-mono">
+              Simulator:
+            </span>
+            <button
+              onClick={() => {
+                setDemoScenario('baseline');
+                showToast('Reset to standard afternoon shift baseline.', 'info');
+              }}
+              className={`px-2.5 py-1 rounded-full font-semibold transition-all cursor-pointer text-xs ${
+                demoScenario === 'baseline' ? 'bg-white text-slate-900 shadow-2xs font-bold' : 'text-slate-500 hover:text-slate-800'
+              }`}
+            >
+              ☀️ Normal
+            </button>
+            <button
+              onClick={() => {
+                setDemoScenario('rain_rush');
+                showToast('Simulated 6 PM Monsoon Rain Rush (+₹20/order surge) active!', 'info');
+              }}
+              className={`px-2.5 py-1 rounded-full font-semibold transition-all cursor-pointer text-xs ${
+                demoScenario === 'rain_rush' ? 'bg-blue-600 text-white shadow-2xs font-bold' : 'text-slate-500 hover:text-slate-800'
+              }`}
+            >
+              🌧️ Rain Surge
+            </button>
+            <button
+              onClick={() => {
+                setDemoScenario('wage_theft');
+                showToast('Algorithmic distance trimming flagged (-₹32). GPS telemetry audit evidence card generated!', 'warning');
+                setShowEvidenceModal(true);
+              }}
+              className={`px-2.5 py-1 rounded-full font-semibold transition-all cursor-pointer text-xs ${
+                demoScenario === 'wage_theft' ? 'bg-rose-600 text-white shadow-2xs font-bold' : 'text-slate-500 hover:text-slate-800'
+              }`}
+            >
+              🚨 Wage Skim (-₹32)
+            </button>
+          </div>
+
           {viewMode === 'laptop' && (
-            <div className="flex items-center bg-slate-100 border border-slate-200 rounded-full p-1 text-xs">
+            <div className="hidden sm:flex items-center bg-slate-100 border border-slate-200 rounded-full p-1 text-xs">
               <button
                 onClick={() => setLaptopTheme('desi')}
                 className={`flex items-center gap-1.5 px-3 py-1 rounded-full font-bold transition-all cursor-pointer ${
@@ -83,10 +145,10 @@ export default function App() {
                 <Bike className="w-3.5 h-3.5" />
                 <span>
                   {currentLang === 'en'
-                    ? 'Rider Cockpit (Plain-Speak)'
+                    ? 'Rider Cockpit'
                     : currentLang === 'hi'
-                      ? 'सरल वर्कर मोड (आवाज़ व हिन्दी)'
-                      : 'सरल वर्कर मोड (आवाज़ & देसी भाषा)'}
+                      ? 'सरल वर्कर मोड'
+                      : 'सरल वर्कर मोड'}
                 </span>
               </button>
 
@@ -101,10 +163,10 @@ export default function App() {
                 <Briefcase className="w-3.5 h-3.5" />
                 <span>
                   {currentLang === 'en'
-                    ? 'Pro Auditor Desk'
+                    ? 'Auditor Desk'
                     : currentLang === 'hi'
-                      ? 'ऑडिट व विश्लेषण डेस्क'
-                      : 'प्रो ऑडिट डेस्क'}
+                      ? 'ऑडिट डेस्क'
+                      : 'ऑडिट डेस्क'}
                 </span>
               </button>
             </div>
@@ -113,7 +175,7 @@ export default function App() {
           <div className="flex items-center bg-slate-100 border border-slate-200 rounded-full p-1 shadow-inner">
             <button
               onClick={() => setViewMode('laptop')}
-              className={`flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-bold transition-all cursor-pointer ${
+              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-bold transition-all cursor-pointer ${
                 viewMode === 'laptop'
                   ? 'bg-slate-900 text-white shadow-xs'
                   : 'text-slate-500 hover:text-slate-800'
@@ -125,7 +187,7 @@ export default function App() {
 
             <button
               onClick={() => setViewMode('mobile')}
-              className={`flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-bold transition-all cursor-pointer ${
+              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-bold transition-all cursor-pointer ${
                 viewMode === 'mobile'
                   ? 'bg-slate-900 text-white shadow-xs'
                   : 'text-slate-500 hover:text-slate-800'
@@ -182,6 +244,7 @@ export default function App() {
             
             {/* Inner Phone Screen Display */}
             <div className="w-full flex-1 bg-[#F4F5F7] rounded-[40px] overflow-hidden flex flex-col relative border border-slate-200/80 text-slate-800">
+              
               {/* In-Phone Header */}
               <HeaderCockpit
                 currentLang={currentLang}
@@ -235,7 +298,9 @@ export default function App() {
                   <MobileOverview 
                     currentLang={currentLang} 
                     onOpenAppeal={handleDraftDisputeFromSlip} 
+                    onOpenEvidenceCert={() => setShowEvidenceModal(true)}
                     onNotify={showToast} 
+                    demoScenario={demoScenario}
                   />
                 )}
                 {activeTab === 'trips' && <OrderEvaluator currentLang={currentLang} onNotify={showToast} />}
@@ -336,6 +401,19 @@ export default function App() {
           </div>
         </div>
       )}
+
+      {/* Executive Pitch & Evaluator Brief Modal */}
+      <JudgeBriefModal 
+        isOpen={showJudgeModal} 
+        onClose={() => setShowJudgeModal(false)} 
+      />
+
+      {/* Verifiable GPS Telemetry & Statutory Audit Certificate Modal */}
+      <AuditEvidenceModal 
+        isOpen={showEvidenceModal} 
+        onClose={() => setShowEvidenceModal(false)} 
+        onNotify={showToast} 
+      />
 
       {/* Global Toast Notification */}
       <Toast 

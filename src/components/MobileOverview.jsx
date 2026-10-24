@@ -142,9 +142,18 @@ const TRANSLATIONS = {
   }
 };
 
-export default function MobileOverview({ currentLang = 'hinglish', onOpenAppeal, onNotify }) {
+export default function MobileOverview({ 
+  currentLang = 'hinglish', 
+  onOpenAppeal, 
+  onOpenEvidenceCert,
+  onNotify,
+  demoScenario = 'baseline' 
+}) {
   const [speaking, setSpeaking] = useState(false);
   const [hydrationSeconds, setHydrationSeconds] = useState(840); // 14:00 countdown
+
+  const isRainRush = demoScenario === 'rain_rush';
+  const isWageTheft = demoScenario === 'wage_theft';
 
   const t = TRANSLATIONS[currentLang] || TRANSLATIONS.en;
 
@@ -230,16 +239,28 @@ export default function MobileOverview({ currentLang = 'hinglish', onOpenAppeal,
       </div>
 
       {/* 2. Weather & Hydration Sentinel Banner */}
-      <div className="bg-gradient-to-r from-amber-500/10 via-sky-500/10 to-emerald-500/10 border border-slate-200/90 rounded-2xl p-3 shadow-xs space-y-2 text-xs">
+      <div className={`border rounded-2xl p-3 shadow-xs space-y-2 text-xs transition-all ${
+        isRainRush 
+          ? 'bg-blue-50/90 border-blue-300 ring-2 ring-blue-400/40' 
+          : 'bg-gradient-to-r from-amber-500/10 via-sky-500/10 to-emerald-500/10 border-slate-200/90'
+      }`}>
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <div className="w-7 h-7 rounded-lg bg-amber-500/20 text-amber-600 flex items-center justify-center shrink-0">
-              <Sun className="w-4 h-4" />
+            <div className={`w-7 h-7 rounded-lg flex items-center justify-center shrink-0 ${
+              isRainRush ? 'bg-blue-600 text-white shadow-xs' : 'bg-amber-500/20 text-amber-600'
+            }`}>
+              {isRainRush ? <CloudRain className="w-4 h-4 animate-bounce" /> : <Sun className="w-4 h-4" />}
             </div>
             <div>
-              <span className="font-extrabold text-slate-900 font-mono text-xs">{t.tempValue}</span>
-              <span className="text-[9px] font-bold text-amber-800 bg-amber-100 border border-amber-200 px-1.5 py-0.5 rounded-full ml-1.5">
-                {t.heatAlert.split(':')[0]}
+              <span className="font-extrabold text-slate-900 font-mono text-xs">
+                {isRainRush ? '27°C भारी बारिश (Thunderstorm)' : t.tempValue}
+              </span>
+              <span className={`text-[9px] font-bold px-1.5 py-0.5 rounded-full ml-1.5 ${
+                isRainRush 
+                  ? 'bg-emerald-600 text-white font-mono' 
+                  : 'text-amber-800 bg-amber-100 border border-amber-200'
+              }`}>
+                {isRainRush ? '+₹20 सर्ज सक्रिय (SURGE ACTIVE)' : t.heatAlert.split(':')[0]}
               </span>
             </div>
           </div>
@@ -262,8 +283,10 @@ export default function MobileOverview({ currentLang = 'hinglish', onOpenAppeal,
 
           {/* Rain Forecast */}
           <div className="flex items-center gap-1 bg-white/90 border border-slate-200 rounded-xl p-1.5 px-2 truncate">
-            <CloudRain className="w-3.5 h-3.5 text-indigo-500 shrink-0" />
-            <span className="text-[10px] text-slate-700 font-semibold truncate">6 PM (+₹20)</span>
+            <CloudRain className={`w-3.5 h-3.5 shrink-0 ${isRainRush ? 'text-blue-600' : 'text-indigo-500'}`} />
+            <span className="text-[10px] text-slate-700 font-semibold truncate">
+              {isRainRush ? 'Active Surge (+₹20)' : '6 PM (+₹20)'}
+            </span>
           </div>
         </div>
       </div>
@@ -328,7 +351,9 @@ export default function MobileOverview({ currentLang = 'hinglish', onOpenAppeal,
       </div>
 
       {/* Card 5: Underpayment Banner */}
-      <div className="bg-white rounded-2xl p-3.5 border border-rose-200 shadow-xs space-y-2 bg-gradient-to-b from-rose-50/20 to-white">
+      <div className={`bg-white rounded-2xl p-3.5 border shadow-xs space-y-2 bg-gradient-to-b from-rose-50/20 to-white transition-all ${
+        isWageTheft ? 'border-rose-400 ring-2 ring-rose-500/40' : 'border-rose-200'
+      }`}>
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
             <div className="w-7 h-7 rounded-xl bg-amber-50 text-amber-600 ring-1 ring-amber-500/20 flex items-center justify-center shrink-0">
@@ -345,13 +370,23 @@ export default function MobileOverview({ currentLang = 'hinglish', onOpenAppeal,
           </div>
         </div>
 
-        <button
-          onClick={() => onOpenAppeal && onOpenAppeal(MOCK_PAYOUT_SLIPS[0])}
-          className="w-full py-2 bg-slate-900 hover:bg-slate-800 text-white font-bold rounded-xl text-xs transition-all shadow-xs flex items-center justify-center gap-1.5 cursor-pointer active:scale-95"
-        >
-          <Send className="w-3 h-3 text-emerald-400" />
-          <span>{t.disputeBtn}</span>
-        </button>
+        <div className="grid grid-cols-2 gap-2 pt-0.5">
+          <button
+            onClick={() => onOpenAppeal && onOpenAppeal(MOCK_PAYOUT_SLIPS[0])}
+            className="py-2 px-2 bg-slate-900 hover:bg-slate-800 text-white font-bold rounded-xl text-xs transition-all shadow-xs flex items-center justify-center gap-1.5 cursor-pointer active:scale-95"
+          >
+            <Send className="w-3 h-3 text-emerald-400" />
+            <span className="truncate">{t.disputeBtn}</span>
+          </button>
+
+          <button
+            onClick={() => onOpenEvidenceCert && onOpenEvidenceCert()}
+            className="py-2 px-2 bg-blue-50 hover:bg-blue-100 text-blue-700 border border-blue-200 font-bold rounded-xl text-xs transition-all flex items-center justify-center gap-1 cursor-pointer active:scale-95"
+          >
+            <ShieldCheck className="w-3.5 h-3.5 text-blue-600" />
+            <span className="truncate">प्रमाण पत्र (Evidence)</span>
+          </button>
+        </div>
       </div>
 
       {/* 4. Earnings Truth Dual-Curve Chart */}
