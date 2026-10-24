@@ -11,7 +11,7 @@ import AskSaathiAssistant from './components/AskSaathiAssistant';
 import ClientDeskDashboard from './components/ClientDeskDashboard';
 import SightlineDashboard from './components/SightlineDashboard';
 import Toast from './components/Toast';
-import { Zap, FileSearch, ShieldCheck, Mic, Bot, Laptop, Smartphone } from 'lucide-react';
+import { Zap, FileSearch, ShieldCheck, Mic, Bot, Laptop, Smartphone, Bike, Briefcase } from 'lucide-react';
 import { MOCK_PAYOUT_SLIPS } from './data/mockData';
 
 export default function App() {
@@ -69,32 +69,38 @@ export default function App() {
             <div className="flex items-center bg-slate-100 border border-slate-200 rounded-full p-1 text-xs">
               <button
                 onClick={() => setLaptopTheme('desi')}
-                className={`px-3 py-1 rounded-full font-bold transition-all ${
+                className={`flex items-center gap-1.5 px-3 py-1 rounded-full font-bold transition-all ${
                   laptopTheme === 'desi'
                     ? 'bg-emerald-600 text-white shadow-xs'
                     : 'text-slate-600 hover:text-slate-900'
                 }`}
               >
-                {currentLang === 'en'
-                  ? '🛵 Rider Cockpit (Plain-Speak)'
-                  : currentLang === 'hi'
-                    ? '🛵 सरल वर्कर मोड (आवाज़ व हिन्दी)'
-                    : '🛵 सरल वर्कर मोड (आवाज़ & देसी भाषा)'}
+                <Bike className="w-3.5 h-3.5" />
+                <span>
+                  {currentLang === 'en'
+                    ? 'Rider Cockpit (Plain-Speak)'
+                    : currentLang === 'hi'
+                      ? 'सरल वर्कर मोड (आवाज़ व हिन्दी)'
+                      : 'सरल वर्कर मोड (आवाज़ & देसी भाषा)'}
+                </span>
               </button>
 
               <button
                 onClick={() => setLaptopTheme('clientdesk')}
-                className={`px-3 py-1 rounded-full font-bold transition-all ${
+                className={`flex items-center gap-1.5 px-3 py-1 rounded-full font-bold transition-all ${
                   laptopTheme === 'clientdesk'
                     ? 'bg-slate-900 text-white shadow-xs'
                     : 'text-slate-600 hover:text-slate-900'
                 }`}
               >
-                {currentLang === 'en'
-                  ? '💼 Pro Auditor Desk'
-                  : currentLang === 'hi'
-                    ? '💼 ऑडिट व विश्लेषण डेस्क'
-                    : '💼 प्रो ऑडिट डेस्क'}
+                <Briefcase className="w-3.5 h-3.5" />
+                <span>
+                  {currentLang === 'en'
+                    ? 'Pro Auditor Desk'
+                    : currentLang === 'hi'
+                      ? 'ऑडिट व विश्लेषण डेस्क'
+                      : 'प्रो ऑडिट डेस्क'}
+                </span>
               </button>
             </div>
           )}

@@ -4,13 +4,15 @@ import {
   ArrowUpRight, ArrowRight, Clock, Navigation, Fuel, AlertCircle, CheckCircle2, 
   ShieldCheck, HeartPulse, DollarSign, Command, HelpCircle, Layers, SlidersHorizontal,
   Home, Wallet, FileText, Settings, Award, AlertTriangle, Eye, RefreshCw,
-  Volume2, VolumeX, Sparkles, MessageSquare, PhoneCall, Check, ExternalLink
+  Volume2, VolumeX, Sparkles, MessageSquare, PhoneCall, Check, ExternalLink,
+  Bike, PackageCheck, WalletCards, Coins, ShieldAlert, XCircle, Info,
+  Wrench, Send, X, Compass, MapPin
 } from 'lucide-react';
 import { RIDER_PROFILE, INCOMING_ORDER_SCENARIOS, MOCK_PAYOUT_SLIPS, HISTORICAL_SHIFTS } from '../data/mockData';
 
 const TRANSLATIONS = {
   hinglish: {
-    langLabel: '🛵 देसी गिग भाषा (Hinglish)',
+    langLabel: 'देसी गिग भाषा (Hinglish)',
     appName: 'गिग साथी (GigSaathi)',
     selectLang: 'भाषा चुनें / Select Language:',
     dailyMenu: 'दैनिक मेनू',
@@ -27,10 +29,10 @@ const TRANSLATIONS = {
     ayushmanSub: 'सरकारी कैशलेस अस्पताल इलाज',
     daysDone: '84 दिन पूरे',
     daysLeft: 'सिर्फ 6 दिन बाकी!',
-    viewMobile: '📱 मोबाइल स्क्रीन देखें (Mobile View)',
+    viewMobile: 'मोबाइल स्क्रीन देखें (Mobile View)',
     greeting: 'नमस्ते रवि भाई!',
     subGreeting: 'चंडीगढ़ सेक्टर 35 • हीरो स्प्लेंडर 110cc',
-    voiceBtnListen: '🔊 बोलकर सुनो (Listen)',
+    voiceBtnListen: 'बोलकर सुनो (Listen)',
     voiceBtnStop: 'आवाज़ बंद करें (Stop)',
     disputeBtnTop: 'कंपनी को शिकायत भेजो',
     grossTitle: 'कुल कमाई (Gross Payout)',
@@ -46,7 +48,7 @@ const TRANSLATIONS = {
     deliveriesSub: 'ज़ोमैटो + स्विगी मिलाके',
     today: 'आज',
     ordersUnit: 'ऑर्डर्स',
-    deliveriesRate: '↗ औसतन 2.4 ऑर्डर प्रति घंटा',
+    deliveriesRate: 'औसतन 2.4 ऑर्डर प्रति घंटा',
     fuelTitle: 'पेट्रोल और बाइक का खर्च',
     fuelBadge: '32% खर्च',
     fuelBreakdown: '₹290 पेट्रोल + ₹80 बाइक घिसाई',
@@ -70,8 +72,8 @@ const TRANSLATIONS = {
     wearCost: 'बाइक घिसाई और सर्विस',
     tripTitle: 'नया ऑर्डर आया: लें या छोड़ें?',
     tripDesc: 'खाली वापसी का पेट्रोल घाटा जोड़कर सही सलाह',
-    tripVerdictSkip: '🔴 यह ऑर्डर मत लो (घाटा है!)',
-    tripVerdictAccept: '🟢 तुरंत स्वीकार करो (बढ़िया कमाई!)',
+    tripVerdictSkip: 'यह ऑर्डर मत लो (घाटा है!)',
+    tripVerdictAccept: 'तुरंत स्वीकार करो (बढ़िया कमाई!)',
     profitBadge: 'फ़ायदा',
     lossBadge: 'घाटा',
     restToCust: 'रेस्टोरेंट से ग्राहक:',
@@ -84,16 +86,16 @@ const TRANSLATIONS = {
     netSavings: 'सब काट के असली बचत:',
     perHour: '/घंटा',
     only: 'सिर्फ',
-    declineBtn: '❌ छोड़ दो (Decline)',
-    acceptBtn: '✅ ले लो (Accept)',
+    declineBtn: 'छोड़ दो (Decline)',
+    acceptBtn: 'स्वीकार करो (Accept)',
     alertDeclined: 'ऑर्डर छोड़ दिया। आपने ₹39 का खाली पेट्रोल बचा लिया!',
     alertAccepted: 'ऑर्डर स्वीकार किया। जीपीएस और माइलेज ट्रैकिंग चालू है।',
     auditTitle: 'कटे हुए पैसे पकड़ो (GPS सबूत)',
     auditDesc: 'जोमैटो ने 7.4 किमी की जगह सिर्फ 5.1 किमी का पैसा दिया',
     zomatoTag: 'ज़ोमैटो #ZOM-7782190',
     auditShortfall: 'कंपनी ने ₹32.00 कम दिए (चोरी पकड़ी गई)',
-    auditBullet1: '• किमी घटाया: आपने 7.4 किमी बाइक चलाई, कंपनी ने सिर्फ 5.1 किमी माना (-₹12 नुकसान)।',
-    auditBullet2: '• बारिश का पैसा गायब: सेक्टर 17 में तेज बारिश थी, फिर भी ₹0 सर्ज दिया (-₹20 नुकसान)।',
+    auditBullet1: 'किमी घटाया: आपने 7.4 किमी बाइक चलाई, कंपनी ने सिर्फ 5.1 किमी माना (-₹12 नुकसान)।',
+    auditBullet2: 'बारिश का पैसा गायब: सेक्टर 17 में तेज बारिश थी, फिर भी ₹0 सर्ज दिया (-₹20 नुकसान)।',
     settledByCo: 'कंपनी ने जो दिया (Settled):',
     shouldBePaid: 'असली में जो मिलना चाहिए था:',
     disputeBtn: 'कंपनी को शिकायत भेजो (1-क्लिक व्हाट्सऐप) ↗',
@@ -101,7 +103,7 @@ const TRANSLATIONS = {
     shortcutsTitle: 'ज़रूरी शॉर्टकट',
     shortcut1: '₹32 कम मिलने की शिकायत तैयार करें',
     shortcut2: 'सरकारी ₹5 लाख मुफ्त इलाज (90/120 दिन नियम) देखें',
-    shortcut3: '📱 मोबाइल फोन व्यू खोलें',
+    shortcut3: 'मोबाइल फोन व्यू खोलें',
     pressEnter: '↵ दबाएं',
     audioOverview: 'नमस्ते रवि भाई! आज आपने कुल 1120 रुपये कमाए, जिसमें से 370 रुपये पेट्रोल और बाइक में गए, और 690 रुपये आपकी असली जेब में बचे।',
     audioTripSkip: 'भाई, यह ऑर्डर मत लो। खरड़ से खाली वापस आने में 39 रुपये का पेट्रोल लगेगा, सिर्फ 13 रुपये बचेंगे। 3 मिनट रुको, अच्छा ऑर्डर आएगा।',
@@ -126,10 +128,10 @@ const TRANSLATIONS = {
     ayushmanSub: 'सरकारी कैशलेस अस्पताल इलाज',
     daysDone: '84 दिन पूर्ण',
     daysLeft: 'केवल 6 दिन शेष!',
-    viewMobile: '📱 मोबाइल दृश्य देखें (Mobile View)',
+    viewMobile: 'मोबाइल दृश्य देखें (Mobile View)',
     greeting: 'नमस्ते रवि जी!',
     subGreeting: 'चंडीगढ़ सेक्टर 35 • हीरो स्प्लेंडर',
-    voiceBtnListen: '🔊 बोलकर सुनें (Listen)',
+    voiceBtnListen: 'बोलकर सुनें (Listen)',
     voiceBtnStop: 'आवाज़ रोकें (Stop)',
     disputeBtnTop: 'कंपनी को शिकायत भेजें',
     grossTitle: 'कुल कमाई (सकल आय)',
@@ -145,7 +147,7 @@ const TRANSLATIONS = {
     deliveriesSub: 'ज़ोमैटो व स्विगी मिलाकर',
     today: 'आज',
     ordersUnit: 'ऑर्डर',
-    deliveriesRate: '↗ औसतन 2.4 ऑर्डर प्रति घंटा',
+    deliveriesRate: 'औसतन 2.4 ऑर्डर प्रति घंटा',
     fuelTitle: 'पेट्रोल एवं रखरखाव खर्च',
     fuelBadge: '32% व्यय',
     fuelBreakdown: '₹290 पेट्रोल + ₹80 वाहन घिसावट',
@@ -169,8 +171,8 @@ const TRANSLATIONS = {
     wearCost: 'वाहन घिसावट व सर्विस',
     tripTitle: 'ऑर्डर रडार: स्वीकार करें या छोड़ें?',
     tripDesc: 'खाली वापसी ईंधन का सटीक आंकलन',
-    tripVerdictSkip: '🔴 अस्वीकार करें (घाटे का सौदा)',
-    tripVerdictAccept: '🟢 तुरंत स्वीकार करें (उत्कृष्ट आय)',
+    tripVerdictSkip: 'अस्वीकार करें (घाटे का सौदा)',
+    tripVerdictAccept: 'तुरंत स्वीकार करें (उत्कृष्ट आय)',
     profitBadge: 'लाभ',
     lossBadge: 'हानि',
     restToCust: 'रेस्टोरेंट से ग्राहक:',
@@ -191,8 +193,8 @@ const TRANSLATIONS = {
     auditDesc: 'वास्तविक दूरी 7.4 किमी थी, भुगतान केवल 5.1 किमी का हुआ',
     zomatoTag: 'ज़ोमैटो #ZOM-7782190',
     auditShortfall: 'कंपनी द्वारा ₹32.00 का कम भुगतान (जीपीएस विसंगति प्रमाणित)',
-    auditBullet1: '• दूरी कटौती: आपने 7.4 किमी यात्रा की, कंपनी ने केवल 5.1 किमी माना (-₹12 हानि)।',
-    auditBullet2: '• वर्षा भत्ता गायब: सेक्टर 17 में भारी वर्षा के बावजूद ₹0 सर्ज दिया गया (-₹20 हानि)।',
+    auditBullet1: 'दूरी कटौती: आपने 7.4 किमी यात्रा की, कंपनी ने केवल 5.1 किमी माना (-₹12 हानि)।',
+    auditBullet2: 'वर्षा भत्ता गायब: सेक्टर 17 में भारी वर्षा के बावजूद ₹0 सर्ज दिया गया (-₹20 हानि)।',
     settledByCo: 'कंपनी द्वारा प्रदत्त राशि:',
     shouldBePaid: 'वास्तव में देय राशि:',
     disputeBtn: 'औपचारिक शिकायत पत्र तैयार करें ↗',
@@ -200,7 +202,7 @@ const TRANSLATIONS = {
     shortcutsTitle: 'आवश्यक शॉर्टकट',
     shortcut1: '₹32 कटौती हेतु शिकायत पत्र तैयार करें',
     shortcut2: 'आयुष्मान भारत ₹5 लाख सुरक्षा (90/120 दिन नियम) देखें',
-    shortcut3: '📱 मोबाइल फोन दृश्य खोलें',
+    shortcut3: 'मोबाइल फोन दृश्य खोलें',
     pressEnter: '↵ दबाएं',
     audioOverview: 'नमस्ते रवि जी! आज आपकी कुल कमाई 1120 रुपये रही। पेट्रोल खर्च 370 रुपये काटकर शुद्ध बचत 690 रुपये हुई।',
     audioTripSkip: 'कृपया यह ऑर्डर स्वीकार न करें। खरड़ से खाली वापसी में भारी पेट्रोल खर्च होगा।',
@@ -225,10 +227,10 @@ const TRANSLATIONS = {
     ayushmanSub: 'Statutory Cashless Hospitalization',
     daysDone: '84 Days Completed',
     daysLeft: 'Just 6 shifts left to qualify!',
-    viewMobile: '📱 View Mobile Screen (Mobile View)',
+    viewMobile: 'View Mobile Screen (Mobile View)',
     greeting: 'Good afternoon, Ravi',
     subGreeting: 'Chandigarh Sector 35 • Hero Splendor 110cc',
-    voiceBtnListen: '🔊 Listen Out Loud',
+    voiceBtnListen: 'Listen to Briefing',
     voiceBtnStop: 'Stop Audio',
     disputeBtnTop: 'File Dispute Notice',
     grossTitle: 'Total Gross Earnings',
@@ -244,7 +246,7 @@ const TRANSLATIONS = {
     deliveriesSub: 'Zomato + Swiggy combined',
     today: 'Today',
     ordersUnit: 'Orders',
-    deliveriesRate: '↗ Avg 2.4 orders per hour',
+    deliveriesRate: 'Avg 2.4 orders per hour',
     fuelTitle: 'Operating Fuel & Wear',
     fuelBadge: '32% of Gross',
     fuelBreakdown: '₹290 petrol + ₹80 bike depreciation',
@@ -268,8 +270,8 @@ const TRANSLATIONS = {
     wearCost: 'Bike Wear & Maintenance',
     tripTitle: 'Incoming Order: Accept or Skip?',
     tripDesc: 'Calculates empty return fuel trap before accepting',
-    tripVerdictSkip: '🔴 SKIP ORDER (Deadhead Trap!)',
-    tripVerdictAccept: '🟢 ACCEPT ORDER (High Net Profit!)',
+    tripVerdictSkip: 'SKIP ORDER (Deadhead Trap!)',
+    tripVerdictAccept: 'ACCEPT ORDER (High Net Profit!)',
     profitBadge: 'Profit',
     lossBadge: 'Loss',
     restToCust: 'Restaurant to Customer:',
@@ -290,8 +292,8 @@ const TRANSLATIONS = {
     auditDesc: 'Zomato credited 5.1 km instead of 7.4 km actual',
     zomatoTag: 'Zomato #ZOM-7782190',
     auditShortfall: 'Company underpaid ₹32.00 (GPS discrepancy confirmed)',
-    auditBullet1: '• Shaved Distance: You rode 7.4 km, platform only credited 5.1 km (-₹12 loss).',
-    auditBullet2: '• Missing Rain Surge: Heavy rain in Sector 17, but ₹0 rain surge credited (-₹20 loss).',
+    auditBullet1: 'Shaved Distance: You rode 7.4 km, platform only credited 5.1 km (-₹12 loss).',
+    auditBullet2: 'Missing Rain Surge: Heavy rain in Sector 17, but ₹0 rain surge credited (-₹20 loss).',
     settledByCo: 'What Platform Settled:',
     shouldBePaid: 'What Should Have Been Paid:',
     disputeBtn: 'Send Grievance Notice (1-Tap WhatsApp) ↗',
@@ -401,8 +403,8 @@ export default function SightlineDashboard({
               {/* App Brand Header */}
               <div className="flex items-center justify-between pb-2">
                 <div className="flex items-center gap-2.5">
-                  <div className="w-9 h-9 rounded-xl bg-slate-900 text-white flex items-center justify-center font-black text-base shadow-sm">
-                    🛵
+                  <div className="w-9 h-9 rounded-xl bg-slate-900 text-emerald-400 flex items-center justify-center font-black shadow-xs ring-1 ring-slate-800">
+                    <Bike className="w-5 h-5" />
                   </div>
                   <div>
                     <h2 className="text-sm font-extrabold text-slate-900 tracking-tight leading-none">{t.appName}</h2>
@@ -531,8 +533,10 @@ export default function SightlineDashboard({
             {/* Bottom Card: Ayushman Bharat Progress */}
             <div className="pt-6 border-t border-slate-200/80">
               <div className="bg-gradient-to-br from-emerald-50 to-teal-50 border border-emerald-200/80 rounded-2xl p-4 space-y-2.5 shadow-xs">
-                <div className="flex items-center gap-2">
-                  <span className="text-xl">🛡️</span>
+                <div className="flex items-center gap-2.5">
+                  <div className="w-8 h-8 rounded-xl bg-emerald-600 text-white flex items-center justify-center shadow-xs shrink-0">
+                    <ShieldCheck className="w-4 h-4" />
+                  </div>
                   <div>
                     <h4 className="text-xs font-bold text-emerald-950">{t.ayushmanTitle}</h4>
                     <p className="text-[10px] text-emerald-800 font-medium">{t.ayushmanSub}</p>
@@ -566,31 +570,44 @@ export default function SightlineDashboard({
             {/* Top Greeting & Voice Header */}
             <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-2 border-b border-slate-100">
               <div>
-                <span className="text-xs text-slate-500 font-bold flex items-center gap-1.5">
-                  <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-                  {t.subGreeting}
-                </span>
-                <div className="flex items-center gap-3 mt-1">
+                <div className="flex items-center gap-2 text-xs text-slate-500 font-bold">
+                  <span className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200/60">
+                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+                    <span>Active Shift</span>
+                  </span>
+                  <span className="flex items-center gap-1">
+                    <MapPin className="w-3 h-3 text-slate-400" />
+                    {t.subGreeting}
+                  </span>
+                </div>
+                <div className="flex items-center gap-3 mt-1.5">
                   <h1 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-slate-900">
                     {t.greeting}
                   </h1>
                   
-                  {/* Big Voice Button for the Entire Overview */}
+                  {/* High-Tech Sleek Audio Pill Button */}
                   <button
                     onClick={() => speakText('audioOverview', t.audioOverview)}
                     title={speakingText === 'audioOverview' ? t.voiceBtnStop : t.voiceBtnListen}
-                    className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-bold transition-all shadow-sm ${
+                    className={`group flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-bold transition-all shadow-xs active:scale-95 ${
                       speakingText === 'audioOverview'
-                        ? 'bg-amber-500 text-slate-950 ring-2 ring-amber-300 animate-pulse'
-                        : 'bg-amber-100 hover:bg-amber-200 text-amber-900 border border-amber-300'
+                        ? 'bg-amber-500 text-slate-950 ring-2 ring-amber-300'
+                        : 'bg-slate-900 hover:bg-slate-800 text-white ring-1 ring-slate-950/10'
                     }`}
                   >
                     {speakingText === 'audioOverview' ? (
-                      <VolumeX className="w-4 h-4 text-slate-950" />
+                      <VolumeX className="w-3.5 h-3.5" />
                     ) : (
-                      <Volume2 className="w-4 h-4 text-amber-800" />
+                      <Volume2 className="w-3.5 h-3.5 text-emerald-400 group-hover:scale-110 transition-transform" />
                     )}
                     <span>{speakingText === 'audioOverview' ? t.voiceBtnStop : t.voiceBtnListen}</span>
+                    {speakingText === 'audioOverview' && (
+                      <span className="flex items-center gap-0.5 ml-1">
+                        <span className="w-0.5 h-2.5 bg-slate-950 animate-pulse" />
+                        <span className="w-0.5 h-3.5 bg-slate-950 animate-pulse delay-75" />
+                        <span className="w-0.5 h-2 bg-slate-950 animate-pulse delay-150" />
+                      </span>
+                    )}
                   </button>
                 </div>
               </div>
@@ -599,7 +616,7 @@ export default function SightlineDashboard({
               <div className="flex items-center flex-wrap gap-2.5">
                 
                 {/* 1-Tap Language Quick Switcher */}
-                <div className="flex items-center bg-slate-100 border border-slate-200 rounded-full p-1 text-xs font-bold text-slate-700">
+                <div className="flex items-center bg-slate-100 border border-slate-200 rounded-full p-1 text-xs font-bold text-slate-700 shadow-inner">
                   <button
                     onClick={() => setCurrentLang('hinglish')}
                     className={`px-3 py-1.5 rounded-full transition-all ${
@@ -629,7 +646,7 @@ export default function SightlineDashboard({
                 {/* Complaint Action Button */}
                 <button 
                   onClick={() => onOpenAppeal(MOCK_PAYOUT_SLIPS[0])}
-                  className="flex items-center gap-1.5 px-4 py-2 bg-rose-600 hover:bg-rose-700 text-white rounded-full text-xs font-bold shadow-xs transition-all active:scale-95"
+                  className="flex items-center gap-1.5 px-3.5 py-1.5 bg-rose-600 hover:bg-rose-700 text-white rounded-full text-xs font-bold shadow-xs transition-all active:scale-95"
                 >
                   <AlertCircle className="w-3.5 h-3.5" />
                   <span>{t.disputeBtnTop}</span>
@@ -638,33 +655,37 @@ export default function SightlineDashboard({
             </div>
 
             {/* ========================================================= */}
-            {/* 5 TOP RIDER KPI CARDS (Dedicated Total Gross & Real Net) */}
+            {/* 5 TOP RIDER KPI CARDS (Linear/Fintech-grade Design) */}
             {/* ========================================================= */}
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-5 gap-4">
               
               {/* Card 1: Total Gross Earnings (App Payout) */}
-              <div className="bg-blue-50/50 rounded-2xl p-5 border-2 border-blue-300 shadow-sm space-y-3 relative overflow-hidden">
-                <div className="flex items-center justify-between text-xs text-blue-950 font-bold">
-                  <span className="flex items-center gap-1.5">
-                    <span className="w-6 h-6 rounded-lg bg-blue-600 text-white flex items-center justify-center font-bold text-xs shadow-xs">
-                      <DollarSign className="w-3.5 h-3.5 text-white" />
-                    </span>
-                    <span>{t.grossTitle}</span>
+              <div className="bg-white rounded-2xl p-5 border border-slate-200/90 shadow-xs hover:border-blue-200 hover:shadow-sm transition-all space-y-3 relative overflow-hidden group">
+                <div className="flex items-center justify-between text-xs text-slate-700 font-bold">
+                  <span className="flex items-center gap-2">
+                    <div className="w-8 h-8 rounded-xl bg-blue-50 text-blue-600 ring-1 ring-blue-500/20 flex items-center justify-center shrink-0">
+                      <WalletCards className="w-4 h-4" />
+                    </div>
+                    <span className="text-slate-900">{t.grossTitle}</span>
                   </span>
                   <button
                     onClick={() => speakText('audioGross', t.audioGross)}
                     title={t.voiceBtnListen}
-                    className="p-1 rounded-full bg-white text-blue-800 hover:bg-blue-100 border border-blue-200 shadow-xs"
+                    className={`p-1.5 rounded-lg transition-all ${
+                      speakingText === 'audioGross'
+                        ? 'bg-blue-600 text-white shadow-xs'
+                        : 'text-slate-400 hover:text-blue-600 hover:bg-blue-50'
+                    }`}
                   >
                     <Volume2 className="w-3.5 h-3.5" />
                   </button>
                 </div>
 
                 <div className="space-y-1">
-                  <div className="text-3xl font-extrabold text-blue-950 font-mono tracking-tight">
-                    ₹1,120<span className="text-base text-blue-700 font-semibold">.00</span>
+                  <div className="text-2xl sm:text-3xl font-extrabold text-slate-900 font-mono tracking-tight">
+                    ₹1,120<span className="text-base text-slate-400 font-semibold">.00</span>
                   </div>
-                  <div className="flex items-center gap-1.5 text-xs font-bold text-blue-700">
+                  <div className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-md bg-blue-50 text-blue-700 text-xs font-semibold">
                     <TrendingUp className="w-3.5 h-3.5 text-blue-600" />
                     <span>{t.grossRate}</span>
                   </div>
@@ -675,26 +696,32 @@ export default function SightlineDashboard({
               </div>
 
               {/* Card 2: Real Net Take-Home */}
-              <div className="bg-emerald-50/40 rounded-2xl p-5 border-2 border-emerald-300 shadow-sm space-y-3 relative overflow-hidden">
-                <div className="flex items-center justify-between text-xs text-emerald-950 font-bold">
-                  <span className="flex items-center gap-1.5">
-                    <span className="w-6 h-6 rounded-lg bg-emerald-600 text-white flex items-center justify-center font-bold text-xs shadow-xs">💰</span>
-                    <span>{t.netTitle}</span>
+              <div className="bg-white rounded-2xl p-5 border border-slate-200/90 shadow-xs hover:border-emerald-200 hover:shadow-sm transition-all space-y-3 relative overflow-hidden group">
+                <div className="flex items-center justify-between text-xs text-slate-700 font-bold">
+                  <span className="flex items-center gap-2">
+                    <div className="w-8 h-8 rounded-xl bg-emerald-50 text-emerald-600 ring-1 ring-emerald-500/20 flex items-center justify-center shrink-0">
+                      <Coins className="w-4 h-4" />
+                    </div>
+                    <span className="text-slate-900">{t.netTitle}</span>
                   </span>
                   <button
                     onClick={() => speakText('audioOverview', t.audioOverview)}
                     title={t.voiceBtnListen}
-                    className="p-1 rounded-full bg-white text-emerald-800 hover:bg-emerald-100 border border-emerald-200 shadow-xs"
+                    className={`p-1.5 rounded-lg transition-all ${
+                      speakingText === 'audioOverview'
+                        ? 'bg-emerald-600 text-white shadow-xs'
+                        : 'text-slate-400 hover:text-emerald-600 hover:bg-emerald-50'
+                    }`}
                   >
                     <Volume2 className="w-3.5 h-3.5" />
                   </button>
                 </div>
 
                 <div className="space-y-1">
-                  <div className="text-3xl font-extrabold text-emerald-950 font-mono tracking-tight">
-                    ₹690<span className="text-base text-emerald-700 font-semibold">.00</span>
+                  <div className="text-2xl sm:text-3xl font-extrabold text-emerald-600 font-mono tracking-tight">
+                    ₹690<span className="text-base text-emerald-700/60 font-semibold">.00</span>
                   </div>
-                  <div className="flex items-center gap-1.5 text-xs font-bold text-emerald-700">
+                  <div className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-md bg-emerald-50 text-emerald-700 text-xs font-semibold">
                     <TrendingUp className="w-3.5 h-3.5 text-emerald-600" />
                     <span>{t.netBadge}</span>
                   </div>
@@ -705,20 +732,22 @@ export default function SightlineDashboard({
               </div>
 
               {/* Card 3: Operating Fuel & Bike Wear */}
-              <div className="bg-white rounded-2xl p-5 border border-slate-200/90 shadow-xs space-y-3">
+              <div className="bg-white rounded-2xl p-5 border border-slate-200/90 shadow-xs hover:border-rose-200 hover:shadow-sm transition-all space-y-3 relative overflow-hidden group">
                 <div className="flex items-center justify-between text-xs text-slate-700 font-bold">
-                  <span className="flex items-center gap-1.5">
-                    <span className="w-6 h-6 rounded-lg bg-rose-50 text-rose-600 flex items-center justify-center font-bold text-xs">⛽</span>
-                    <span>{t.fuelTitle}</span>
+                  <span className="flex items-center gap-2">
+                    <div className="w-8 h-8 rounded-xl bg-rose-50 text-rose-600 ring-1 ring-rose-500/20 flex items-center justify-center shrink-0">
+                      <Fuel className="w-4 h-4" />
+                    </div>
+                    <span className="text-slate-900">{t.fuelTitle}</span>
                   </span>
-                  <span className="font-mono text-[11px] text-rose-600 font-bold bg-rose-50 px-2 py-0.5 rounded-full">{t.fuelBadge}</span>
+                  <span className="font-mono text-[11px] text-rose-700 font-bold bg-rose-50 border border-rose-200/60 px-2 py-0.5 rounded-md">{t.fuelBadge}</span>
                 </div>
 
                 <div className="space-y-1">
-                  <div className="text-3xl font-extrabold text-rose-600 font-mono tracking-tight">
+                  <div className="text-2xl sm:text-3xl font-extrabold text-rose-600 font-mono tracking-tight">
                     -₹370<span className="text-base font-semibold text-rose-400">.00</span>
                   </div>
-                  <div className="flex items-center gap-1.5 text-xs font-semibold text-slate-600">
+                  <div className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-md bg-rose-50/60 text-rose-700 text-xs font-semibold">
                     <span>{t.fuelBreakdown}</span>
                   </div>
                   <p className="text-[11px] text-slate-400 font-medium">{t.fuelRate}</p>
@@ -726,20 +755,22 @@ export default function SightlineDashboard({
               </div>
 
               {/* Card 4: Deliveries Completed */}
-              <div className="bg-white rounded-2xl p-5 border border-slate-200/90 shadow-xs space-y-3">
+              <div className="bg-white rounded-2xl p-5 border border-slate-200/90 shadow-xs hover:border-indigo-200 hover:shadow-sm transition-all space-y-3 relative overflow-hidden group">
                 <div className="flex items-center justify-between text-xs text-slate-700 font-bold">
-                  <span className="flex items-center gap-1.5">
-                    <span className="w-6 h-6 rounded-lg bg-blue-50 text-blue-600 flex items-center justify-center font-bold text-xs">📦</span>
-                    <span>{t.deliveriesTitle}</span>
+                  <span className="flex items-center gap-2">
+                    <div className="w-8 h-8 rounded-xl bg-indigo-50 text-indigo-600 ring-1 ring-indigo-500/20 flex items-center justify-center shrink-0">
+                      <PackageCheck className="w-4 h-4" />
+                    </div>
+                    <span className="text-slate-900">{t.deliveriesTitle}</span>
                   </span>
-                  <span className="font-mono text-[11px] bg-slate-100 text-slate-600 px-2 py-0.5 rounded-full font-bold">{t.today}</span>
+                  <span className="font-mono text-[11px] bg-slate-100 text-slate-600 border border-slate-200/60 px-2 py-0.5 rounded-md font-bold">{t.today}</span>
                 </div>
 
                 <div className="space-y-1">
-                  <div className="text-3xl font-extrabold text-slate-900 font-mono tracking-tight">
+                  <div className="text-2xl sm:text-3xl font-extrabold text-slate-900 font-mono tracking-tight">
                     16 <span className="text-base font-semibold text-slate-500 font-sans">{t.ordersUnit}</span>
                   </div>
-                  <div className="flex items-center gap-1.5 text-xs font-semibold text-slate-600">
+                  <div className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-md bg-slate-100 text-slate-700 text-xs font-semibold">
                     <span>{t.deliveriesRate}</span>
                   </div>
                   <p className="text-[11px] text-slate-400 font-medium">{t.deliveriesSub}</p>
@@ -747,20 +778,22 @@ export default function SightlineDashboard({
               </div>
 
               {/* Card 5: Underpayment & Anomaly Flags */}
-              <div className="bg-rose-50/50 rounded-2xl p-5 border-2 border-rose-300 shadow-sm space-y-3 relative overflow-hidden">
+              <div className="bg-white rounded-2xl p-5 border border-rose-200 shadow-xs hover:border-rose-300 hover:shadow-sm transition-all space-y-3 relative overflow-hidden group bg-gradient-to-b from-rose-50/20 to-white">
                 <div className="flex items-center justify-between text-xs text-rose-900 font-bold">
-                  <span className="flex items-center gap-1.5">
-                    <span className="w-6 h-6 rounded-lg bg-rose-600 text-white flex items-center justify-center font-bold text-xs">⚠️</span>
-                    <span>{t.underpayTitle}</span>
+                  <span className="flex items-center gap-2">
+                    <div className="w-8 h-8 rounded-xl bg-amber-50 text-amber-600 ring-1 ring-amber-500/20 flex items-center justify-center shrink-0">
+                      <ShieldAlert className="w-4 h-4" />
+                    </div>
+                    <span className="text-rose-950">{t.underpayTitle}</span>
                   </span>
-                  <span className="font-mono text-[10px] bg-rose-600 text-white px-2 py-0.5 rounded-full font-bold">{t.underpayBadge}</span>
+                  <span className="font-mono text-[10px] bg-rose-600 text-white px-2 py-0.5 rounded-md font-bold uppercase tracking-wider shadow-xs">{t.underpayBadge}</span>
                 </div>
 
                 <div className="space-y-1">
-                  <div className="text-3xl font-extrabold text-rose-600 font-mono tracking-tight">
+                  <div className="text-2xl sm:text-3xl font-extrabold text-rose-600 font-mono tracking-tight">
                     -₹32<span className="text-base font-semibold text-rose-400">.00</span>
                   </div>
-                  <div className="flex items-center gap-1.5 text-xs font-bold text-rose-800">
+                  <div className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-md bg-rose-100 text-rose-800 text-xs font-semibold">
                     <span>{t.underpayOrder}</span>
                   </div>
                   <p className="text-[11px] text-slate-600 font-medium">
@@ -784,7 +817,7 @@ export default function SightlineDashboard({
                     <div className="flex items-baseline gap-2 mt-1">
                       <span className="text-2xl font-extrabold text-slate-900 font-mono">₹1,120</span>
                       <span className="text-xs font-semibold text-slate-500">({t.appGross})</span>
-                      <span className="text-slate-300 font-bold">→</span>
+                      <ArrowRight className="w-3.5 h-3.5 text-slate-400 self-center" />
                       <span className="text-2xl font-extrabold text-emerald-600 font-mono">₹690</span>
                       <span className="text-xs font-bold text-emerald-700">({t.realNet})</span>
                     </div>
@@ -801,11 +834,11 @@ export default function SightlineDashboard({
                 </div>
 
                 {/* Plain-language Explainer Banner */}
-                <div className="bg-slate-50 border border-slate-200/80 rounded-xl p-3 flex items-center justify-between text-xs text-slate-700">
-                  <div className="flex items-center gap-2">
-                    <span className="text-base">💡</span>
-                    <span>{t.chartExplainer}</span>
+                <div className="bg-slate-50 border border-slate-200/80 rounded-xl p-3 flex items-center gap-2.5 text-xs text-slate-700">
+                  <div className="w-6 h-6 rounded-lg bg-indigo-50 text-indigo-600 flex items-center justify-center shrink-0">
+                    <Info className="w-3.5 h-3.5" />
                   </div>
+                  <span>{t.chartExplainer}</span>
                 </div>
 
                 {/* Smooth Multi-Wave Graph */}
@@ -905,30 +938,36 @@ export default function SightlineDashboard({
                   </div>
                 </div>
 
-                {/* Plain Legend list with Big Clear Rupee Labels */}
+                {/* Plain Legend list with Clean Micro-Badges */}
                 <div className="space-y-2 text-xs pt-2 border-t border-slate-100">
-                  <div className="flex items-center justify-between p-2 rounded-xl bg-emerald-50/70 border border-emerald-200">
-                    <span className="flex items-center gap-2 text-emerald-950 font-bold">
-                      <span className="w-3 h-3 rounded-full bg-emerald-500" />
-                      {t.keptNet}
-                    </span>
-                    <span className="font-mono font-extrabold text-emerald-700">₹690.00 (62%)</span>
+                  <div className="flex items-center justify-between p-2.5 rounded-xl bg-slate-50 border border-slate-100 hover:border-emerald-200 transition-all">
+                    <div className="flex items-center gap-2 text-slate-800 font-bold">
+                      <div className="w-6 h-6 rounded-lg bg-emerald-50 text-emerald-600 flex items-center justify-center">
+                        <CheckCircle2 className="w-3.5 h-3.5" />
+                      </div>
+                      <span>{t.keptNet}</span>
+                    </div>
+                    <span className="font-mono font-extrabold text-emerald-700">₹690.00 <span className="text-[10px] text-slate-400 font-normal">(62%)</span></span>
                   </div>
 
-                  <div className="flex items-center justify-between p-2 rounded-xl bg-rose-50/70 border border-rose-200">
-                    <span className="flex items-center gap-2 text-rose-950 font-bold">
-                      <span className="w-3 h-3 rounded-full bg-rose-500" />
-                      {t.fuelBurn}
-                    </span>
-                    <span className="font-mono font-extrabold text-rose-600">-₹290.00 (26%)</span>
+                  <div className="flex items-center justify-between p-2.5 rounded-xl bg-slate-50 border border-slate-100 hover:border-rose-200 transition-all">
+                    <div className="flex items-center gap-2 text-slate-800 font-bold">
+                      <div className="w-6 h-6 rounded-lg bg-rose-50 text-rose-600 flex items-center justify-center">
+                        <Fuel className="w-3.5 h-3.5" />
+                      </div>
+                      <span>{t.fuelBurn}</span>
+                    </div>
+                    <span className="font-mono font-extrabold text-rose-600">-₹290.00 <span className="text-[10px] text-slate-400 font-normal">(26%)</span></span>
                   </div>
 
-                  <div className="flex items-center justify-between p-2 rounded-xl bg-amber-50/70 border border-amber-200">
-                    <span className="flex items-center gap-2 text-amber-950 font-bold">
-                      <span className="w-3 h-3 rounded-full bg-amber-500" />
-                      {t.wearCost}
-                    </span>
-                    <span className="font-mono font-extrabold text-amber-700">-₹140.00 (12%)</span>
+                  <div className="flex items-center justify-between p-2.5 rounded-xl bg-slate-50 border border-slate-100 hover:border-amber-200 transition-all">
+                    <div className="flex items-center gap-2 text-slate-800 font-bold">
+                      <div className="w-6 h-6 rounded-lg bg-amber-50 text-amber-600 flex items-center justify-center">
+                        <Wrench className="w-3.5 h-3.5" />
+                      </div>
+                      <span>{t.wearCost}</span>
+                    </div>
+                    <span className="font-mono font-extrabold text-amber-700">-₹140.00 <span className="text-[10px] text-slate-400 font-normal">(12%)</span></span>
                   </div>
                 </div>
               </div>
@@ -941,18 +980,25 @@ export default function SightlineDashboard({
             <div className="grid grid-cols-12 gap-6 items-stretch">
               
               {/* Left: Incoming Opportunity Evaluator (Trip Radar) */}
-              <div className="col-span-12 lg:col-span-6 bg-white rounded-2xl p-6 border-2 border-slate-200 shadow-sm space-y-4">
+              <div className="col-span-12 lg:col-span-6 bg-white rounded-2xl p-6 border border-slate-200/90 shadow-xs space-y-4">
                 <div className="flex items-start justify-between pb-3 border-b border-slate-100">
                   <div>
                     <div className="flex items-center gap-2">
-                      <h3 className="text-base font-extrabold text-slate-900">{t.tripTitle}</h3>
+                      <h3 className="text-sm font-extrabold text-slate-900 tracking-tight flex items-center gap-2">
+                        <Compass className="w-4 h-4 text-slate-700" />
+                        {t.tripTitle}
+                      </h3>
                       <button
                         onClick={() => speakText(
                           isSkip ? 'audioTripSkip' : 'audioTripAccept',
                           isSkip ? t.audioTripSkip : t.audioTripAccept
                         )}
                         title={t.voiceBtnListen}
-                        className="p-1 rounded-full bg-amber-100 hover:bg-amber-200 text-amber-900 border border-amber-300 shadow-xs"
+                        className={`p-1.5 rounded-lg transition-all ${
+                          speakingText === (isSkip ? 'audioTripSkip' : 'audioTripAccept')
+                            ? 'bg-amber-500 text-slate-950'
+                            : 'text-slate-400 hover:text-slate-900 hover:bg-slate-100'
+                        }`}
                       >
                         <Volume2 className="w-3.5 h-3.5" />
                       </button>
@@ -960,10 +1006,13 @@ export default function SightlineDashboard({
                     <p className="text-xs text-slate-500 font-medium mt-0.5">{t.tripDesc}</p>
                   </div>
 
-                  <span className={`text-xs font-extrabold px-3 py-1 rounded-full font-mono shadow-xs ${
-                    isSkip ? 'bg-rose-100 text-rose-700 border border-rose-300' : 'bg-emerald-100 text-emerald-800 border border-emerald-300'
+                  <span className={`inline-flex items-center gap-1.5 text-xs font-bold px-3 py-1 rounded-full shadow-xs ${
+                    isSkip 
+                      ? 'bg-rose-50 text-rose-700 border border-rose-200' 
+                      : 'bg-emerald-50 text-emerald-800 border border-emerald-200'
                   }`}>
-                    {isSkip ? t.tripVerdictSkip : t.tripVerdictAccept}
+                    {isSkip ? <XCircle className="w-3.5 h-3.5 text-rose-600" /> : <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600" />}
+                    <span>{isSkip ? t.tripVerdictSkip : t.tripVerdictAccept}</span>
                   </span>
                 </div>
 
@@ -1024,33 +1073,42 @@ export default function SightlineDashboard({
                   </div>
                 </div>
 
-                <div className="grid grid-cols-2 gap-2">
+                <div className="grid grid-cols-2 gap-2.5">
                   <button 
                     onClick={() => alert(t.alertDeclined)}
-                    className="py-2.5 bg-slate-100 hover:bg-slate-200 text-slate-900 font-bold rounded-xl text-xs transition-all border border-slate-300"
+                    className="py-2.5 px-3 bg-slate-50 hover:bg-slate-100 text-slate-700 font-bold rounded-xl text-xs transition-all border border-slate-200 flex items-center justify-center gap-1.5"
                   >
-                    {t.declineBtn}
+                    <X className="w-3.5 h-3.5 text-slate-500" />
+                    <span>{t.declineBtn}</span>
                   </button>
                   <button 
                     onClick={() => alert(t.alertAccepted)}
-                    className="py-2.5 bg-slate-900 hover:bg-slate-800 text-white font-bold rounded-xl text-xs transition-all shadow-sm"
+                    className="py-2.5 px-3 bg-slate-900 hover:bg-slate-800 text-white font-bold rounded-xl text-xs transition-all shadow-xs flex items-center justify-center gap-1.5"
                   >
-                    {t.acceptBtn}
+                    <Check className="w-3.5 h-3.5 text-emerald-400" />
+                    <span>{t.acceptBtn}</span>
                   </button>
                 </div>
               </div>
 
               {/* Right: Pay Audit Statement & 1-Click Grievance Draft */}
-              <div className="col-span-12 lg:col-span-6 bg-white rounded-2xl p-6 border-2 border-slate-200 shadow-sm space-y-4 flex flex-col justify-between">
+              <div className="col-span-12 lg:col-span-6 bg-white rounded-2xl p-6 border border-slate-200/90 shadow-xs space-y-4 flex flex-col justify-between">
                 <div>
                   <div className="flex items-start justify-between pb-3 border-b border-slate-100">
                     <div>
                       <div className="flex items-center gap-2">
-                        <h3 className="text-base font-extrabold text-slate-900">{t.auditTitle}</h3>
+                        <h3 className="text-sm font-extrabold text-slate-900 tracking-tight flex items-center gap-2">
+                          <ShieldAlert className="w-4 h-4 text-rose-600" />
+                          {t.auditTitle}
+                        </h3>
                         <button
                           onClick={() => speakText('audioAudit', t.audioAudit)}
                           title={t.voiceBtnListen}
-                          className="p-1 rounded-full bg-amber-100 hover:bg-amber-200 text-amber-900 border border-amber-300 shadow-xs"
+                          className={`p-1.5 rounded-lg transition-all ${
+                            speakingText === 'audioAudit'
+                              ? 'bg-amber-500 text-slate-950'
+                              : 'text-slate-400 hover:text-slate-900 hover:bg-slate-100'
+                          }`}
                         >
                           <Volume2 className="w-3.5 h-3.5" />
                         </button>
@@ -1058,7 +1116,7 @@ export default function SightlineDashboard({
                       <p className="text-xs text-slate-500 font-medium mt-0.5">{t.auditDesc}</p>
                     </div>
 
-                    <span className="text-xs font-mono font-bold text-rose-700 bg-rose-100 px-2.5 py-1 rounded-full border border-rose-300">
+                    <span className="text-[11px] font-mono font-bold text-slate-700 bg-slate-100 px-2.5 py-1 rounded-full border border-slate-200">
                       {t.zomatoTag}
                     </span>
                   </div>
@@ -1069,9 +1127,15 @@ export default function SightlineDashboard({
                         <AlertCircle className="w-4 h-4 text-rose-600 shrink-0" />
                         <span>{t.auditShortfall}</span>
                       </div>
-                      <div className="text-slate-700 text-xs space-y-1 pl-6">
-                        <p>{t.auditBullet1}</p>
-                        <p>{t.auditBullet2}</p>
+                      <div className="text-slate-700 text-xs space-y-1.5 pl-6">
+                        <div className="flex items-start gap-1.5">
+                          <span className="w-1.5 h-1.5 rounded-full bg-rose-500 mt-1.5 shrink-0" />
+                          <span>{t.auditBullet1}</span>
+                        </div>
+                        <div className="flex items-start gap-1.5">
+                          <span className="w-1.5 h-1.5 rounded-full bg-rose-500 mt-1.5 shrink-0" />
+                          <span>{t.auditBullet2}</span>
+                        </div>
                       </div>
                     </div>
 
@@ -1092,6 +1156,7 @@ export default function SightlineDashboard({
                   onClick={() => onOpenAppeal(MOCK_PAYOUT_SLIPS[0])}
                   className="w-full py-3 bg-slate-900 hover:bg-slate-800 text-white font-extrabold rounded-xl text-xs transition-all shadow-md flex items-center justify-center gap-2 active:scale-95 cursor-pointer"
                 >
+                  <Send className="w-3.5 h-3.5 text-emerald-400" />
                   <span>{t.disputeBtn}</span>
                 </button>
               </div>
