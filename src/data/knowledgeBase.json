@@ -1,0 +1,60 @@
+[
+  {
+    "id": "KB-001",
+    "topic": "Code on Social Security Enforcement",
+    "status": "In Force since 21 Nov 2025",
+    "summary": "The Code on Social Security, 2020 was brought into effect on 21 November 2025 by the Ministry of Labour & Employment. Central Rules were notified on 8 May 2026. However, the aggregator contribution rate (1-2% turnover) and specific central funding mechanisms are pending final notification.",
+    "sourceUrl": "https://labour.gov.in/whatsnew/code-social-security-2020",
+    "verifiedDate": "2026-05-08",
+    "stateScope": "National",
+    "legalDisclaimer": "Statutory framework active; central fund collection start date pending notification."
+  },
+  {
+    "id": "KB-002",
+    "topic": "90-Day / 120-Day Engagement Rule",
+    "status": "Central Rule 2026 Standard",
+    "summary": "Under the Central Rules, a platform gig worker qualifies for welfare scheme benefits after completing either 90 days of engagement with a single aggregator OR 120 days cumulatively across multiple aggregators in the preceding financial year. Same-day work across multiple apps is evaluated cumulatively on an indicative basis.",
+    "sourceUrl": "https://dge.gov.in/sites/default/files/2026-05/5903_Eng.pdf",
+    "verifiedDate": "2026-05-08",
+    "stateScope": "National",
+    "legalDisclaimer": "Counts shown in GigSaathi are indicative estimates derived from your logs to help track eligibility."
+  },
+  {
+    "id": "KB-003",
+    "topic": "Ayushman Bharat PM-JAY Healthcare",
+    "status": "Rollout in Process (March 2026)",
+    "summary": "Preparations to link registered e-Shram gig workers to Ayushman Bharat PM-JAY (₹5 Lakh annual family cashless hospitalization) are in advanced implementation. Gig workers must hold an active e-Shram UAN and meet the engagement threshold to qualify for enrolment upon notification.",
+    "sourceUrl": "https://pib.gov.in/PressReleasePage.aspx?PRID=2109421",
+    "verifiedDate": "2026-03-15",
+    "stateScope": "National",
+    "legalDisclaimer": "Enrolment is in rollout phase; registration establishes future claim priority."
+  },
+  {
+    "id": "KB-004",
+    "topic": "e-Shram Universal UAN Portal",
+    "status": "Active National Database",
+    "summary": "Free national registration portal for unorganized and gig workers. Provides a 12-digit UAN card and includes ₹2,00,000 accidental death/permanent disability cover and ₹1,00,000 partial disability cover under PMSBY linkage.",
+    "sourceUrl": "https://eshram.gov.in",
+    "verifiedDate": "2026-01-10",
+    "stateScope": "National",
+    "helpline": "14434"
+  },
+  {
+    "id": "KB-005",
+    "topic": "Platform Deactivations & Notice Guidelines",
+    "status": "Fairwork / Labour Standards",
+    "summary": "Aggregators are required under emerging fair-work standards and state welfare board rules to provide written notice, transparent grounds, and a formal dispute resolution channel before terminating or deactivating partner IDs. Instant algorithmic blocks without notice can be formally appealed.",
+    "sourceUrl": "https://fairwork.net/en/fw/publications/fairwork-india-ratings-2025/",
+    "verifiedDate": "2026-04-01",
+    "stateScope": "National"
+  },
+  {
+    "id": "KB-006",
+    "topic": "Official National Helplines",
+    "status": "Verified Emergency Numbers",
+    "summary": "National Emergency: 112 | National Consumer Helpline (Order/Contract disputes): 1915 | Cyber Fraud Helpline: 1930 | Highway / Road Accident Helpline: 1073 | e-Shram Support: 14434",
+    "sourceUrl": "https://consumerhelpline.gov.in",
+    "verifiedDate": "2026-06-01",
+    "stateScope": "National"
+  }
+]
